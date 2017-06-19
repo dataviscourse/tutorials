@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Manipulation</title>
+</head>
+<body>
+<div id="mainDiv"></div>
+<script>
+    function divWithText(text) {
+        var div = document.createElement("div");
+        var textNode = document.createTextNode(text);
+        div.appendChild(textNode);
+        return div;
+    }
+
+    // Styling the text by setting the position and color.
+    function textAt(text, x, y) {
+        var node = divWithText(text);
+        node.setAttribute("style", "position:absolute; left: " + x + "px; top: " + y % 50 + "px; " +
+                "color: hsl(" + x % 255 + ", 100%, 50%)");
+        return node;
+    }
+
+    mainDiv = document.getElementById("mainDiv");
+    // computing the position of the text
+    for (var i = 0; i < 200; i += 10) {
+        mainDiv.appendChild(textAt(String(i), 3 * i, 3 * i));
+    }
+</script>
+</body>
+</html>

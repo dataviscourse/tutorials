@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Enter</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <style>
+        rect {
+            fill: lightgray;
+            stroke: darkgray;
+            stroke-width: 2px
+        }
+    </style>
+</head>
+<body>
+<svg height="300" width="800">
+</svg>
+</body>
+<script>
+    var execute = function () {
+        var svg = d3.select("svg");
+        var selection = svg.selectAll("rect");
+        var data = selection.data([127, 61, 256]);
+        // the resulting object contains the enter and exit selections
+        // since the initial selection is empty, all data elements are
+        // part of the enter selection
+        console.log("Data");
+        console.log(data);
+
+        // with a call to enter() we retreive only the enter selection
+        var enter = data.enter();
+        console.log("Enter")
+        console.log(enter);
+
+        // now we do something with the incoming selection
+        enter.append("rect")
+                .attr("x", 0)
+                .attr("y", function (d, i) {
+                    return i * 90 + 50
+                })
+                .attr("width", function (d, i) {
+                    return d;
+                })
+                .attr("height", 20)
+                .style("fill", "steelblue")
+
+        // finally, we can see the rectangles assigned to the selection
+        console.log("With assigned rectangles")
+        console.log(svg.selectAll("rect"));
+
+    }
+</script>
+<script src="run.js" charset="utf-8"></script>
+
+</html>

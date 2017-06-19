@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3: Updating with Groups - Broken.</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <style>
+        rect {
+            fill: lightgray;
+            stroke: darkgray;
+            stroke-width: 2px
+        }
+    </style>
+</head>
+<body>
+<p>Broken Example!</p>
+<svg height="300" width="800">
+</svg>
+<button id="next">Next Dataset!</button>
+</body>
+<script>
+    execute = function (myData) {
+        if (!myData) {
+            myData = [127, 61, 256, 71, 15, 23]
+        }
+        var barHeight = 30;
+        var svg = d3.select("svg");
+
+        var barGroups = svg.selectAll(".barGroup")
+                .data(myData);
+
+        // append new g elements for each data point
+        var enterBarGroups = barGroups.enter()
+                .append("g")
+                .classed("barGroup", true); // assigning the class
+
+        barGroups.exit().remove();
+
+        barGroups = barGroups.merge(enterBarGroups);
+        barGroups.attr("transform", function (d, i) {
+                    // positioning the group in y
+                    return "translate(0," + i * barHeight + ")";
+                });
+
+        // append a rect to the g element
+       enterBarGroups.append("rect")
+                .attr("width", function (d) {
+                    return d;
+                })
+                .attr("height", 20)
+                .style("fill", "steelblue");
+
+        // add a label to the group
+       enterBarGroups.append("text")
+                .attr("transform", function (d) {
+                    // move it five pixel right of the bar
+                    return "translate(" + (d + 5) + ", 0)";
+                })
+                .text(function (d) {
+                    return d;
+                })
+                .attr("dy", barHeight / 2);
+
+        // let's see what's wrong here
+        console.log(enterBarGroups);
+    };
+
+    // a button setting another dataset
+    d3.select("#next").on("click", function () {
+        execute([500, 100, 120]);
+    });
+</script>
+<script src="run.js" charset="utf-8"></script>
+
+</html>

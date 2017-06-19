@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 SelectAll</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+<body>
+<p>Here is a paragraph.</p>
+<p id="second">And one more.</p>
+<p class="other">Third one.</p>
+<p class="other">Fourth one.</p>
+<script>
+    var ps = d3.selectAll("p");
+    ps.style("color", "steelblue");
+</script>
+</body>
+</html>

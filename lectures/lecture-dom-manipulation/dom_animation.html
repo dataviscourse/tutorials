@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Manipulation</title>
+</head>
+<body>
+<div id="mainDiv"></div>
+<script>
+    mainDiv = document.getElementById("mainDiv");
+
+    // create new dom text elements
+    function divWithText(text) {
+        var div = document.createElement("div");
+        var textNode = document.createTextNode(text);
+        div.appendChild(textNode);
+        return div;
+    }
+
+    function numberText(v) {
+        var node = divWithText(String(Math.floor(v)));
+        // here we add a new update function to the node.
+        // It takes the previous v and adds amount to it.
+        node.update = function (amount) {
+            v += amount;
+            node.textContent = String(Math.floor(v));
+            var x = v % 800;
+            var y = v % 50;
+            node.setAttribute("style", "position:absolute; left: " + x + "px; " +
+                    "top: " + y % 50 + "px; " +
+                    "color: hsl(" + x % 255 + ", 100%, 50%)");
+        };
+        node.update(0);
+        return node;
+    }
+
+    // updating the nodes
+    function tick() {
+        var i;
+        for (i = 0; i < nodes.length; ++i) {
+            nodes[i].update(1);
+        }
+    }
+
+    // running the animation
+    function tickForever() {
+        tick();
+        // a recursive call to this function executed by the browser on repaint
+        window.requestAnimationFrame(tickForever);
+    }
+
+    // initializing the nodes
+    var nodes = [];
+    for (var i = 0; i < 400; i += 30) {
+        var node = numberText(i);
+        mainDiv.appendChild(node);
+        nodes.push(node);
+        if (i == 0)
+            console.log(node);
+    }
+
+    tickForever();
+
+    // if we did this in a while(true) loop it would run forever and eventually
+    // crash your browser, never showing you a result
+    //    while (true) {
+    //        tick();
+    //    }
+
+</script>
+
+</body>
+</html>

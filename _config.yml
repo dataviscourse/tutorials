@@ -1,0 +1,24 @@
+# Site settings
+title: Visualization on the Web Tutorials
+email: alex@sci.utah.edu
+description: "Data Visualization D3 Tutorials"
+footer: "© The University of Utah, 2017"
+baseurl: "/tutorials"
+url: "http://dataviscourse.net/"
+twitter_username: alexander_lex
+github_username:  dataviscourse
+
+google_analytics: "UA-65153996-1"
+
+
+# Build settings
+#markdown: kramdown
+#kramdown:
+#   input: GFM
+
+#highlighter: pygments
+
+permalink: pretty
+
+collections:
+ - lectures

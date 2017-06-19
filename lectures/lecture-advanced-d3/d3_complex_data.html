@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Complex Data</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-selection-multi.v0.4.js"></script>
+    <script src="http://d3js.org/colorbrewer.v1.js"></script>
+</head>
+<body>
+<svg id="chart">
+</svg>
+<select id="dropDown">
+    <option selected value="type">Type</option>
+    <option value="product">Product</option>
+    <option value="tonnage">Tonnage</option>
+
+</select>
+</body>
+<script>
+
+    var data = [
+        {
+            product: "Apples",
+            tons: 10123,
+            type: "fruit"
+        },
+        {
+            product: "Bananas",
+            tons: 11204,
+            type: "fruit"
+        },
+        {
+            product: "Plums",
+            tons: 8441,
+            type: "fruit"
+        },
+        {
+            product: "Bread",
+            tons: 1911,
+            type: "grocery"
+        },
+        {
+            product: "Cereals",
+            tons: 1011,
+            type: "grocery"
+
+        },
+        {
+            product: "Beer",
+            tons: 9011,
+            type: "alcohol"
+        },
+        {
+            product: "Wine",
+            tons: 8041,
+            type: "alcohol"
+        }];
+
+    var types = ["grocery", "fruit", "alcohol"];
+    // a max with an accessor function
+    var max = d3.max(data, function(d){return d.tons;});
+
+    var margin = {top: 20, right: 30, bottom: 30, left: 40};
+    var width = 800 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("#chart")
+            .attrs({
+                width: width + margin.left + margin.right,
+                height: height + margin.top + margin.bottom
+            })
+            // here we create a master <g> element and move everything by the margins
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // here we use d3's event handler
+    // https://github.com/d3/d3-selection#handling-events
+    d3.select("#dropDown").on("change", function () {
+        // d3.event is set to the current event within an event listener
+        var active =  d3.event.srcElement.value;
+        // sorting the array based on product, type, or tonnage
+        data = data.sort(function compare(a, b) {
+            switch (active) {
+                case "product":
+                    // fall through to type
+                case "type":
+                    if (a[active] < b[active])
+                        return -1;
+                    else if (a[active] > b[active])
+                        return 1;
+                    else
+                        return 0;
+                    break;
+                case "tonnage":
+                    return b.tons - a.tons;
+                    break;
+            }
+        });
+        // this execute serves as the update
+        execute();
+    });
+
+    // space for the labels
+    var textWidth = 80;
+
+    var xScale = d3.scaleLinear()
+            .domain([0, max])
+            .range([textWidth, width])
+            .nice();
+
+    var colorScale = d3.scaleOrdinal()
+            .domain(types)
+            .range(colorbrewer.Accent[4]);
+
+    // here we use an ordinal scale with scaleBand
+    // to position and size the bars in y direction
+    // https://github.com/d3/d3-scale#band-scales
+    var yScale = d3.scaleBand()
+            .range([0, height]).padding(.1);
+
+    var xAxis = d3.axisBottom();
+    xAxis.scale(xScale);
+
+    svg.append("g")
+            .classed("axis", true)
+            .attr("transform", "translate(" + 0 + "," + height + ")")
+            .call(xAxis);
+
+    var execute = function () {
+        // Note that execute here is also called as the update function,
+        // so everything that can be is already initialized outside of this function
+
+        // here we update the yscale
+        yScale.domain(data.map(function (d) {
+            return d.product;
+        }));
+
+        var barGroups = svg.selectAll(".barGroup")
+            // here we tell D3 how to know which objects are the
+            // same thing between updates (object consistency)
+                .data(data, function (d) {
+                    // we use the product name as the key
+                    return d.product;
+                });
+
+        //---------------- Enter and Enter Animations ------------------------
+
+        var barGroupsEnter = barGroups.enter()
+                // we package each data item into a g
+                .append("g")
+                .classed("barGroup", true)
+                // and position this g globally
+                .attr("transform", function (d) {
+                    return "translate(" + 0 + "," + yScale(d.product) + ")";
+                });
+
+        barGroupsEnter.append("text").text(function (d) {
+            return d.product;
+        })
+                .attr("x", textWidth - 10)
+                // dy is a shift along the y axis
+                .attr("dy", yScale.step() / 2)
+                // align it to the right
+                .attr("text-anchor", "end")
+                // center it
+                .attr("alignment-baseline", "middle")
+                .attr("opacity", 0)
+                .transition().duration(3000)
+                .attr("opacity", 1);
+
+        barGroupsEnter.append("rect")
+                .attr("width", "0")
+                .attr("x", textWidth)
+                // bandwidth accesses the automatically computed width of the bar
+                .attr("height", yScale.bandwidth())
+                .style("fill", function (d) {
+                    // here we apply the color scale
+                    return colorScale(d.type);
+                })
+                .attr("width", 0)
+                .transition().duration(5000)
+                .attr("width", function (d) {
+                    // here we call the scale function.
+                    return Math.abs(xScale(d.tons) - xScale(0));
+                });
+
+        //---------------- Exit and Exit Animations ------------------------
+
+        barGroups.exit()
+                .attr("opacity", 1)
+                .transition()
+                .duration(3000)
+                .attr("opacity", 0)
+                .remove();
+
+        //---------------- Update Animations after sort --------------------
+
+        barGroups.transition().duration(3000)
+                .attr("transform", function (d) {
+            return "translate(" + 0 + "," + yScale(d.product) + ")";
+        });
+    }
+</script>
+<script src="run.js" charset="utf-8"></script>
+</html>

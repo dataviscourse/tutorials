@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Linear Scale</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+<body>
+<svg>
+</svg>
+</body>
+<script>
+    var height = 400;
+    var width = 800;
+    var svg = d3.select("svg");
+    svg.attr("width", width)
+            .attr("height", height);
+
+    var execute = function () {
+        var data = [0.3, -0.8, 0.01, -0.4, 1.2, 1.3, -0.2, -1.2, 0.82, 0.4, -0.2, 0.3];
+        var spacing = height / data.length;
+
+        var xScale = d3.scaleLinear()
+                .domain([d3.min(data), d3.max(data)])
+                .range([0, 800]);
+
+        // here we define a color scale
+        var colorScale = d3.scaleLinear()
+                // notice the three interpolation points
+                .domain([d3.min(data), 0, d3.max(data)])
+                // each color matches to an interpolation point
+                .range(["darkred", "lightgray", "steelblue"]);
+
+        svg.selectAll("rect")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("x", function (d) {
+                    // start at d if d is negative, else start at 0
+                    // this goes through the scale function
+                    return xScale(Math.min(0, d));
+                })
+                .attr("y", function (d, i) {
+                    return i * spacing
+                })
+                .attr("width", function (d, i) {
+                    // the width is the absolute difference of d and 0
+                    // this is scaled
+                    return Math.abs(xScale(d) - xScale(0));
+                })
+                .attr("height", 20)
+                .style("fill", function (d) {
+                    // here we apply the color scale
+                    return colorScale(d);
+                })
+    }
+</script>
+<script src="run.js" charset="utf-8"></script>
+</html>
