@@ -126,3 +126,7 @@ But we already know that. There must be something better, and there is!
 
 {% include code.html id="d3_lines2" file="d3_lines2.html" code="" js="false" preview="true" %}
 
+## Exercise
+
+Here is an [exercise to practice your D3 skills](https://jsbin.com/yuzomev/edit?html,js,output).
+
