@@ -11,7 +11,7 @@ Below you will find tutorials for various topics that will teach you the skills 
 #### Github
 
 Why do you want to use version control? What is git, what is github? 
-- [Version Control with git]({{ site.baseurl }}/lecture-git/)
+- [Version Control with git]({{ site.baseurl }}/lectures/lecture-git/)
 
 #### HTML, CSS, SVG and JavaScript
 
