@@ -25,7 +25,7 @@ In this rule, **strong is the selector**, and each line inside the curly bracket
 
 ### CSS Class Selectors
 
-CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of style. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with "important" text and a "footnote". Both are in a div, but they have different semantics, and we also want to display them differntly. Class selectors are identified by a leading `.`, e.g., `.menu`.
+CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with "important" text and a "footnote". Both are in a div, but they have different semantics, and we also want to display them differently. Class selectors are identified by a leading `.`, e.g., `.menu`.
 
 {% include code.html id="css_classes" file="css_classes.html" code="" %}
 
