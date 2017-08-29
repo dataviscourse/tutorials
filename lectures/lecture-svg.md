@@ -8,7 +8,7 @@ nomenu: true
 *Based on material by [Carlos Scheidegger](http://cscheid.net/courses/spr15/cs444/lectures/week2.html) and Kevin Sun*  
 
 
-So far we have only seen textual content in HTML, and this is a data visualization course. SVG (“Scalable Vector Graphics”) is a subset of the HTML5 standard that will provide us with essentially all of our graphical needs. SVG is extremely powerful, broadly supported, and very easy to program for. It’s also the preferred target for d3, the javascript library we’ll use for our visualization design.
+So far we have only seen textual content in HTML, and this is a data visualization course. SVG (“Scalable Vector Graphics”) is a subset of the HTML5 standard that will provide us with essentially all of our graphical needs. SVG is extremely powerful, broadly supported, and very easy to program for. It’s also the preferred target for D3, the javascript library we’ll use for our visualization design.
 
 ### Minimal Example
 
@@ -63,7 +63,7 @@ In addition, SVG groups give us geometric transformations. Geometric transformat
 
 {% include code.html id="svg_group" file="svg_group.html" code="" %}
 
-This is annoying and error-prone. Instead, we can encode that transformation directly, using SVG’s grouping node g, and its transform attribute:
+This is annoying and error-prone. Instead, we can encode that transformation directly, using SVG’s grouping node g, and its [transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute:
 
 {% include code.html id="svg_group2" file="svg_group2.html" code="" %}
 
