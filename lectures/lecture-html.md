@@ -32,6 +32,8 @@ We will use element attributes in pretty much every example from now on. The mos
 #### Self-closing elements
 Some elements rarely have internal content between their opening and closing tags, and therefore it becomes a bit of a pain to type the closing tags every time. In that case, you can use the following shorthand notation: ``<foo />`` is equivalent to ``<foo></foo>`` (you might have noticed that in the charset declaration above).
 
+However, note that HTML5 is no longer a XML-based language (there still is XHTML5), so you can actually legally use tags without closing elements, such as ``<br>``. 
+
 **Here are some important tags:**
 
 {% include code.html id="htmls_tags" file="html_tags.html" code="" %}
