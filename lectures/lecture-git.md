@@ -5,7 +5,7 @@ permalink: /lectures/lecture-git/
 nomenu: true
 ---
 
-Welcome to CS-5630 / CS-6630 - Visualization. In this class we will use a mix of traditional slides and interactive documents where we ill go through HTML, JavaScript, etc. These notes are meant for classroom use but also for reading them offline. This is our first coding lecture. We will cover the basics of version control with git, as well as the basics of the web stack.
+These notes are meant for classroom use but also for reading them offline. We will cover the basics of version control with git, as well as the basics of the web stack.
 
 ## Git
 
@@ -32,8 +32,9 @@ You should already have git installed, if not see the [official documentation](h
 
 ### Types of Version Control: Central Repository
 
- * Everybody needs to write to one server
- * All operations (history, commit, branches) require server connection
+ * A classical client-server model. One server stores the code and all versions.
+ * Everybody needs to write to one server.
+ * All operations (history, commit, branches) require server connection.
  * The traditional model: CVS, SVN, etc. 
  * Pros: 
    * Simple
@@ -52,7 +53,7 @@ You should already have git installed, if not see the [official documentation](h
  * Everybody has a full history of the repository locally
  * No dedicated server - every node is equal.
    * In practice: often server is used for one "official" copy of code.
-    But: server by convention only, no technical difference.
+    This is a server by convention only, there is no technical difference.
  * Pros: 
     * No access issues
         * Make a copy and hack away
@@ -62,6 +63,7 @@ You should already have git installed, if not see the [official documentation](h
         * No internet connection required
         * Commit often model (once per feature) - don't sync all the time.
  * Cons:
+    * More complex principle.
     * Extra effort to distinguish between committing and pushing/pulling (synchronizing). 
 
 ### Implementations
@@ -216,13 +218,12 @@ Are you still spinning?
 
 # Let's check the status of git!
 $ git status
-# On branch master
-# Changes not staged for commit:
-#   (use "git add <file>..." to update what will be committed)
-#   (use "git checkout -- <file>..." to discard changes in working directory)
-#
-#       modified:   demo.txt
-#
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+      modified:   demo.txt
 no changes added to commit (use "git add" and/or "git commit -a")
 
 # So git knows that something has changed, but hasn't recorded it. Let's commit. 
@@ -237,7 +238,7 @@ $ git commit -a -m "added a line to the demo file"
  1 file changed, 1 insertion(+)
 
 # Better. Now, let's look at what happened up to now
-$ $ git log
+$ git log
   commit bf92da7ad772480f7fe5f28ef105227383e07a45
   Author: Alexander Lex <alex@sci.utah.edu>
   Date:   Wed Aug 24 14:39:45 2016 -0600
@@ -466,8 +467,8 @@ The homeworks are hosted in a git repository. Every time we release a homework w
 To get the homework repository, run the following:
 
 {% highlight bash linenos %}
-$ git clone https://github.com/dataviscourse/2016-dataviscourse-homework -o homework
-$ cd 2016-dataviscourse-homework
+$ git clone https://github.com/dataviscourse/2017-dataviscourse-homework -o homework
+$ cd 2017-dataviscourse-homework
 {% endhighlight %}
 
 Note that by using the `-o homework` option we're not using the default remote `origin` but a user-defined remote called `homework`.
@@ -479,7 +480,9 @@ Ensure your new repository is private and don't click the option to "Initialize 
 Run the two commands described on GitHub under the heading "Push an existing repository from the command line". For my repository these are: 
 
 {% highlight bash linenos %}
-$ git remote add origin https://github.com/alexsb/dataviscourse16-hw-lex-alexander.git
+# adding your own repository as a remote 'origin'
+$ git remote add origin https://github.com/alexsb/dataviscourse-hw.git
+# pushing the changes retreived from the central HW repo to our own repository
 $ git push -u origin master
 {% endhighlight %}
 
@@ -490,8 +493,7 @@ Now your homework repository is all set!
 While working on homework assignments, periodically run the following:
 
 {% highlight bash linenos %}
-$ git add -A
-$ git commit -m "Describe your changes"
+$ git commit -a -m "Describe your changes"
 $ git push
 {% endhighlight %}
 
@@ -503,7 +505,7 @@ You should do this frequently: as often as you have an incremental, standalone i
 
 #### Getting new homework assignments
 
-When we release a new assignment we will simply add it to the [homework github repository](https://github.com/dataviscourse/2016-dataviscourse-homework).
+When we release a new assignment we will simply add it to the [homework github repository](https://github.com/dataviscourse/2017-dataviscourse-homework).
 
 To get the latest homework assignments and potential updates or corrections to the assignment, run the following.
 
