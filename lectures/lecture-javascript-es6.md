@@ -178,6 +178,8 @@ Arrow functions are always anonymous function ***expressions***. There is no arr
 
 uniqueID() is only called when foo() is called (without arguments), not before. 
 
+
+
 ### Gather and Spread Operators 
 
 **Spread** 
@@ -199,52 +201,23 @@ console.log( x, y, z );
 
 ```
 
-The ...z in this snippet is saying: “gather the rest of the arguments (if any) into an array called z.”
+The ...z in this snippet is saying: gather the rest of the arguments (if any) into an array called z.
 
 ### Destructuring
 
 **Array Destructuring**
 
-```
-function foo(){
-return [1,2,3];
-}
-
-var[a,b,c] = foo();
-
-``` 
+{% include code.html id="array_destructuring" file="array_destructuring.js" code="" js="true" preview="false" %}
 
 **Object Destructuring** 
 
-```
-function foo(){
-	return {a:1,b:2,c:3};
-}
+{% include code.html id="object_destructuring" file="object_destructuring.js" code="" js="true" preview="false" %}
 
-var{
-	a:a,
-	b:b,
-	c:c
-} = foo();
 
-```
 ### Template Strings
 
-```
-Pre-ES6
+{% include code.html id="template" file="template.js" code="" js="true" preview="false" %}
 
-var name = "Kyle";
-var greeting = "Hello " + name + "!";
-
-```
-
-```
-ES6
-
-var name = "Kyle";
-var greeting = `Hello ${name}!`;
-
-```
 
 ### Symbols, Iterators, and Generators
 
