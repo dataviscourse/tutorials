@@ -14,3 +14,4 @@ console.log( a, b, c ); // 1 2 3
 let [x,y,z] = foo();
 
 console.log( x, y, z ); // 1 2 3
+

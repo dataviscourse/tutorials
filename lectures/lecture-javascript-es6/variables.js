@@ -18,6 +18,13 @@ f = 34.56;
 // again checking f's type
 console.log(typeof(f));
 
-// -- "local" variables --
+// -- "local", function-scoped variables --
 var name="Alex";
-var age=34;
+
+// New in ES6
+// -- "local", block-scoped variables --
+let age=36;
+
+// New in ES6
+// -- constants -- but note, complex data types remain mutable
+const GENDER="Male";
