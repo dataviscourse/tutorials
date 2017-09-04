@@ -165,16 +165,7 @@ What happened in the example that goes wrong is that when `t()` is called, `this
 
 Arrow functions are always anonymous function ***expressions***. There is no arrow function ***declaration***. Examples include:
 
-````
-var f1 = () => 12;
-var f2 = x => x * 2;
-var f3 = (x,y) => {
-var z = x * 2 + y;
-y++;
-x *= 3;
-return (x + y + z) / 2;
-};
-````
+{% include code.html id="arrow_functions" file="arrow_functions.js" code="" js="true" preview="false" %}
 
 ### Block Scope
 
@@ -189,34 +180,15 @@ return (x + y + z) / 2;
 
 ### Default Values
 
-```
-
-function foo(x = 11, y = 31) {
-	console.log( x + y );
-}
-
-foo(); // 42
-foo( 5, 6 ); // 11
-foo( 0, 42 ); // 42
-foo( 5 ); // 36
-foo( 5, undefined ); // 36 <-- `undefined` is missing
-foo( 5, null ); // 5 <-- null coerces to `0`
-foo( undefined, 6 ); // 17 <-- `undefined` is missing
-foo( null, 6 ); // 6 <-- null coerces to `0`
-
-```
+{% include code.html id="default_values" file="default_values.js" code="" js="true" preview="false" %}
 
 ### Lazy Expressions
 
-```
-function uniqueID(){
-	//creates unique id
-}
+{% include code.html id="lazy" file="lazy.js" code="" js="true" preview="false" %}
 
-function foo(id=uniqueID()){}
-
-```
 uniqueID() is only called when foo() is called (without arguments), not before. 
+
+
 
 ### Gather and Spread Operators 
 
@@ -224,6 +196,7 @@ uniqueID() is only called when foo() is called (without arguments), not before.
 
 ```
 foo( ...[1,2,3] );
+
 ```
 
 When ... is used in front of an array (actually, any iterable), it acts to “spread” it out into its individual values.
@@ -235,54 +208,26 @@ When ... is used in front of an array (actually, any iterable), it acts to “sp
 function foo(x, y, ...z) {
 console.log( x, y, z );
 }
+
 ```
 
-The ...z in this snippet is saying: “gather the rest of the arguments (if any) into an array called z.”
+The ...z in this snippet is saying: gather the rest of the arguments (if any) into an array called z.
 
 ### Destructuring
 
 **Array Destructuring**
 
-```
-function foo(){
-return [1,2,3];
-}
-
-var[a,b,c] = foo();
-
-``` 
+{% include code.html id="array_destructuring" file="array_destructuring.js" code="" js="true" preview="false" %}
 
 **Object Destructuring** 
 
-```
-function foo(){
-	return {a:1,b:2,c:3};
-}
+{% include code.html id="object_destructuring" file="object_destructuring.js" code="" js="true" preview="false" %}
 
-var{
-	a:a,
-	b:b,
-	c:c
-} = foo();
 
-```
 ### Template Strings
 
-```
-Pre-ES6
+{% include code.html id="template" file="template.js" code="" js="true" preview="false" %}
 
-var name = "Kyle";
-var greeting = "Hello " + name + "!";
-
-```
-
-```
-ES6
-
-var name = "Kyle";
-var greeting = `Hello ${name}!`;
-
-```
 
 ### Symbols, Iterators, and Generators
 
