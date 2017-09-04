@@ -1,4 +1,4 @@
-lastElement numArray = [15, 12, 21, 4];
+let numArray = [15, 12, 21, 4];
 let empty = []; // empty array declaration
 console.log(numArray[0]);
 // you can but should not use arrays of different type
@@ -25,14 +25,14 @@ let lastElement = numArray.pop();
 let pos = numArray.indexOf(2);
 
 // sort an array
-numArray = numArray.sort()
+numArray = numArray.sort();
 // [12, 15, 21, 3, 4]
-console.log(numArray)
+console.log(numArray);
 
 // sorting is based on string values. we need to supply a compare function
 function compareNumbers(a, b) {
     return a - b;
 }
 
-numArray.sort(compareNumbers)
-console.log(numArray)
+numArray.sort(compareNumbers);
+console.log(numArray);
