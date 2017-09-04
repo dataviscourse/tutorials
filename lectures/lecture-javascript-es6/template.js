@@ -8,4 +8,4 @@ let greeting = "Hello " + name + "!";
 
 //ES6
 
-let greeting = `Hello ${name}!`;
+let greeting2 = `Hello ${name}!`;

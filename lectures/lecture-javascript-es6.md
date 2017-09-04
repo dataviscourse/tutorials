@@ -211,7 +211,13 @@ The ...z in this snippet is saying: gather the rest of the arguments (if any) in
 
 **Object Destructuring** 
 
-{% include code.html id="object_destructuring" file="object_destructuring.js" code="" js="true" preview="false" %}
+In ES5 
+
+{% include code.html id="object_destructuring_es5" file="object_destructuring_es5.js" code="" js="true" preview="false" %}
+
+In ES6
+
+{% include code.html id="object_destructuring_es6" file="object_destructuring_es6.js" code="" js="true" preview="false" %}
 
 
 ### Template Strings

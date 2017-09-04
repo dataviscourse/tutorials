@@ -11,6 +11,6 @@ console.log( a, b, c ); // 1 2 3
 
 //ES6
 
-let [a,b,c] = foo();
+let [x,y,z] = foo();
 
-console.log( a, b, c ); // 1 2 3
+console.log( x, y, z ); // 1 2 3
