@@ -18,21 +18,30 @@ Once you become proficient in the language, then you can start worrying about be
 Why do we want to use JavaScript? So far we have only written **static HTML and SVG code**. In your homework, for example, you have to encode a dataset by hand multiple times: for your line-chart, bar chart, scatterplot, etc.
 If we had a dynamic and general way to load the data, we could use the same variables for all charts and we could also plot the charts with various datasets of different size and with different characteristics. I like to think of pure HTML and SVG as analogous to pen and paper - you can create things that look nice once, but you **can't re-use them efficiently and you can't interact with them**. Computer programming brings **interactivity and generalizability (re-use)** to the table. We can tell the computer how to do something for certain classes of (legal) input, and the computer will do that for all possible cases of legal input. 
   
-JavaScript is the most important programming language of the web, and the only programming language that can be used on most web-browsers without any plugins. Alternatives such as Java Applets or Flash were popular in the past but have lost significant ground to JavaScript. JavaScript is mostly used on the client-side of a client-server application, other languages such as Java and Python are popular on the server, but JavaScript is nowadays also used on the server e.g., using [Node.js](https://nodejs.org/). We will be focusing on the client-side in this class. 
+JavaScript is the most important programming language of the web, and the only programming language that can be used on most web-browsers without any plugins. Alternatives such as Java Applets or Flash were popular in the past but have lost significant ground to JavaScript and will be discontinued in the near future. JavaScript is mostly used on the client-side of a client-server application, other languages such as Java and Python are popular on the server, but JavaScript is nowadays also used on the server e.g., using [Node.js](https://nodejs.org/). We will be focusing on the client-side in this class. 
 
 JavaScript can be used with **imperative/procedural, object-oriented, and functional programming styles**.  
 
 It is a **dynamically typed language**, which can be strange for developers who mainly work with strongly typed languages such as C/C++ and Java. 
 
-Also, Javascript uses **prototypical inheritance** instead of a class-based model for it's object oriented purposes. That means that there is no "class" that is defined centrally, instead you rely on objects' prototypes for inheritance that can be extended at runtime. If this doesn't mean much to you now, don't worry - we'll go through it slowly.
+Also, Javascript uses **prototypical inheritance** instead of a class-based model for it's object oriented purposes, yet the latest version of JavaScript has introduced "syntactic sugar" to make object-oriented programming more consistent with other programming languages. That means there now are "class" definitions, but you still can use the prototypical features for inheritance that can be extended at runtime. If this doesn't mean much to you now, don't worry - we'll go through it slowly.
 
 
 ## Versioning and Transpiling 
 
-(Chapter 1 of ES6 book) 
+JavaScript has undergone many versions, and a while ago the JavaScript language started to be standardized by the Ecma International. Significant changes were introduced with ECMAScript 6 in 2015 (also called ECMAScript 2015), which is the basis of this tutorial. Since then, ECMAScript has transitioned to a more incremental update plan, so that ECMAScript 7 and 8 are only minor updates.  
 
-### Babel Transpiler
-http://babeljs.io/repl/
+Instead of relying on a particular version, you should check for the availability of features [across browsers](http://kangax.github.io/compat-table/es2016plus/).
+
+Older browsers, even those that are currently still in use (I'm NOT talking about Internet Explorer 6 here), will unlikely support current and future features. Fortunately, there are various remedies for that, so that you can start using these features now. Note that for all classwork, we will be using the latest Google Chrome, so you can rely on that and avoid using these remedies. 
+ 
+The most important approach to making your state-of-the-art JavaScript code compatible is transpiling. I.e, you take your code, run a transpiler (transformation + compiling) such as [Babel](http://babeljs.io/repl/), and out comes an ECMAScript 5 compatible code file. 
+ 
+Here is an example of how a ES6 code feature is transpiled into ES5 code:
+ 
+{% include code.html id="transpile" file="transpile.js" code="" js="true" preview="false" %}
+ 
+Again, you won't need to do this for this class, but in modern web-development this (and other steps) are commonly run to translate, check (lint), and minify your JavaScript code. 
 
 ## JavaScript - The Very Basic
 
