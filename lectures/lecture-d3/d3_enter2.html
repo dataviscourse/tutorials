@@ -22,9 +22,9 @@
 <script>
     //Notice how if you run this function twice, the green rectangle is converted to a blue square.
     execute = function () {
-        let svg = d3.select("svg")
+        let svg = d3.select("svg");
         let selection = svg.selectAll("rect")
-                .data([127, 61, 256, 71])
+                .data([127, 61, 256, 71]);
 
         selection
                 .attr("x", 0)
@@ -35,14 +35,14 @@
                     return d;
                 })
                 .attr("height", 20)
-                .style("fill", "steelblue")
+                .style("fill", "steelblue");
 
         selection.enter().append("rect")
                 .attr("x", 10) // let's just put it somewhere
                 .attr("y", 10)
                 .attr("width", 30)
                 .attr("height", 30)
-                .style("fill", "green")
+                .style("fill", "green");
     }
 </script>
 <script src="run.js" charset="utf-8"></script>
