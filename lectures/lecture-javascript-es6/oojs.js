@@ -14,7 +14,7 @@ function createObject(content) {
     return result;
 }
 
-f = createObject("something");
+let f = createObject("something");
 console.log("Get: " + f.get());
 console.log("Twice: " + f.twice());
 f.set(20);

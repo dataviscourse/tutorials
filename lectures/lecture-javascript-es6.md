@@ -134,20 +134,30 @@ Arrow functions are recommended for short expressions, you probably should use p
 
 ### Object Oriented JavaScript
 
-If we create an object with slots that hold functions, this starts to look like methods from Java and Python. If we create a function that returns these objects, this starts to look like class contructors:
+JavaScript is a [prototype-based language](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain). That means that under the hood, it does not use the concept of classes, such as Java or C++. Instead, objects are created and their signature is defined. 
+
+ES6 introduces a `class` keyword and other related features which we will be using, but that doesn't mean that JavaScript supports proper classes - instead, JavaScript classes are just synthactic sugar to make creating consistent objects easier. 
+
+Let's first look at the pre-ES6 way. If we create an object with slots that hold functions, this starts to look like methods from Java and Python. If we create a function that returns these objects, this starts to look like class constructors:
 
 {% include code.html id="oojs" file="oojs.js" code="" js="true" preview="false" %}
 
 
-#### Inheritance, without Classes
+#### Inheritance (or better Prototype Delegation)
 
-JavaScript does support a notion of inheritance, but it does it without any classes. This means that there’s no subclasses, so how does it work?
-
-Instead of subclasses, JavaScript has the notion of a [prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain). Every JavaScript object has a special field which points to another object. Then, every time you tell JavaScript to access a field from an object, it tries to find the field. If the field exists, then the lookup is performed. If, however, the field doesn’t exist, then JavaScript checks for the presence of a special prototype field in the object. If that field is not null, then the JavaScript runtime performs a recursive access of the field in the prototype object. This is more obvious with an example. Make sure to run these in your JavaScript console:
+Every JavaScript object has a special field which points to another object. Then, every time you tell JavaScript to access a field from an object, it tries to find the field. If the field exists, then the lookup is performed. If, however, the field doesn’t exist, then JavaScript checks for the presence of a special prototype field in the object. If that field is not null, then the JavaScript runtime performs a recursive access of the field in the prototype object. This is more obvious with an example. Make sure to run these in your JavaScript console:
 
 {% include code.html id="inheritance" file="inheritance.js" code="" js="true" preview="false" %}
 
-Note that ECMA Script 6 [adds syntax for classes](http://es6-features.org/#ClassDefinition), but this is only syntactic sugar, i.e., JavaScript remains a prototypical language.
+### Classes
+
+ECMA Script 6 [adds syntax for classes](http://es6-features.org/#ClassDefinition), but remember that this is only syntactic sugar, i.e., JavaScript remains a prototypical language.
+
+Here is an example: 
+
+{% include code.html id="kclasses" file="classes.js" code="" js="true" preview="false" %}
+
+
 
 ### The special variable ``this``
 
