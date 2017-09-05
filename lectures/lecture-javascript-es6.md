@@ -130,6 +130,8 @@ Since the use of these anonymous functions is ubiquitous, ES6 introduces a short
 
 {% include code.html id="arrow_functions" file="arrow_functions.js" code="" js="true" preview="false" %}
 
+
+
 ### Object Oriented JavaScript
 
 If we create an object with slots that hold functions, this starts to look like methods from Java and Python. If we create a function that returns these objects, this starts to look like class contructors:
@@ -161,6 +163,11 @@ Here’s what can go wrong:
 {% include code.html id="thiswrong" file="thiswrong.js" code="" js="true" preview="false" %}
 
 What happened in the example that goes wrong is that when `t()` is called, `this` is bound to the calling object, which is the global `window` object in the latter case. 
+
+
+
+
+Another thing that is common in JavaScript and D3 but is not specific to JavaScript is [Method Chaining](https://en.wikipedia.org/wiki/Method_chaining). Methods used for method chaining return an object that is passed into the next method.  
 
 
 ## What's new in ES6

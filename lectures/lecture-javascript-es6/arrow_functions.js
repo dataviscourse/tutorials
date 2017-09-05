@@ -1,8 +1,10 @@
 myNumbers = [13, 16, 19, 22];
 
-// the shorthand arrow function
+// the shorthand arrow function used for an anonymous function
 myNumbers = myNumbers.map(d => d*2);
 console.log(myNumbers);
+
+// we can assign arrow functions to variables too though
 
 // a function with no parameter that returns 12
 let f1 = () => 12;
