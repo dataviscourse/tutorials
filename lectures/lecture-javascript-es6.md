@@ -130,7 +130,7 @@ Since the use of these anonymous functions is ubiquitous, ES6 introduces a short
 
 {% include code.html id="arrow_functions" file="arrow_functions.js" code="" js="true" preview="false" %}
 
-
+Arrow functions are recommended for short expressions, you probably should use proper function definitions for multi-line functions with explicit return values. Also, note that ``this`` [behaves differently](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) for arrow functions. 
 
 ### Object Oriented JavaScript
 
