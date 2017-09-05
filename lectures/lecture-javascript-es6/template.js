@@ -1,11 +1,9 @@
-
-
 let name = "Alex";
 
-//ES5
+// the old way
+let greeting = "Hello " + name + "!";
+console.log(greeting);
 
-var greeting = "Hello " + name + "!";
-
-//ES6
-
+// the new way
 let greeting2 = `Hello ${name}!`;
+console.log(greeting2);

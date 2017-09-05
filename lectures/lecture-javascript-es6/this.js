@@ -10,9 +10,9 @@ function otherObject(value) {
     };
 }
 
-other = otherObject(3);
-other.x;
-other.get();
+let other = otherObject(3);
+console.log("X: " + other.x);
+console.log("Getter: " + other.get());
 other.set(5);
-other.get();
-other.x;
+console.log("Getter after set: " + other.get());
+console.log("X: " + other.x);

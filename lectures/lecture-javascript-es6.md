@@ -161,7 +161,7 @@ Here is an example:
 
 ### The special variable ``this``
 
-JavaScript has a special variable that is available at every scope called ``this``. When a function is called with a notation that resembles methods in typical object-oriented languages, say ``obj.method()``, then ``this`` is bound to the object holding the method (in this case obj). this allows you to make changes to the local object:
+JavaScript has a special variable that is available at every scope called ``this``. When a function is called with a notation that resembles methods in typical object-oriented languages, say ``obj.method()``, then ``this`` is bound to the object holding the method (in this case obj). That way you can make changes to the local object:
 
 {% include code.html id="mthis" file="this.js" code="" js="true" preview="false" %}
 
@@ -176,25 +176,7 @@ What happened in the example that goes wrong is that when `t()` is called, `this
 
 
 
-
-Another thing that is common in JavaScript and D3 but is not specific to JavaScript is [Method Chaining](https://en.wikipedia.org/wiki/Method_chaining). Methods used for method chaining return an object that is passed into the next method.  
-
-
-## What's new in ES6
-
-### Arrow Functions
-
-
-
-### Block Scope
-
-* Let vs var
-	
-
-* Closures and explicit blocks
-
-
-* Const
+## Other noteworthy new things in ES6
 
 
 ### Default Values
@@ -213,22 +195,14 @@ uniqueID() is only called when foo() is called (without arguments), not before.
 
 **Spread** 
 
-```
-foo( ...[1,2,3] );
-
-```
+{% include code.html id="spread" file="spread.js" code="" js="true" preview="false" %}
 
 When ... is used in front of an array (actually, any iterable), it acts to “spread” it out into its individual values.
 
 
 **Gather** 
 
-```
-function foo(x, y, ...z) {
-console.log( x, y, z );
-}
-
-```
+{% include code.html id="gather" file="gather.js" code="" js="true" preview="false" %}
 
 The ...z in this snippet is saying: gather the rest of the arguments (if any) into an array called z.
 
@@ -239,6 +213,7 @@ The ...z in this snippet is saying: gather the rest of the arguments (if any) in
 {% include code.html id="array_destructuring" file="array_destructuring.js" code="" js="true" preview="false" %}
 
 **Object Destructuring** 
+
 
 In ES5 
 
@@ -254,19 +229,8 @@ In ES6
 {% include code.html id="template" file="template.js" code="" js="true" preview="false" %}
 
 
-### Symbols, Iterators, and Generators
+## More ES6 
 
-**Symbols**
+ES6 has many more important features, most notably [modules](https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Using) and [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). These can be very useful in production VIS code but go beyond our introduction here. 
 
-Symbols are a new data type added in JavaScript, as of ES6. A symbol is  unique, globally unguessable value within the context of your program. 
-
-**Iterators**
-
-ES6 introduced an implicit standardized interface for iterators. Many of the built-in data structures in JavaScript will now expose an iterator implementing this standard. And you can also construct your own iterators adhering to the same standard, for maximal interoperability.
-
-**Generators**
-
-A generator function can pause itself in mid-execution, and can be resumed either right away or at a later time.
-
-### A great place to test out the new ES6 features is at  [ES6Fiddle](http://www.es6fiddle.net) 
 
