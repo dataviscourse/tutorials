@@ -126,6 +126,10 @@ In particular, we will use a lot of anonymous functions, or "lambda abstractions
 {% include code.html id="anonyfunction" file="anonfunction.js" code="" js="true" preview="false" %}
 
 
+Since the use of these anonymous functions is ubiquitous, ES6 introduces a shorthand for them: **arrow functions**. Arrow functions are always anonymous function expressions. There is no arrow function declaration. Here is the example from above, and also some others:
+
+{% include code.html id="arrow_functions" file="arrow_functions.js" code="" js="true" preview="false" %}
+
 ### Object Oriented JavaScript
 
 If we create an object with slots that hold functions, this starts to look like methods from Java and Python. If we create a function that returns these objects, this starts to look like class contructors:
@@ -163,9 +167,7 @@ What happened in the example that goes wrong is that when `t()` is called, `this
 
 ### Arrow Functions
 
-Arrow functions are always anonymous function ***expressions***. There is no arrow function ***declaration***. Examples include:
 
-{% include code.html id="arrow_functions" file="arrow_functions.js" code="" js="true" preview="false" %}
 
 ### Block Scope
 
