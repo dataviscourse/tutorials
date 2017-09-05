@@ -4,7 +4,7 @@ let name = "Alex";
 
 //ES5
 
-let greeting = "Hello " + name + "!";
+var greeting = "Hello " + name + "!";
 
 //ES6
 

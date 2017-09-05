@@ -1,12 +1,12 @@
 // for loops
-var output = "";
+let output = "";
 for (i = 0; i < 10; ++i) {
     output += i + ", ";
 }
 console.log("For loop: " + output);
 
 // while loops;
-var i = 3;
+let i = 3;
 output = "";
 while (i < 100) {
     output += i + ", ";
@@ -23,7 +23,7 @@ do {
 } while (i < 100);
 console.log("Do while loop: " + output);
 
-var years = [1954, 1949, 1981, 1982]
+let years = [1954, 1949, 1981, 1982]
 // Looping over an array with the built-in forEach function
 years.forEach(function(d){
     console.log(d)

@@ -1,4 +1,4 @@
-var Shape = function (id, x, y) {
+let Shape = function (id, x, y) {
     this.id = id
     this.move(x, y)
 }

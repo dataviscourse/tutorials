@@ -1,6 +1,6 @@
 // Let's build something that looks like OOP
 function createObject(content) {
-    var result = {
+    let result = {
         get: function() {
             return content;
         },

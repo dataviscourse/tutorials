@@ -12,7 +12,7 @@ if (1 == parseFloat("1")) {
 4%2 == 0 ? console.log(true) : console.log(false);
 
 // Switch statements
-var i = "some case";
+let i = "some case";
 switch (i) {
     case "string literals ok":
         console.log("Yes");

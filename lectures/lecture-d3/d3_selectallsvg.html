@@ -20,8 +20,8 @@
 </svg>
 </body>
 <script>
-    var execute = function () {
-        var p = d3.selectAll("rect");
+    let execute = function () {
+        let p = d3.selectAll("rect");
         p.attr("x", 0)
                 .attr("y", function (d, i) {
                     return i * 90 + 50

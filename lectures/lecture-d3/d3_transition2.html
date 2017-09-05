@@ -20,16 +20,16 @@
 </svg>
 </body>
 <script>
-    var execute = function () {
-        var svg = d3.select("svg");
+    let execute = function () {
+        let svg = d3.select("svg");
 
-        var selection = svg.selectAll("rect")
+        let selection = svg.selectAll("rect")
                 .data([127, 61, 256, 71]);
         // use this one to see the exit selection
         // .data([127, 61])
 
         // handle the enter selection
-        var newRect = selection.enter().append("rect")
+        let newRect = selection.enter().append("rect")
                 .attr("x", 200)
                 .attr("y", 200)
                 .attr("width", 10)

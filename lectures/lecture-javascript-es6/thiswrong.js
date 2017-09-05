@@ -11,5 +11,5 @@ function yetAnotherObject() {
 
 obj = yetAnotherObject()
 console.log("As expected: " + obj.get()); // fine
-var t = obj.get;
+let t = obj.get;
 console.log("Problem: " + t()); // *NOT* fine, this is bound to the context of the calling object, which is the global "this" Window
