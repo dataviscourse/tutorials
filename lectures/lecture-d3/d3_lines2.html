@@ -10,8 +10,8 @@
 </svg>
 </body>
 <script>
-    var execute = function () {
-        var points = [
+    let execute = function () {
+        let points = [
             {x: 10, y: 10},
             {x: 200, y: 200},
             {x: 200, y: 400},
@@ -19,7 +19,7 @@
             {x: 400, y: 150}
         ];
 
-        var lineFn = d3.line()
+        let lineFn = d3.line()
                 .x(function (d) {
                     return d.x
                 })
@@ -30,7 +30,7 @@
         //.curve(d3.curveCatmullRom.alpha(0.5));
         //.curve(d3.curveBundle.beta(0.5));
 
-        var svg = d3.select("svg");
+        let svg = d3.select("svg");
 
         svg.append("path")
                 .style("fill", "none")

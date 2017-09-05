@@ -21,9 +21,9 @@
 </body>
 <script>
     //Notice how if you run this function twice, the green rectangle is converted to a blue square.
-    var execute = function () {
-        var svg = d3.select("svg")
-        var selection = svg.selectAll("rect")
+    let execute = function () {
+        let svg = d3.select("svg")
+        let selection = svg.selectAll("rect")
                 .data([127, 61, 256, 71])
 
         selection

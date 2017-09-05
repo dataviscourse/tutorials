@@ -20,9 +20,9 @@
 </svg>
 </body>
 <script>
-    var execute = function () {
-        var svg = d3.select("svg");
-        var selection = svg.selectAll("rect")
+    let execute = function () {
+        let svg = d3.select("svg");
+        let selection = svg.selectAll("rect")
                 .data([127, 61, 256, 71]);
 
         // Notice that in order to merge the enter selection (the new rectangle) with

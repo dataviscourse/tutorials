@@ -1,5 +1,5 @@
 // note that we're creating an anonymous function and assign it to a variable
-var variableFunction = function(v) {
+let variableFunction = function(v) {
     if (v > 10) {
         return "big";
     } else {

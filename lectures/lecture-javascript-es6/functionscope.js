@@ -5,7 +5,7 @@ function anotherFunction(v2) {
     z = x + y;
     return x * y;
 }
-var returnedValue = anotherFunction(4);
+let returnedValue = anotherFunction(4);
 
 console.log("Returned value: " + returnedValue + "; x or y however, are not defined in this scope. \n Calling x or y would result in an error.");
 console.log("This works, but it's a bad idea. z: " + z);
