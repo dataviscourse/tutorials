@@ -80,7 +80,7 @@ We can fix this by separating the update from the enter and by explicitly select
 
 ## Scales
 
-Up to this point, our data has conveniently had dimensions that we could directly plot without applying a transformation. However, in your homework, for example, you used Anscombe's quartet, and the data there doesn't neatly match to pixels, so you had to do some manual data transformation. In nearly all practical cases, the data won't match to the pixels on the screen.
+Up to this point, our data has conveniently had dimensions that we could directly plot without applying a transformation. However, in your homeworks, for example, you use Anscombe's quartet, and the data there doesn't neatly match to pixels, so you had to do some manual data transformation. In nearly all practical cases, the data won't match to the pixels on the screen.
  
 Here is an example of a dataset that is not suitable for direct plotting:
 
@@ -95,7 +95,7 @@ Let's write a function that we can call so that this is dataset can be easily pl
 
 That's nice! We could simply do this for any kind of data we have and could achieve our goal. However, there are many possibly useful functions. For example, we could not only do linear scales, but could use **logarithmic scales, power scales, discrete scales**, etc. 
 
-And we don't always want to write output in screen coordinates, we equally want to vary the **saturation of a color**, etc. Finally, we could have **ordinal data** (we'll talk about data types in one of the early theory lectures), or **temporal data**. So you can see that there are many possibilities to transform your input data to achieve a particular visual mapping. Fortunately, D3 provides a set of powerful scales:
+And we don't always want to write output in screen coordinates, we equally want to vary the **saturation of a color**, etc. Finally, we could have **ordinal data**, or **temporal data**. So you can see that there are many possibilities to transform your input data to achieve a particular visual mapping. Fortunately, D3 provides a set of powerful scales:
 
 {% include code.html id="d3_scale" file="d3_scale.html" code="" js="false" preview="true" %}
 

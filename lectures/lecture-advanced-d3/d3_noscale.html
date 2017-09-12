@@ -10,11 +10,11 @@
 </svg>
 </body>
 <script>
-    var execute = function () {
+    execute = function () {
         // a dataset that doesn't work well in screen coordinates
-        var data = [0.3, 0.01, 1.5];
+        let data = [0.3, 0.01, 1.5];
 
-        var svg = d3.select("svg");
+        let svg = d3.select("svg");
         svg.selectAll("rect")
                 .data(data)
                 .enter().append("rect")

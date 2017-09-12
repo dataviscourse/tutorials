@@ -17,10 +17,10 @@
 </svg>
 </body>
 <script>
-    var execute = function () {
-        var svg = d3.select("svg");
-        var selection = svg.selectAll("rect");
-        var data = selection.data([127, 61, 256]);
+    execute = function () {
+        let svg = d3.select("svg");
+        let selection = svg.selectAll("rect");
+        let data = selection.data([127, 61, 256]);
         // the resulting object contains the enter and exit selections
         // since the initial selection is empty, all data elements are
         // part of the enter selection
@@ -28,8 +28,8 @@
         console.log(data);
 
         // with a call to enter() we retreive only the enter selection
-        var enter = data.enter();
-        console.log("Enter")
+        let enter = data.enter();
+        console.log("Enter");
         console.log(enter);
 
         // now we do something with the incoming selection
@@ -42,10 +42,10 @@
                     return d;
                 })
                 .attr("height", 20)
-                .style("fill", "steelblue")
+                .style("fill", "steelblue");
 
         // finally, we can see the rectangles assigned to the selection
-        console.log("With assigned rectangles")
+        console.log("With assigned rectangles");
         console.log(svg.selectAll("rect"));
 
     }

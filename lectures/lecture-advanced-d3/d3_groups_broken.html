@@ -23,14 +23,14 @@
         if (!myData) {
             myData = [127, 61, 256, 71, 15, 23]
         }
-        var barHeight = 30;
-        var svg = d3.select("svg");
+        let barHeight = 30;
+        let svg = d3.select("svg");
 
-        var barGroups = svg.selectAll(".barGroup")
+        let barGroups = svg.selectAll(".barGroup")
                 .data(myData);
 
         // append new g elements for each data point
-        var enterBarGroups = barGroups.enter()
+        let enterBarGroups = barGroups.enter()
                 .append("g")
                 .classed("barGroup", true); // assigning the class
 

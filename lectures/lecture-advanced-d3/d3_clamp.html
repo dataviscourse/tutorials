@@ -11,12 +11,12 @@
 </svg>
 </body>
 <script>
-    var execute = function () {
+    execute = function () {
         // a dataset that doesn't work well in screen coordinates
-        var data = [0.3, 0.01, 1.5, 2];
+        let data = [0.3, 0.01, 1.5, 2];
 
         // here we define the scale
-        var xScale = d3.scaleLinear()
+        let xScale = d3.scaleLinear()
                 // the domain defines the value range of the input dataset
                 .domain([0, 1.5])
                 // the range defines to which range you want to map the input dataset.
@@ -24,7 +24,7 @@
                 // uncomment to see the effect of clamping
                 // .clamp(true);
 
-        var svg = d3.select("svg");
+        let svg = d3.select("svg");
         svg.selectAll("rect")
                 .data(data)
                 .enter()

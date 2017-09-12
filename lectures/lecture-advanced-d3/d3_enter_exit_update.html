@@ -23,10 +23,10 @@
             myData = [127, 61, 256, 71, 15, 23];
         }
 
-        var svg = d3.select("svg");
+        let svg = d3.select("svg");
 
         // the data join
-        var bars = svg.selectAll(".bars")
+        let bars = svg.selectAll(".bars")
                 .data(myData);
 
         // how do we handle things that are removed?
