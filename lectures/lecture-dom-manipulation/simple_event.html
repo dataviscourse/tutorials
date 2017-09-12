@@ -5,12 +5,15 @@
     <title>SimpleEvent</title>
 </head>
 <body>
+<!-- direct reference to a function -->
 <button onclick="messageMe()">Click Me!</button>
+<!-- no direct reference, specified ID instead -->
 <button id="myButton">No, click Me!</button>
+<!-- direct reference to a function -->
 <div onclick="divMessage()">Can you also click me?</div>
 <script>
-    // the function is referenced in the button
-    var messageMe = function () {
+    // the function referenced from the button in html
+    messageMe = function () {
         alert("Yes, it's me, button 1!");
     };
 

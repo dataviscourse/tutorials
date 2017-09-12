@@ -11,21 +11,21 @@
 
     // create new dom text elements
     function divWithText(text) {
-        var div = document.createElement("div");
-        var textNode = document.createTextNode(text);
+        let div = document.createElement("div");
+        let textNode = document.createTextNode(text);
         div.appendChild(textNode);
         return div;
     }
 
     function numberText(v) {
-        var node = divWithText(String(Math.floor(v)));
+        let node = divWithText(String(Math.floor(v)));
         // here we add a new update function to the node.
         // It takes the previous v and adds amount to it.
         node.update = function (amount) {
             v += amount;
             node.textContent = String(Math.floor(v));
-            var x = v % 800;
-            var y = v % 50;
+            let x = v % 800;
+            let y = v % 50;
             node.setAttribute("style", "position:absolute; left: " + x + "px; " +
                     "top: " + y % 50 + "px; " +
                     "color: hsl(" + x % 255 + ", 100%, 50%)");
@@ -36,9 +36,8 @@
 
     // updating the nodes
     function tick() {
-        var i;
-        for (i = 0; i < nodes.length; ++i) {
-            nodes[i].update(1);
+        for (let node of nodes) {
+            node.update(1);
         }
     }
 
@@ -50,12 +49,12 @@
     }
 
     // initializing the nodes
-    var nodes = [];
-    for (var i = 0; i < 400; i += 30) {
-        var node = numberText(i);
+    nodes = [];
+    for (let i = 0; i < 400; i += 30) {
+        let node = numberText(i);
         mainDiv.appendChild(node);
         nodes.push(node);
-        if (i == 0)
+        if (i === 0)
             console.log(node);
     }
 

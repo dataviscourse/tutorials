@@ -11,15 +11,18 @@
     </rect>
 </svg>
 <script>
-    var colors = ["DarkOrchid", "Teal", "Tomato", "SteelBlue"];
-    var colorCount = 0;
+
+    // we define a new property, __data__ on the rectangle
+    // this is how D3 does it!
+    document.getElementById("myBar").__data__ = 0;
     // on click we make the rectangle wider by 10 pixels
     document.getElementById("myBar").onclick = function (event) {
-        var rect = event.target;
-        var currentWidth = parseFloat(rect.getAttribute("width"));
+        let colors = ["DarkOrchid", "Teal", "Tomato", "SteelBlue"];
+        let rect = event.target;
+        let currentWidth = parseFloat(rect.getAttribute("width"));
         rect.setAttribute("width", (currentWidth + 10).toString());
-        rect.setAttribute("style", "fill: " + colors[colorCount % 4]);
-        colorCount++;
+        rect.setAttribute("style", "fill: " + colors[rect.__data__ % 4]);
+        rect.__data__++;
     }
 </script>
 </body>

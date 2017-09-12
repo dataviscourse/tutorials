@@ -7,9 +7,9 @@
 <body>
 <!-- defining a drop-down box with three values-->
 <select id="dropDown">
-    <option value="pear">Pear</option>
-    <option selected value="apple">Apple</option>
-    <option value="plum">Plum</option>
+    <option value="Pear">Pear</option>
+    <option selected value="Apple">Apple</option>
+    <option value="Plum">Plum</option>
 </select>
 <div>My favorite fruit: <span id="fruit"></span></div>
 <script>
@@ -18,7 +18,10 @@
 
     // we identify the button and add the function to be connected dynamically
     document.getElementById("dropDown").onchange = function (event) {
+        // using the event object
         document.getElementById("fruit").innerHTML = event.target.value;
+        // this would work too, of course
+        //document.getElementById("fruit").innerHTML = document.getElementById("dropDown").value;
     }
 </script>
 </body>
