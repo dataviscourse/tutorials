@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>D3: Loading GeoJSON data and generating SVG paths</title>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <style>
+  path {
+    fill: none;
+    stroke-width: 1px;
+    stroke: #222;
+  }
+  </style>
+</head>
+<body>
+  <svg width="800" height="600">
+    <g id="mapLayer"></g>
+    <g id="cityLayer"></g>
+  </svg>
+  <script type="text/javascript">
+
+  var svg = d3.select("svg");
+  var width = parseInt(svg.attr("width"));
+  var height = parseInt(svg.attr("height"));
+
+  // In order to convert lat / lon (spherical!) coordinates to fit in the 2D
+  // coordinate system of our screen, we need to create a projection function:
+  var projection = d3.geoAlbersUsa()  // a USA-specific projection (that deals with Hawaii / Alaska)
+    .translate([width / 2, height / 2]) // this centers the map in our SVG element
+    .scale([700]);  // this specifies how much to zoom
+
+  // Like the arc generator in the pie chart, we need something to convert the
+  // projected lat/lon coordinates into an SVG path string:
+  var path = d3.geoPath()
+    .projection(projection);
+
+  // Load in GeoJSON data
+  d3.json("us-states.json", function(json) {
+    // Bind data and create one path per GeoJSON feature
+    d3.select("#mapLayer").selectAll("path")
+      .data(json.features)
+      .enter()
+      .append("path")
+      // here we use the familiar d attribute again to define the path
+      .attr("d", path);
+  });
+
+  // Load in cities data. Note that, as this data is independent of the
+  // state shapes, we don't have to wait for the us-states.json file to be
+  // loaded - so we can do this outside of the d3.json() callback
+  d3.csv("us-cities.csv", function (data) {
+    d3.select("#cityLayer").selectAll("circle")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("cx", function (d) {
+        return projection([d.lon, d.lat])[0];
+      })
+      .attr("cy", function (d) {
+        return projection([d.lon, d.lat])[1];
+      })
+      .attr("r", function (d) {
+        return Math.sqrt(parseInt(d.population) * 0.00004);
+      })
+      .style("fill", "steelblue")
+      .style("opacity", 0.8);
+  });
+
+  </script>
+</body>
+</html>
