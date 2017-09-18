@@ -22,7 +22,7 @@ But let's get to how we do maps with D3. Generally, there are two approaches:
 ### Street Maps 
 ***
 
- Let's start off with street maps. These are used when the spatial context of your data is very import. That is, you care about the ability to navigate to a specific geographic location. You also get out of the box features such as zooming and panning. An example of a dataset where street maps would be a good choice would be visualizing yelp reviews on a map. 
+ Let's start off with street maps. These are used when the spatial context of your data is very import. That is, you care about the ability to navigate to a specific geographic location. You also get out of the box features such as zooming and panning. Examples of visualizations that use street maps include: (1) [Where the Pies Are](http://www.nytimes.com/interactive/2009/07/07/dining/20090708-pizza-map.html)  and ny
 
  The most common street map used is the [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial). 
 
@@ -105,14 +105,240 @@ Walk through d3 v4 version of [this example](https://bl.ocks.org/mbostock/899711
 ***
 
 
-Now that we've covered using the Google Maps API, let's talk about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. A common example are political maps that show the republican/democrat tendencies as a function of state. In these maps, the specific data and trends are the focus of the visualization. 
+Now that we've covered using the Google Maps API, let's talk about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : (1) [A Map of Netflex Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future) , [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html), and [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html).  In all these maps, the specific data and trends are the focus of the visualization. 
 
 
 Before we jump into rendering the map itself, let's take a look at the format in which geographic data is ususally handled on the web: geoJSON and topoJSON. 
 
-#### GeoJSON/TopoJSON
+###  GeoJSON/TopoJSON
 
-The [GeoJSON format](http://geojson.org/) describes the contained geography as a combination of longitude and latitude coordinates, so that each entry forms a polygon.  
+#### GeoJSON
+
+The [GeoJSON format](http://geojson.org/) describes the contained geography as a combination of longitude and latitude coordinates, so that each entry forms a polygon.  The official definition, from [the spec](https://tools.ietf.org/html/rfc7946) is: 
+
+***GeoJSON is a geospatial data interchange format based on JavaScript
+   Object Notation (JSON).  It defines several types of JSON objects and
+   the manner in which they are combined to represent data about
+   geographic features, their properties, and their spatial extents.
+   GeoJSON uses a geographic coordinate reference system, World Geodetic
+   System 1984, and units of decimal degrees.***
+   
+   
+  The valid types of GeoJSON objects are: 
+  
+  1. Point - a single position.
+
+``` JSON
+{
+    "type": "Point",
+    "coordinates": [
+        -105.01621,
+        39.57422
+    ]
+}
+```
+
+2. MultiPoint - an array of positions.
+
+``` JSON
+{
+    "type": "MultiPoint",
+    "coordinates": [
+        [
+            -105.01621,
+            39.57422
+        ],
+        [
+            -80.6665134,
+            35.0539943
+        ]
+    ]
+}
+
+```
+
+3. LineString - an array of positions forming a continuous line.
+
+``` JSON
+{
+    "type": "LineString",
+    "coordinates": [
+        [
+            -101.744384765625,
+            39.32155002466662
+        ],
+        [
+            -101.5521240234375,
+            39.330048552942415
+        ],
+        [
+            -101.40380859375,
+            39.330048552942415
+        ],
+        [
+            -101.33239746093749,
+            39.364032338047984
+        ],
+        [
+            -101.041259765625,
+            39.36827914916011
+        ]
+    ]
+}
+```
+
+4. MultiLineString - an array of arrays of positions forming several lines.
+
+``` JSON
+{
+    "type": "MultiLineString",
+    "coordinates": [
+        [
+            [
+                -105.0214433670044,
+                39.57805759162015
+            ],
+            [
+                -105.02150774002075,
+                39.57780951131517
+            ],
+            [
+                -105.02157211303711,
+                39.57749527498758
+            ]
+        ],
+        [
+            [
+                -105.0142765045166,
+                39.57397242286402
+            ],
+            [
+                -105.01412630081175,
+                39.57403858136094
+            ]
+        ]
+    ]
+}
+```
+
+5. Polygon - an array of arrays of positions forming a polygon (possibly with holes).
+
+``` JSON
+{
+    "type": "Polygon",
+    "coordinates": [...]
+}
+```
+
+6. MultiPolygon - a multidimensional array of positions forming multiple polygons.
+
+``` JSON
+{
+    "type": "MultiPolygon",
+    "coordinates": [
+        [
+            [
+                [
+                    -84.32281494140625,
+                    34.9895035675793
+                ],...
+            ]
+        ]              
+                
+```
+
+
+7. GeometryCollection - an array of geometry objects.
+
+``` JSON
+{
+    "type": "GeometryCollection",
+    "geometries": [
+        {
+            "type": "Point",
+            "coordinates": [
+                -80.66080570220947,
+                35.04939206472683
+            ]
+        },
+        {
+            "type": "Polygon",
+            "coordinates": [...]
+        }
+    ]
+}
+```
+
+8. **Feature - a feature containing one of the above geometry objects.**
+
+``` JSON
+{
+    "type": "Feature",
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+            [
+                [
+                    -80.72487831115721,
+                    35.26545403190955
+                ],...
+             ]
+          ]
+    },
+    "properties": {
+        "name": "Plaza Road Park"
+    }
+}
+
+```
+
+9. **FeatureCollection - an array of feature objects.**
+
+``` JSON
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -80.87088507656375,
+                    35.21515162500578
+                ]
+            },
+            "properties": {
+                "name": "ABBOTT NEIGHBORHOOD PARK",
+                "address": "1300  SPRUCE ST"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            -80.72487831115721,
+                            35.26545403190955
+                        ],
+                        [
+                            -80.72135925292969,
+                            35.26727607954368
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "name": "Plaza Road Park"
+            }
+        }
+    ]
+}
+
+```
+
+#### TopoJSON
 
 [TopoJSON variety](https://github.com/mbostock/topojson/wiki) is a topological geospatial data interchange format based on GeoJSON. 
 
@@ -123,17 +349,38 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 4. Typical TopoJSON files are 80% smaller than their GeoJSON equivalents.
 
 
-Because D3 only handles data in the GeoJSON format, there is a d3 library that does the job of converting TopoJSON to GeoJSON: 
+If we console.log what a topoJSON file looks like, this is an example of what we would see.
+
+![Alt Image Text](./lecture-maps/images/topoJSON.png)
+
+
+If we simply open a topoJSON file in an editor, this is an example of what we would see.
+
+
+![Alt Image Text](./lecture-maps/images/topoJSON_pretty.png)
+
+
+Because D3 only handles data in the GeoJSON format, there is a d3 library that does the job of converting TopoJSON to GeoJSON. 
 
 ``` JS
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 
 ``` 
 
-We'll be taking a closer look at how to do this conversion in an example below. 
+The TopoJSON client API supports converting TopoJSON objects into GeoJSON for use in a web browser. The usage is as follows:
+
+``` JS
+topojson.feature(topology, object)
+
+console.log(topojson.feature(json, json.objects.countries))
+
+``` 
+![Alt Image Text](./lecture-maps/images/topo2geo.png)
 
 
-Let's take a closer look at what a GeoJSON file looks like. Here is a sample from the [data file containing US states](us-states.json).
+
+
+Let's take a closer look at a GeoJSON file that contains data for the US States. [data file containing US states](us-states.json).
 
 
 {% highlight javascript linenos %}
@@ -159,16 +406,8 @@ Let's take a closer look at what a GeoJSON file looks like. Here is a sample fro
   
  Here is an example of how to use projections to transform lat/lon values into screen coordinate pixel values: 
  
- 
- ``` JS
- 
- let projection = d3.geoAlbersUsa() 
- 
- let d={lat:-30,lon:111};
- 
- let[cx,cy]= projection([d.lon, d.lat])
- 
- ```
+ {% include code.html id="d3_projection" file="d3_projection.html" code="" js="false" preview="true" %}
+
  
  D3 supports a long list of projections, including: 
  
@@ -189,23 +428,9 @@ Let's take a closer look at what a GeoJSON file looks like. Here is a sample fro
 
  Once projected to screen coordinates, the polygons can be easily converted into an SVG path with `d3.geoPath()` (as always, see the [API documentation here](https://github.com/d3/d3-geo/blob/master/README.md#geoPath)).
  
- the d3.geoPath() function is an SVG path generator that takes in several different types of GeoJSON objects: 
  
-1. Point - a single position.
-2. MultiPoint - an array of positions.
-3. LineString - an array of positions forming a continuous line.
-4. MultiLineString - an array of arrays of positions forming several lines.
-5. Polygon - an array of arrays of positions forming a polygon (possibly with holes).
-6. MultiPolygon - a multidimensional array of positions forming multiple polygons.
-7. GeometryCollection - an array of geometry objects.
-8. Feature - a feature containing one of the above geometry objects.
-9. **FeatureCollection - an array of feature objects.**
-10. **Feature - a feature containing one of the above geometry objects.**
-
-For the purpose of this example we are going to give examples that use the Feature Collection. 
-
-
-
+The d3.geoPath() function is an SVG path generator that takes in several different types of GeoJSON objects and returns a formatted SVG path. 
+ 
 #### Adding markers on top of D3 Map
 
 
