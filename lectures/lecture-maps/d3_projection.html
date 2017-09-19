@@ -8,16 +8,17 @@
 <body>
   <script type="text/javascript">
 
-   
-  d={'lon':-83.903347,'lat':38.769315};
-  // In order to convert lat / lon (spherical!) coordinates to fit in the 2D
-  // coordinate system of our screen, we need to create a projection function:
-  var projection = d3.geoAlbersUsa()  // a USA-specific projection (that deals with Hawaii / Alaska)
- 
-  let [xPOS,yPOS]=projection([d.lon, d.lat])[0] 
+   {
+    d={'lon':-83.903347,'lat':38.769315};
+    // In order to convert lat / lon (spherical!) coordinates to fit in the 2D
+    // coordinate system of our screen, we need to create a projection function:
+    var projection = d3.geoAlbersUsa()  // a USA-specific projection (that deals with Hawaii / Alaska)
+    
+    
+    let pos=projection([d.lon, d.lat])
 
-   console.log(XPOS,YPOS);
-
+     console.log(pos);
+  }
   </script>
 </body>
 </html>

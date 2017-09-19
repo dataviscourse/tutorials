@@ -93,19 +93,51 @@ map.setMapTypeId('terrain');
 Other than these basic customizations, you can go the extra mile and really change the look and feel of your google map with [Styled Maps](https://developers.google.com/maps/documentation/javascript/styling). 
 
 
-#### Adding D3 to Google Maps
+![Alt Image Text](./images/styledMaps.png)
 
-Once you have a google map set up, you might want to add a layer with your d3 visualization of geolocated markers. Let's step through an example of how to do that. 
+### Overlays - Adding D3 Visualizations to Google Maps
+
+Once you have a google map set up, you might want to add a layer with your d3 visualization of geographic elements. This is where ***Overlays*** come in. 
+
+Overlays are objects on the map that are tied to latitude/longitude coordinates, so they move when you drag or zoom the map. The Google Maps JavaScript API provides an OverlayView class for creating your own custom overlays.
+
+![Alt Image Text](./images/overlayView_highlighted.png)
 
 
-Walk through d3 v4 version of [this example](https://bl.ocks.org/mbostock/899711)
+![Alt Image Text](./images/mapPanes_highlighted.png)
+
+
+![Alt Image Text](./images/mapCanvas_highlighted.png)
+
+
+The steps to create a custom overlay are: 
+
+1. Create a new instance of google.maps.OverlayView(). 
+2. Implement an onAdd() method on your instance of OverlayView. OverlayView.onAdd() will be called when the map is ready for the overlay to be attached. In the onAdd() method, you should create DOM objects and append them as children of the panes.
+3. Implement a draw() method on your instance of OverlayView() which handles the visual display of your object. OverlayView.draw() will be called when the object is first displayed.
+4. Attach the overlay to the map with OverlayView.setMap(map).
+
+You must call setMap() with a valid Map object to trigger the call to the onAdd() method. The setMap() method can be called at the time of construction or at any point afterward when the overlay should be re-shown after removing. The draw() method will then be called whenever a map property changes that could change the position of the element, such as zoom, center, or map type.
+
+
+<!--### A quick note on d3.entries()
+
+When dealing with javascript objects (such as json data) we often want to extract the key/value pairs and use them for positioning and labeling our markers in our svg. 
+
+We can use d3.entries() which returns an array containing the property keys and values of the specified object (an associative array). Each entry is an object with a key and value attribute, such as {key: "foo", value: 42}. The order of the returned array is undefined.
+-->
+
+Let's step through an example of the steps above as we look at Hurricane Wind Data in 2005! 
+
+
+{% include code.html id="d3_google_map" file="d3_google_map.html" code="" js="false" preview="true" %}
 
 
 ### Data Maps 
 ***
 
 
-Now that we've covered using the Google Maps API, let's talk about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : (1) [A Map of Netflex Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future) , [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html), and [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html).  In all these maps, the specific data and trends are the focus of the visualization. 
+Now that we've covered using the Google Maps API, let's talk about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : (1) [A Map of Netflex Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future) , [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html), and [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html).  And last but not least, [Bars vs Grocery Stores](https://flowingdata.com/2014/05/29/bars-versus-grocery-stores-around-the-world/). In all these maps, the specific data and trends are the focus of the visualization. 
 
 
 Before we jump into rendering the map itself, let's take a look at the format in which geographic data is ususally handled on the web: geoJSON and topoJSON. 
@@ -349,15 +381,22 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 4. Typical TopoJSON files are 80% smaller than their GeoJSON equivalents.
 
 
-If we console.log what a topoJSON file looks like, this is an example of what we would see.
-
-![Alt Image Text](./lecture-maps/images/topoJSON.png)
+If we console.log what a topoJSON file looks like, this is an example of what we would see. 
 
 
-If we simply open a topoJSON file in an editor, this is an example of what we would see.
+
+![Alt Image Text](./images/topoJSON.png) 
 
 
-![Alt Image Text](./lecture-maps/images/topoJSON_pretty.png)
+
+If we simply open a topoJSON file in an editor, this is an example of what we would see. 
+
+
+
+
+![Alt Image Text](./images/topoJSON_pretty.png) 
+
+
 
 
 Because D3 only handles data in the GeoJSON format, there is a d3 library that does the job of converting TopoJSON to GeoJSON. 
@@ -375,7 +414,7 @@ topojson.feature(topology, object)
 console.log(topojson.feature(json, json.objects.countries))
 
 ``` 
-![Alt Image Text](./lecture-maps/images/topo2geo.png)
+![Alt Image Text](./images/topo2geo.png)
 
 
 
@@ -441,7 +480,3 @@ Here is an example for how we can draw marks on top of maps, in this case the si
 Here is an example for a choropleth map, coloring each state by its agricultural output. The trick here is to join the data about the ouptut to the geography information:
 
 {% include code.html id="d3_choropleth" file="d3_choropleth.html" code="" js="false" preview="true" %}
-
-## Next Steps
-
-This concludes our introduction to D3 and JavaScript. We will (probably) have another lecture on designing larger systems, event handling, etc in the next couple of weeks.
