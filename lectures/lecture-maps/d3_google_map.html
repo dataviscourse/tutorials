@@ -57,6 +57,7 @@ d3.csv("Katrina.csv", function(error, data) {
       //Constrain background hurricanes to the North Atlantic
       data = data.filter(d=>{ return d.Basin == ' NA'})
       
+
       data.map(d=>d.wind = d['Wind(WMO)'])
       data = data.sort(d=>d.Name == hurricane)
 
@@ -88,7 +89,7 @@ d3.csv("Katrina.csv", function(error, data) {
           .attr("r", d=>windScale(d.wind))
           .attr("cx", padding)
           .attr("cy", padding)
-          .attr('fill',d=>{return d.Name == hurricane ? colorScale(d.wind) : 'gray'})
+          .attr('fill',d=>{return d.Name == hurricane ? colorScale(d.wind) : '#a3a5a8'})
           .style('opacity',.8)
       
 
