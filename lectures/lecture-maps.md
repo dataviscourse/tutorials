@@ -293,7 +293,7 @@ console.log(topojson.feature(json, json.objects.countries))
 ![Alt Image Text](./images/topo2geo.png)
 
 
-Let's take a closer look at a GeoJSON file that contains data for the US States. [data file containing US states](us-states.json).
+Let's take a closer look at a GeoJSON file that contains data for the US States. Here is a [data file containing US states](us-states.json).
 
 {% highlight javascript linenos %}
 {
@@ -310,15 +310,15 @@ Let's take a closer look at a GeoJSON file that contains data for the US States.
  }
  {% endhighlight %}
 
- You can see that the coordinates are within the geometry object, and that the properties tell us that this is the shape representing Alabama.
+You can see that the coordinates are within the geometry object, and that the properties tell us that this is the shape representing Alabama.
  
 ### Using Projections 
 
- You might be able to tell that the coordinates above use latitude and longitude - which are spherical coordinates! Mapping these onto a 2D surface like your screen requires a projection. There are many projections, with various advantages and disadvantages - we'll talk about them in class.
+You might be able to tell that the coordinates above use latitude and longitude - which are spherical coordinates! Mapping these onto a 2D surface like your screen in a sensible way requires a projection. There are many projections, with various advantages and disadvantages - we'll talk about them in class.
   
  Here is an example of how to use projections to transform lat/lon values into screen coordinate pixel values: 
  
- {% include code.html id="d3_projection" file="d3_projection.html" code="" js="false" preview="true" %}
+ {% include code.html id="d3_projection" file="d3_projection.html" code="" js="false" preview="false" %}
 
  
  D3 supports a long list of projections, including: 
