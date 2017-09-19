@@ -1,7 +1,7 @@
 ---
 layout: code-lecture
 title:  Advanced D3&#58; Layouts and Maps
-permalink: /lectures/lecture-d3-layouts-maps/
+permalink: /lectures/lecture-d3-layouts/
 nomenu: true
 ---
 
@@ -77,50 +77,3 @@ The layout uses a "cooling" factor that stops the iteration cycle.
 ### Other Layouts
 
 There are many other layouts that can be very valuable, for. We'll revisit the layouts in class when we talk about the specific techniques they implement, but the principle is always the same: they take data and calculate derived data, which you then can use to position/scale graphical primitives on the canvas. You shouldn't have a hard time understanding any of the other layout examples.
-
-
-## Maps
-
-Maps, finally! But before we start talking about how to draw maps, a word of caution: maps are heavily over-used. A lot of information that is printed on top of maps would be better of in another type of chart. If we compare data of the five largest cities in the US, we don't need to do that on a map, everyone knows where New York, Los Angeles, Chicago, Houston, and Philadelphia are, but if we plot this on a map we give up our most important visual channel: position. We're no longer free to place things where we want!
-
-But let's get to how we do maps with D3. Generally, there are two approaches:
-
- 1. **Street Map with Data**: If you want to show something in the context of a real street map, your best bet is to use something like the [Google Maps API](https://developers.google.com/maps/?hl=en) - [here's an example of how it's used with D3](http://bl.ocks.org/mbostock/899711), or the [OpenStreetMap API](http://wiki.openstreetmap.org/wiki/API). You can use D3 to draw things on top of those, but you'll mainly work with the API provided by the vendor.
- 2. **Data Maps**: If you want to present data on an abstract map, e.g., only showing counties or state borders, D3 is the way to go! We'll be taking about data maps from now on.
-
- D3 Maps are based on the [GeoJSON format](http://geojson.org/) (or the [TopoJSON variety](https://github.com/mbostock/topojson/wiki)). The GeoJSON format describes the contained geography as a combination of longitude and latitude coordinates, so that each entry forms a polygon. Here is a sample from the [data file containing US states](us-states.json).
-
-{% highlight javascript linenos %}
-{
-     "type":  "FeatureCollection",
-     "features":
-     [
-         {
-             "type": "Feature",
-             "id": "01",
-             "properties": {"name": "Alabama"},
-             "geometry": {
-                "type": "Polygon",
-                "coordinates": [[[-87.359296, 35.00118], [-85.606675, 34.984749], [-85.431413,34.124869],[-85.184951,32.859696], ...
- }
- {% endhighlight %}
-
- You can see that the coordinates are within the geometry object, and that the properties tell us that this is the shape representing Alabama.
-
- You might be able to tell that the coordinates use latitude and longitude - which are spherical coordinates! Mapping these onto a 2D surface like your screen requires a projection. There are many projections, with various advantages and disadvantages - we'll talk about them in class. D3 supports a lot of them; [here is a showreel](http://bl.ocks.org/mbostock/3711652).
-
- Once projected to screen coordinates, the polygons can be easily converted into an SVG path with `d3.geoPath()` (as always, see the [API documentation here](https://github.com/d3/d3-geo/blob/master/README.md#geoPath)).
-
- {% include code.html id="d3_basic_map" file="d3_basic_map.html" code="" js="false" preview="true" %}
-
-Here is an example for how we can draw marks on top of maps, in this case the size of cities:
-
-{% include code.html id="d3_cities" file="d3_cities.html" code="" js="false" preview="true" %}
-
-Here is an example for a choropleth map, coloring each state by its agricultural output. The trick here is to join the data about the ouptut to the geography information:
-
-{% include code.html id="d3_choropleth" file="d3_choropleth.html" code="" js="false" preview="true" %}
-
-## Next Steps
-
-This concludes our introduction to D3 and JavaScript. We will (probably) have another lecture on designing larger systems, event handling, etc in the next couple of weeks.
