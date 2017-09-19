@@ -39,7 +39,6 @@
 
         // Load in GeoJSON data
         d3.json("us-states.json", function (json) {
-
             // Load in the agriculture data; note that, unlike the city data,
             // we have to do this AFTER we've already loaded the GeoJSON data
             d3.csv("us-ag-productivity-2004.csv", function (stateData) {
