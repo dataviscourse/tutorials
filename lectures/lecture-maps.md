@@ -484,6 +484,16 @@ We can use d3.entries() which returns an array containing the property keys and 
 
 Let's step through an example of the steps above as we look at Hurricane Wind Data in 2005! 
 
+We've retrieved the hurricane data from [this NOAA website](ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r09/wmo/csv/year/Year.2005.ibtracs_wmo.v03r09.csv). Here is what the data looks like: 
+
+```
+Serial_Num,Year,Num,Basin,Sub_basin,Name,ISO_time,Nature,Latitude,Longitude,Wind(WMO),Pres(WMO),Center,Wind(WMO) Percentile,Pres(WMO) Percentile,Track_type
+2004243S03088,2005,01, SI, WA,PHOEBE,2004-09-01 00:00:00, NR, -5.30,  90.00, 35.0, 1000.0,bom,  33.664,  16.735,main
+2004243S03088,2005,01, SI, WA,PHOEBE,2004-09-01 06:00:00, NR, -5.50,  90.40, 35.0,  998.0,bom,  33.664,  25.747,main
+2004243S03088,2005,01, SI, WA,PHOEBE,2004-09-01 12:00:00, NR, -6.20,  90.50, 35.0,  998.0,bom,  33.664,  25.747,main
+2004243S03088,2005,01, SI, WA,PHOEBE,2004-09-01 18:00:00, NR, -7.10,  90.80, 35.0,  995.0,bom,  33.664,  36.698,main
+```
+
 
 {% include code.html id="d3_google_map" file="d3_google_map.html" code="" js="false" preview="true" %}
 
