@@ -20,30 +20,36 @@ We'll be taking about both street maps and data maps, giving examples of how to 
  
 ## Data Maps
 
-Let's start off talking about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : (1) [A Map of Netflex Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future) , [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html), and [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html).  And last but not least, [Bars vs Grocery Stores](https://flowingdata.com/2014/05/29/bars-versus-grocery-stores-around-the-world/). In all these maps, the specific data and trends are the focus of the visualization. 
+Let's start off talking about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : 
+ * [A Map of Netflix Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), 
+ * [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future),
+ * [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html),
+ * [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html), and last but not least, 
+  * [Bars vs Grocery Stores](https://flowingdata.com/2014/05/29/bars-versus-grocery-stores-around-the-world/). 
+  
+In all these maps, the specific data and trends are the focus of the visualization. 
 
+###  Geospatial Data Formats
 
-Before we jump into rendering the map itself, let's take a look at the format in which geographic data is ususally handled on the web: GeoJSON and TopoJSON. 
-
-###  GeoJSON/TopoJSON
+Before we jump into rendering the map itself, let's take a look at the format in which geographic data is usually handled on the web: GeoJSON and TopoJSON. 
 
 #### GeoJSON
 
 The [GeoJSON format](http://geojson.org/) describes the contained geography as a combination of longitude and latitude coordinates, so that each entry forms a polygon.  The official definition, from [the spec](https://tools.ietf.org/html/rfc7946) is: 
 
-***GeoJSON is a geospatial data interchange format based on JavaScript
+*GeoJSON is a geospatial data interchange format based on JavaScript
    Object Notation (JSON).  It defines several types of JSON objects and
    the manner in which they are combined to represent data about
    geographic features, their properties, and their spatial extents.
    GeoJSON uses a geographic coordinate reference system, World Geodetic
-   System 1984, and units of decimal degrees.***
+   System 1984, and units of decimal degrees.*
    
    
   The valid types of GeoJSON objects are: 
   
-  1. Point - a single position.
+  1. **Point** - a single position.
 
-``` JSON
+```JSON
 {
     "type": "Point",
     "coordinates": [
@@ -53,9 +59,9 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 }
 ```
 
-2. MultiPoint - an array of positions.
+2. **MultiPoint** - an array of positions.
 
-``` JSON
+```JSON
 {
     "type": "MultiPoint",
     "coordinates": [
@@ -72,9 +78,9 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 ```
 
-3. LineString - an array of positions forming a continuous line.
+3. **LineString** - an array of positions forming a continuous line.
 
-``` JSON
+```JSON
 {
     "type": "LineString",
     "coordinates": [
@@ -102,9 +108,9 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 }
 ```
 
-4. MultiLineString - an array of arrays of positions forming several lines.
+4. **MultiLineString** - an array of arrays of positions forming several lines.
 
-``` JSON
+```JSON
 {
     "type": "MultiLineString",
     "coordinates": [
@@ -136,18 +142,18 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 }
 ```
 
-5. Polygon - an array of arrays of positions forming a polygon (possibly with holes).
+5. **Polygon** - an array of arrays of positions forming a polygon (possibly with holes).
 
-``` JSON
+```JSON
 {
     "type": "Polygon",
     "coordinates": [...]
 }
 ```
 
-6. MultiPolygon - a multidimensional array of positions forming multiple polygons.
+6. **MultiPolygon** - a multidimensional array of positions forming multiple polygons.
 
-``` JSON
+```JSON
 {
     "type": "MultiPolygon",
     "coordinates": [
@@ -163,9 +169,9 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 ```
 
 
-7. GeometryCollection - an array of geometry objects.
+7. **GeometryCollection** - an array of geometry objects.
 
-``` JSON
+```JSON
 {
     "type": "GeometryCollection",
     "geometries": [
@@ -184,9 +190,9 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 }
 ```
 
-8. Feature - a feature containing one of the above geometry objects.
+8. **Feature** - a feature containing one of the above geometry objects.
 
-``` JSON
+```JSON
 {
     "type": "Feature",
     "geometry": {
@@ -207,9 +213,9 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 ```
 
-9. FeatureCollection - an array of feature objects.
+9. **FeatureCollection** - an array of feature objects.
 
-``` JSON
+```JSON
 {
     "type": "FeatureCollection",
     "features": [
@@ -255,55 +261,39 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 ### TopoJSON
 
-[TopoJSON variety](https://github.com/mbostock/topojson/wiki) is a topological geospatial data interchange format based on GeoJSON. 
+[TopoJSON](https://github.com/mbostock/topojson/wiki) is a topological geospatial data interchange format based on GeoJSON. Rather than representing geometries discretely, **geometries in TopoJSON files are stitched together from shared line segments** called arcs.
 
-
-1. TopoJSON is an extension of GeoJSON
-2. Rather than representing geometries discretely, geometries in TopoJSON files are stitched together from shared line segments called arcs.
-3. TopoJSON eliminates redundancy, offering much more compact representations of geometry than with GeoJSON;
-4. Typical TopoJSON files are 80% smaller than their GeoJSON equivalents.
-
+TopoJSON hence eliminates redundancy, offering much more compact representations of geometry than with GeoJSON; typical TopoJSON files are 80% smaller than their GeoJSON equivalents.
 
 If we console.log what a topoJSON file looks like, this is an example of what we would see. 
 
-
-
 ![Alt Image Text](./images/topoJSON.png) 
-
 
 
 If we simply open a topoJSON file in an editor, this is an example of what we would see. 
 
 
-
-
 ![Alt Image Text](./images/topoJSON_pretty.png) 
-
-
 
 
 Because D3 only handles data in the GeoJSON format, there is a d3 library that does the job of converting TopoJSON to GeoJSON. 
 
-``` JS
+```HTML
 <script src="http://d3js.org/topojson.v1.min.js"></script>
-
 ``` 
 
 The TopoJSON client API supports converting TopoJSON objects into GeoJSON for use in a web browser. The usage is as follows:
 
-``` JS
+```JS
 topojson.feature(topology, object)
 
 console.log(topojson.feature(json, json.objects.countries))
-
 ``` 
+
 ![Alt Image Text](./images/topo2geo.png)
 
 
-
-
 Let's take a closer look at a GeoJSON file that contains data for the US States. [data file containing US states](us-states.json).
-
 
 {% highlight javascript linenos %}
 {
