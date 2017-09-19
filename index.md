@@ -28,6 +28,7 @@ The basic web stack. Web standards. Developing for the web.
 
 - [First steps in D3]({{ site.baseurl }}/lectures/lecture-d3/)
 - [D3: More on selections and data; scales; axis.]({{ site.baseurl }}/lectures/lecture-advanced-d3/)
+- [D3: Maps]({{site.baseurl}}/lectures/lecture-maps/) 
 - [D3: Layouts and Maps]({{ site.baseurl }}/lectures/lecture-d3-layouts-maps/)
  
 
