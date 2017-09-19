@@ -17,6 +17,7 @@
     <g id="mapLayer"></g>
     <g id="cityLayer"></g>
 </svg>
+
 <script type="text/javascript">
     {
         let svg = d3.select("svg");
@@ -32,10 +33,22 @@
 
         // Load in GeoJSON data
         d3.json("us-states.json", function (json) {
-             d3.select("#mapLayer").selectAll("path")
+            d3.select("#mapLayer").selectAll("path")
                 .data(json.features)
                 .enter()
                 .append("path")
+                .attr("d", path);
+        });
+
+
+        // Load in GeoJSON data
+        d3.json("us-states.json", function (json) {
+            // Bind data and create one path per GeoJSON feature
+            d3.select("#mapLayer").selectAll("path")
+                .data(json.features)
+                .enter()
+                .append("path")
+                // here we use the familiar d attribute again to define the path
                 .attr("d", path);
         });
 
@@ -54,7 +67,7 @@
                     return projection([d.lon, d.lat])[1];
                 })
                 .attr("r", function (d) {
-                    return Math.sqrt(+d.population * 0.00004);
+                    return Math.sqrt(parseInt(d.population) * 0.00004);
                 })
                 .style("fill", "steelblue")
                 .style("opacity", 0.8);

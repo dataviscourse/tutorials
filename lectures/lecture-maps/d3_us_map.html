@@ -10,6 +10,12 @@
             stroke-width: 1px;
             stroke: #222;
         }
+        .grat {
+            stroke: #222;
+            stroke-dasharray: 4px;
+            stroke-width: 1px;
+            opacity: .5
+        }
     </style>
 </head>
 <body>
@@ -42,6 +48,9 @@
                 .append("path")
                 // here we use the familiar d attribute again to define the path
                 .attr("d", path);
+
+            // let graticule = d3.geoGraticule();
+            // d3.select("#mapLayer").append('path').datum(graticule).attr('class', "grat").attr('d', path).attr('fill', 'none');
         });
     }
 </script>
