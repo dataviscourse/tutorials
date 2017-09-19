@@ -62,18 +62,14 @@ d3.csv("Katrina.csv", function(error, data) {
       data = data.sort(d=>d.Name == hurricane)
 
 
-     
-      
       //Color Scale for Hurricane Winds from https://en.wikipedia.org/wiki/Template:Storm_colour
       let colorScale = d3.scaleLinear()
-                // .domain([d3.min(data,d=>d.wind),d3.max(data,d=>d.wind)])
                 .domain([35,73,95,110,130,155,200])
                 // each color matches to an interpolation point
                 .range(['#5ebaff','#00faf4',"#ffffcc", "#ffe775",'#ffc140','#ff8f20','#ff6060',]);
       
       let windScale = d3.scaleLinear()
                 .domain([d3.min(data,d=>d.wind),d3.max(data,d=>d.wind)])
-                // each color matches to an interpolation point
                 .range([2,10]);
       
 
