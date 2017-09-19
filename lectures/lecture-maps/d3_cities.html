@@ -10,6 +10,13 @@
     stroke-width: 1px;
     stroke: #222;
   }
+    
+    .grat{
+      stroke:#222;
+      stroke-dasharray:4px;
+      stroke-width:1px;
+      opacity:.5
+    }
   </style>
 </head>
 <body>
@@ -64,8 +71,18 @@
       })
       .style("fill", "steelblue")
       .style("opacity", 0.8);
+    
+    // let graticule = d3.geoGraticule();
+
+    //     d3.select("#mapLayer")
+    //         .append('path')
+    //         .datum(graticule)
+    //         .attr('class', "grat")
+    //         .attr('d', path)
+    //         .attr('fill', 'none');
   });
 
   </script>
 </body>
+  
 </html>
