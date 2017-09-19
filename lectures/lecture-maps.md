@@ -6,21 +6,19 @@ nomenu: true
 ---
 
 
-## Maps
+Before we start talking about how to draw maps, a word of caution: maps are heavily over-used. A lot of information that is printed on top of maps would be better shown in another type of chart. If we compare data of the five largest cities in the US, we don't need to do that on a map, everyone knows where New York, Los Angeles, Chicago, Houston, and Philadelphia are, but if we plot this on a map we give up our most important visual channel: position. We're no longer free to place things where we want!
 
-Before we start talking about how to draw maps, a word of caution: maps are heavily over-used. A lot of information that is printed on top of maps would be better of in another type of chart. If we compare data of the five largest cities in the US, we don't need to do that on a map, everyone knows where New York, Los Angeles, Chicago, Houston, and Philadelphia are, but if we plot this on a map we give up our most important visual channel: position. We're no longer free to place things where we want!
+There are, however, cases, when the spatial position is paramount, and in this case you should definitely use a map. 
 
-But let's get to how we do maps with D3. Generally, there are two approaches:
-
-
- 1. **Street Map with Data**: If you want to show something in the context of a real street map, your best bet is to use something like the [Google Maps API](https://developers.google.com/maps/?hl=en) - [here's an example of how it's used with D3](http://bl.ocks.org/mbostock/899711), or the [OpenStreetMap API](http://wiki.openstreetmap.org/wiki/API). You can use D3 to draw things on top of those, but you'll mainly work with the API provided by the vendor.
-
- 2. **Data Maps**: If you want to present data on an abstract map, e.g., only showing counties or state borders, D3 is the way to go! Data maps are mostly used for when you want to communicate specific information or trends. In these maps you have full control over how the maps is colored, and how to encode information onto the map. 
+But let's get to how we can visualize data on top of maps with D3. Generally, there are two approaches:
 
 
- We'll be taking about both street maps and data maps, giving examples of how to go about using each one.
+ 1. **Data Maps**: If you want to present data on an abstract map, e.g., only showing counties or state borders, D3 is the way to go! Data maps are mostly used for when you want to communicate trends and let users compar between different areas. In these maps you have full control over how the maps is colored, and how to encode information onto the map. Typically, you can't zoom in to show more detail.
+ 2. **Street Map with Data**: If you want to show something in the context of a real street map, your best bet is to use something like the [Google Maps API](https://developers.google.com/maps/?hl=en) - [here's an example of how it's used with D3](http://bl.ocks.org/mbostock/899711), or the [OpenStreetMap API](http://wiki.openstreetmap.org/wiki/API). You can use D3 to draw things on top of those, but you'll mainly work with the API provided by the vendor. This is great if you need multiple levels of zoom, and if you really care about the position of an item, for example, if you visualize the ratings of a restaurant, it is convenient to also show it's exact location. 
+
+We'll be taking about both street maps and data maps, giving examples of how to go about using each one.
  
-### Data Maps
+## Data Maps
 
 Let's start off talking about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : (1) [A Map of Netflex Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future) , [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html), and [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html).  And last but not least, [Bars vs Grocery Stores](https://flowingdata.com/2014/05/29/bars-versus-grocery-stores-around-the-world/). In all these maps, the specific data and trends are the focus of the visualization. 
 
@@ -255,7 +253,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 ```
 
-#### TopoJSON
+### TopoJSON
 
 [TopoJSON variety](https://github.com/mbostock/topojson/wiki) is a topological geospatial data interchange format based on GeoJSON. 
 
@@ -324,7 +322,7 @@ Let's take a closer look at a GeoJSON file that contains data for the US States.
 
  You can see that the coordinates are within the geometry object, and that the properties tell us that this is the shape representing Alabama.
  
-#### Using Projections 
+### Using Projections 
 
  You might be able to tell that the coordinates above use latitude and longitude - which are spherical coordinates! Mapping these onto a 2D surface like your screen requires a projection. There are many projections, with various advantages and disadvantages - we'll talk about them in class.
   
@@ -355,7 +353,7 @@ Let's take a closer look at a GeoJSON file that contains data for the US States.
  
 The d3.geoPath() function is an SVG path generator that takes in several different types of GeoJSON objects and returns a formatted SVG path. 
  
-#### Adding markers on top of D3 Map
+### Adding markers on top of D3 Map
 
 
 Here is an example for how we can draw marks on top of maps, in this case the size of cities:
@@ -368,7 +366,7 @@ Here is an example for a choropleth map, coloring each state by its agricultural
 
 
 
-### Street Maps 
+## Street Maps 
 ***
 
 Now that we've seen how to create data maps purely with D3, let's take a look at street maps. These are used when the spatial context of your data is very import. That is, you care about the ability to navigate to a specific geographic location. You also get out of the box features such as zooming and panning. Examples of visualizations that use street maps include: (1) [Where the Pies Are](http://www.nytimes.com/interactive/2009/07/07/dining/20090708-pizza-map.html)  and ny
@@ -390,7 +388,7 @@ Let's see this in action:
 {% include code.html id="google_map" file="google_map.html" code="" js="false" preview="true" %}
 
 
-####  The Map Object
+###  The Map Object
 
 ``` JS
 map = new google.maps.Map(document.getElementById("map"), {...});
@@ -410,7 +408,7 @@ map = new google.maps.Map(document.getElementById('map'), {
 });
 ```
 
-#### Zoom Levels 
+### Zoom Levels 
 
 When you're setting the zoom levels programatically, it can be helpful to know how the numeric zoom level translates to the amount of detail your user can see in the map. Here is a helpful conversion table. 
 
@@ -422,7 +420,7 @@ Zoom Level  | Level of Detail
 15 | Streets 
 20 | Buildings 
 
-#### Map Types 
+### Map Types 
 
 The following map types are available in the API:
 
@@ -444,7 +442,7 @@ Other than these basic customizations, you can go the extra mile and really chan
 
 ![Alt Image Text](./images/styledMaps.png)
 
-### Overlays - Adding D3 Visualizations to Google Maps
+## Overlays - Adding D3 Visualizations to Google Maps
 
 Once you have a google map set up, you might want to add a layer with your d3 visualization of geographic elements. This is where ***Overlays*** come in. 
 
