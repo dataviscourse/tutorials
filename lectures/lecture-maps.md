@@ -5,6 +5,7 @@ permalink: /lectures/lecture-maps/
 nomenu: true
 ---
 
+
 ## Maps
 
 Before we start talking about how to draw maps, a word of caution: maps are heavily over-used. A lot of information that is printed on top of maps would be better of in another type of chart. If we compare data of the five largest cities in the US, we don't need to do that on a map, everyone knows where New York, Los Angeles, Chicago, Houston, and Philadelphia are, but if we plot this on a map we give up our most important visual channel: position. We're no longer free to place things where we want!
@@ -18,129 +19,13 @@ But let's get to how we do maps with D3. Generally, there are two approaches:
 
 
  We'll be taking about both street maps and data maps, giving examples of how to go about using each one.
+ 
+### Data Maps
 
-### Street Maps 
-***
-
- Let's start off with street maps. These are used when the spatial context of your data is very import. That is, you care about the ability to navigate to a specific geographic location. You also get out of the box features such as zooming and panning. Examples of visualizations that use street maps include: (1) [Where the Pies Are](http://www.nytimes.com/interactive/2009/07/07/dining/20090708-pizza-map.html)  and ny
-
- The most common street map used is the [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial). 
-
- The key steps in getting a simple google map up and running on your web page are as follows: 
-
-1. **[Get an API Key for use with Google Maps](https://developers.google.com/maps/documentation/javascript/get-api-key)** 
-
-2. **Load the Google Map Javascript API using the ``<script>`` tag and using the newly created API key.** 
-
-3. **Create a div element with an id that will be hold the map**
-
-4. **Call the google.maps.Map endpoint to create a map inside our newly created div.**
-
-Let's see this in action: 
-
-{% include code.html id="google_map" file="google_map.html" code="" js="false" preview="true" %}
+Let's start off talking about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : (1) [A Map of Netflex Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future) , [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html), and [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html).  And last but not least, [Bars vs Grocery Stores](https://flowingdata.com/2014/05/29/bars-versus-grocery-stores-around-the-world/). In all these maps, the specific data and trends are the focus of the visualization. 
 
 
-####  The Map Object
-
-``` JS
-map = new google.maps.Map(document.getElementById("map"), {...});
-```
-
-The map object defines a single map on the page. You must create a new object for each new instance of a map that you want on the page.  The parameters for the map constructor are as follows: 
-
-``` Map(mapDiv:Node, opts?:MapOptions )	``` 
-
-where mapDiv is the DIV element where you want the map to live and MapOptions are the parameters that are used for creating this map. Of these parameters, only two are required: **center, and zoom**. 
-
-``` JS
-map = new google.maps.Map(document.getElementById('map'), {
-  center: {lat: -34.397, lng: 150.644},
-  zoom: 8,
-  mapTypeId: 'terrain' // Optional
-});
-```
-
-#### Zoom Levels 
-
-When you're setting the zoom levels programatically, it can be helpful to know how the numeric zoom level translates to the amount of detail your user can see in the map. Here is a helpful conversion table. 
-
-Zoom Level  | Level of Detail           
-------|------------------
-1  	| World   
-5  | Landmass/Continent   
-10 | City    
-15 | Streets 
-20 | Buildings 
-
-#### Map Types 
-
-The following map types are available in the API:
-
-1. `roadmap` displays the default road map view. This is the default map type.
-2. `satellite` displays Google Earth satellite images
-3. `hybrid` displays a mixture of normal and satellite views
-4. `terrain` displays a physical map based on terrain information.
-
-You can also set the mapTypeID programatically (say as a result of a user action) with : 
-
-``` JS
-map.setMapTypeId('terrain');
-```
-
-### Styled Maps
-
-Other than these basic customizations, you can go the extra mile and really change the look and feel of your google map with [Styled Maps](https://developers.google.com/maps/documentation/javascript/styling). 
-
-
-![Alt Image Text](./images/styledMaps.png)
-
-### Overlays - Adding D3 Visualizations to Google Maps
-
-Once you have a google map set up, you might want to add a layer with your d3 visualization of geographic elements. This is where ***Overlays*** come in. 
-
-Overlays are objects on the map that are tied to latitude/longitude coordinates, so they move when you drag or zoom the map. The Google Maps JavaScript API provides an OverlayView class for creating your own custom overlays.
-
-![Alt Image Text](./images/overlayView_highlighted.png)
-
-
-![Alt Image Text](./images/mapPanes_highlighted.png)
-
-
-![Alt Image Text](./images/mapCanvas_highlighted.png)
-
-
-The steps to create a custom overlay are: 
-
-1. Create a new instance of google.maps.OverlayView(). 
-2. Implement an onAdd() method on your instance of OverlayView. OverlayView.onAdd() will be called when the map is ready for the overlay to be attached. In the onAdd() method, you should create DOM objects and append them as children of the panes.
-3. Implement a draw() method on your instance of OverlayView() which handles the visual display of your object. OverlayView.draw() will be called when the object is first displayed.
-4. Attach the overlay to the map with OverlayView.setMap(map).
-
-You must call setMap() with a valid Map object to trigger the call to the onAdd() method. The setMap() method can be called at the time of construction or at any point afterward when the overlay should be re-shown after removing. The draw() method will then be called whenever a map property changes that could change the position of the element, such as zoom, center, or map type.
-
-
-<!--### A quick note on d3.entries()
-
-When dealing with javascript objects (such as json data) we often want to extract the key/value pairs and use them for positioning and labeling our markers in our svg. 
-
-We can use d3.entries() which returns an array containing the property keys and values of the specified object (an associative array). Each entry is an object with a key and value attribute, such as {key: "foo", value: 42}. The order of the returned array is undefined.
--->
-
-Let's step through an example of the steps above as we look at Hurricane Wind Data in 2005! 
-
-
-{% include code.html id="d3_google_map" file="d3_google_map.html" code="" js="false" preview="true" %}
-
-
-### Data Maps 
-***
-
-
-Now that we've covered using the Google Maps API, let's talk about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : (1) [A Map of Netflex Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future) , [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html), and [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html).  And last but not least, [Bars vs Grocery Stores](https://flowingdata.com/2014/05/29/bars-versus-grocery-stores-around-the-world/). In all these maps, the specific data and trends are the focus of the visualization. 
-
-
-Before we jump into rendering the map itself, let's take a look at the format in which geographic data is ususally handled on the web: geoJSON and topoJSON. 
+Before we jump into rendering the map itself, let's take a look at the format in which geographic data is ususally handled on the web: GeoJSON and TopoJSON. 
 
 ###  GeoJSON/TopoJSON
 
@@ -301,7 +186,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 }
 ```
 
-8. **Feature - a feature containing one of the above geometry objects.**
+8. Feature - a feature containing one of the above geometry objects.
 
 ``` JSON
 {
@@ -324,7 +209,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 ```
 
-9. **FeatureCollection - an array of feature objects.**
+9. FeatureCollection - an array of feature objects.
 
 ``` JSON
 {
@@ -480,3 +365,121 @@ Here is an example for how we can draw marks on top of maps, in this case the si
 Here is an example for a choropleth map, coloring each state by its agricultural output. The trick here is to join the data about the ouptut to the geography information:
 
 {% include code.html id="d3_choropleth" file="d3_choropleth.html" code="" js="false" preview="true" %}
+
+
+
+### Street Maps 
+***
+
+Now that we've seen how to create data maps purely with D3, let's take a look at street maps. These are used when the spatial context of your data is very import. That is, you care about the ability to navigate to a specific geographic location. You also get out of the box features such as zooming and panning. Examples of visualizations that use street maps include: (1) [Where the Pies Are](http://www.nytimes.com/interactive/2009/07/07/dining/20090708-pizza-map.html)  and ny
+
+ The most common street map used is the [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial). 
+
+ The key steps in getting a simple google map up and running on your web page are as follows: 
+
+1. **[Get an API Key for use with Google Maps](https://developers.google.com/maps/documentation/javascript/get-api-key)** 
+
+2. **Load the Google Map Javascript API using the ``<script>`` tag and using the newly created API key.** 
+
+3. **Create a div element with an id that will be hold the map**
+
+4. **Call the google.maps.Map endpoint to create a map inside our newly created div.**
+
+Let's see this in action: 
+
+{% include code.html id="google_map" file="google_map.html" code="" js="false" preview="true" %}
+
+
+####  The Map Object
+
+``` JS
+map = new google.maps.Map(document.getElementById("map"), {...});
+```
+
+The map object defines a single map on the page. You must create a new object for each new instance of a map that you want on the page.  The parameters for the map constructor are as follows: 
+
+``` Map(mapDiv:Node, opts?:MapOptions )	``` 
+
+where mapDiv is the DIV element where you want the map to live and MapOptions are the parameters that are used for creating this map. Of these parameters, only two are required: **center, and zoom**. 
+
+``` JS
+map = new google.maps.Map(document.getElementById('map'), {
+  center: {lat: -34.397, lng: 150.644},
+  zoom: 8,
+  mapTypeId: 'terrain' // Optional
+});
+```
+
+#### Zoom Levels 
+
+When you're setting the zoom levels programatically, it can be helpful to know how the numeric zoom level translates to the amount of detail your user can see in the map. Here is a helpful conversion table. 
+
+Zoom Level  | Level of Detail           
+------|------------------
+1  	| World   
+5  | Landmass/Continent   
+10 | City    
+15 | Streets 
+20 | Buildings 
+
+#### Map Types 
+
+The following map types are available in the API:
+
+1. `roadmap` displays the default road map view. This is the default map type.
+2. `satellite` displays Google Earth satellite images
+3. `hybrid` displays a mixture of normal and satellite views
+4. `terrain` displays a physical map based on terrain information.
+
+You can also set the mapTypeID programatically (say as a result of a user action) with : 
+
+``` JS
+map.setMapTypeId('terrain');
+```
+
+### Styled Maps
+
+Other than these basic customizations, you can go the extra mile and really change the look and feel of your google map with [Styled Maps](https://developers.google.com/maps/documentation/javascript/styling). 
+
+
+![Alt Image Text](./images/styledMaps.png)
+
+### Overlays - Adding D3 Visualizations to Google Maps
+
+Once you have a google map set up, you might want to add a layer with your d3 visualization of geographic elements. This is where ***Overlays*** come in. 
+
+Overlays are objects on the map that are tied to latitude/longitude coordinates, so they move when you drag or zoom the map. The Google Maps JavaScript API provides an OverlayView class for creating your own custom overlays.
+
+![Alt Image Text](./images/overlayView_highlighted.png)
+
+
+![Alt Image Text](./images/mapPanes_highlighted.png)
+
+
+![Alt Image Text](./images/mapCanvas_highlighted.png)
+
+
+The steps to create a custom overlay are: 
+
+1. Create a new instance of google.maps.OverlayView(). 
+2. Implement an onAdd() method on your instance of OverlayView. OverlayView.onAdd() will be called when the map is ready for the overlay to be attached. In the onAdd() method, you should create DOM objects and append them as children of the panes.
+3. Implement a draw() method on your instance of OverlayView() which handles the visual display of your object. OverlayView.draw() will be called when the object is first displayed.
+4. Attach the overlay to the map with OverlayView.setMap(map).
+
+You must call setMap() with a valid Map object to trigger the call to the onAdd() method. The setMap() method can be called at the time of construction or at any point afterward when the overlay should be re-shown after removing. The draw() method will then be called whenever a map property changes that could change the position of the element, such as zoom, center, or map type.
+
+
+<!--### A quick note on d3.entries()
+
+When dealing with javascript objects (such as json data) we often want to extract the key/value pairs and use them for positioning and labeling our markers in our svg. 
+
+We can use d3.entries() which returns an array containing the property keys and values of the specified object (an associative array). Each entry is an object with a key and value attribute, such as {key: "foo", value: 42}. The order of the returned array is undefined.
+-->
+
+Let's step through an example of the steps above as we look at Hurricane Wind Data in 2005! 
+
+
+{% include code.html id="d3_google_map" file="d3_google_map.html" code="" js="false" preview="true" %}
+
+
+
