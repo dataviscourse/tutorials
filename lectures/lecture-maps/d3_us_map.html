@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3: Loading GeoJSON data and generating SVG paths</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <style>
+        path {
+            fill: none;
+            stroke-width: 1px;
+            stroke: #222;
+        }
+    </style>
+</head>
+<body>
+<svg width="800" height="600">
+    <g id="mapLayer"></g>
+    <g id="cityLayer"></g>
+</svg>
+<script type="text/javascript">
+    {
+        let svg = d3.select("svg");
+        let width = parseInt(svg.attr("width"));
+        let height = parseInt(svg.attr("height"));
+
+        // In order to convert lat / lon (spherical!) coordinates to fit in the 2D
+        // coordinate system of our screen, we need to create a projection function:
+        let projection = d3.geoAlbersUsa()  // a USA-specific projection (that deals with Hawaii / Alaska)
+            .translate([width / 2, height / 2]) // this centers the map in our SVG element
+            .scale([700]);  // this specifies how much to zoom
+
+        // This converts the projected lat/lon coordinates into an SVG path string
+        let path = d3.geoPath()
+            .projection(projection);
+
+        // Load in GeoJSON data
+        d3.json("us-states.json", function (json) {
+            // Bind data and create one path per GeoJSON feature
+            d3.select("#mapLayer").selectAll("path")
+                .data(json.features)
+                .enter()
+                .append("path")
+                // here we use the familiar d attribute again to define the path
+                .attr("d", path);
+        });
+    }
+</script>
+</body>
+</html>

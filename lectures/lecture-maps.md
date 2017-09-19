@@ -337,16 +337,16 @@ You might be able to tell that the coordinates above use latitude and longitude 
 
 [Here is a showreel of all the projections supported by D3](http://bl.ocks.org/mbostock/3711652).
 
+Once projected to screen coordinates, the polygons can be easily converted into an SVG path with [`d3.geoPath()`](https://github.com/d3/d3-geo/blob/master/README.md#geoPath). The `geoPath()` function is an SVG path generator that takes in several different types of GeoJSON objects and returns a formatted SVG path. 
+ 
 
- Once projected to screen coordinates, the polygons can be easily converted into an SVG path with `d3.geoPath()` (as always, see the [API documentation here](https://github.com/d3/d3-geo/blob/master/README.md#geoPath)).
- 
- 
-The d3.geoPath() function is an SVG path generator that takes in several different types of GeoJSON objects and returns a formatted SVG path. 
- 
+Here is a simple example of rendering the US states: 
+
+{% include code.html id="d3_us_map" file="d3_us_map.html" code="" js="false" preview="true" %}
+
 ### Adding markers on top of D3 Map
 
-
-Here is an example for how we can draw marks on top of maps, in this case the size of cities:
+Now that we have the base map, we can draw marks on top of maps, in this case the size of cities:
 
 {% include code.html id="d3_cities" file="d3_cities.html" code="" js="false" preview="true" %}
 
