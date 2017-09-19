@@ -51,10 +51,17 @@ d3.csv("Katrina.csv", function(error, data) {
       var projection = this.getProjection(),
           padding = 10;
       
-      data.map(d=>d.wind = d['Wind(WMO)'])
+      //Pick a Hurricane to Focus on
+      let hurricane = 'KATRINA';
+
+      //Constrain background hurricanes to the North Atlantic
       data = data.filter(d=>{ return d.Basin == ' NA'})
-      // let nameMap = (d3.map(data,d=>{return d.Basin}))
-      // console.log(nameMap.keys())
+      
+      data.map(d=>d.wind = d['Wind(WMO)'])
+      data = data.sort(d=>d.Name == hurricane)
+
+
+     
       
       //Color Scale for Hurricane Winds from https://en.wikipedia.org/wiki/Template:Storm_colour
       let colorScale = d3.scaleLinear()
@@ -62,6 +69,11 @@ d3.csv("Katrina.csv", function(error, data) {
                 .domain([35,73,95,110,130,155,200])
                 // each color matches to an interpolation point
                 .range(['#5ebaff','#00faf4',"#ffffcc", "#ffe775",'#ffc140','#ff8f20','#ff6060',]);
+      
+      let windScale = d3.scaleLinear()
+                .domain([d3.min(data,d=>d.wind),d3.max(data,d=>d.wind)])
+                // each color matches to an interpolation point
+                .range([2,10]);
       
 
       var marker = layer.selectAll("svg")
@@ -73,10 +85,11 @@ d3.csv("Katrina.csv", function(error, data) {
 
       // Add a circle.
       marker.append("circle")
-          .attr("r", 4.5)
+          .attr("r", d=>windScale(d.wind))
           .attr("cx", padding)
           .attr("cy", padding)
-          .attr('fill',d=>{return colorScale(d.wind)})
+          .attr('fill',d=>{return d.Name == hurricane ? colorScale(d.wind) : 'gray'})
+          .style('opacity',.8)
       
 
       function transform(d) {
