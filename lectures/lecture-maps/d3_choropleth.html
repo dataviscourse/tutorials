@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>D3: Loading GeoJSON data and generating SVG paths</title>
-  <script src="https://d3js.org/d3.v4.js"></script>
-  <style>
-  path {
-    fill: none;
-    stroke-width: 1px;
-    stroke: #222;
-  }
-  </style>
+    <meta charset="utf-8">
+    <title>D3: Loading GeoJSON data and generating SVG paths</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <style>
+        path {
+            fill: none;
+            stroke-width: 1px;
+            stroke: #222;
+        }
+    </style>
 </head>
 <body>
-  <svg width="800" height="600">
+<svg width="800" height="600">
     <g id="mapLayer"></g>
-  </svg>
-  <script type="text/javascript">
+</svg>
+<script type="text/javascript">
+    {
+        let svg = d3.select("svg");
+        let width = parseInt(svg.attr("width"));
+        let height = parseInt(svg.attr("height"));
 
-  var svg = d3.select("svg");
-  var width = parseInt(svg.attr("width"));
-  var height = parseInt(svg.attr("height"));
+        let projection = d3.geoAlbersUsa()
+            .translate([width / 2, height / 2])
+            .scale([700]);
 
-  // In order to convert lat / lon (spherical!) coordinates to fit in the 2D
-  // coordinate system of our screen, we need to create a projection function:
-  var projection = d3.geoAlbersUsa()  // a USA-specific projection (that deals with Hawaii / Alaska)
-    .translate([width / 2, height / 2]) // this centers the map in our SVG element
-    .scale([700]);  // this specifies how much to zoom
+        let path = d3.geoPath()
+            .projection(projection);
 
-  // Like the arc generator in the pie chart, we need something to convert the
-  // projected lat/lon coordinates into an SVG path string:
-  var path = d3.geoPath()
-    .projection(projection);
+        // Define a quantized scale to sort data values into buckets of color
+        let color = d3.scaleQuantize()
+            .range(["#edf8fb",
+                "#b2e2e2",
+                "#66c2a4",
+                "#2ca25f",
+                "#006d2c"]);
 
-  // Define a quantized scale to sort data values into buckets of color
-  var color = d3.scaleQuantize()
-    .range(["#edf8fb",
-            "#b2e2e2",
-            "#66c2a4",
-            "#2ca25f",
-            "#006d2c"]);
+        // Load in GeoJSON data
+        d3.json("us-states.json", function (json) {
 
-  // Load in GeoJSON data
-  d3.json("us-states.json", function(json) {
+            // Load in the agriculture data; note that, unlike the city data,
+            // we have to do this AFTER we've already loaded the GeoJSON data
+            d3.csv("us-ag-productivity-2004.csv", function (stateData) {
+                // Set input domain for color scale based on the lowest and highest values in the data
+                color.domain([
+                    d3.min(stateData, function (d) {
+                        return d.value;
+                    }),
+                    d3.max(stateData, function (d) {
+                        return d.value;
+                    })
+                ]);
 
-    // Load in the agriculture data; note that, unlike the city data,
-    // we have to do this AFTER we've already loaded the GeoJSON data
-    d3.csv("us-ag-productivity-2004.csv", function(stateData) {
-      // Set input domain for color scale based on the lowest and highest values in the data
-      color.domain([
-        d3.min(stateData, function(d) { return d.value; }),
-        d3.max(stateData, function(d) { return d.value; })
-      ]);
+                // Convert the data array to an object, so that it's easy to look up
+                // data values by state names
+                let dataLookup = {};
+                stateData.forEach(function (stateRow) {
+                    // d3.csv will read the values as strings; we need to convert them to floats
+                    dataLookup[stateRow.state] = parseFloat(stateRow.value);
+                });
 
-      // Convert the data array to an object, so that it's easy to look up
-      // data values by state names
-      var dataLookup = {};
-      stateData.forEach(function (stateRow) {
-          // d3.csv will read the values as strings; we need to convert them to floats
-          dataLookup[stateRow.state] = parseFloat(stateRow.value);
-      });
+                // Now we add the data values to the geometry for every state
+                json.features.forEach(function (feature) {
+                    feature.properties.value = dataLookup[feature.properties.name];
+                });
 
-      // Now we add the data values to the geometry for every state
-      json.features.forEach(function (feature) {
-          feature.properties.value = dataLookup[feature.properties.name];
-      });
-
-      // Bind data and create one path per GeoJSON feature
-      d3.select("#mapLayer").selectAll("path")
-        .data(json.features)
-        .enter()
-        .append("path")
-        // here we use the familiar d attribute again to define the path
-        .attr("d", path)
-        .style("fill", function(d) {
-            return color(d.properties.value);
+                // Bind data and create one path per GeoJSON feature
+                d3.select("#mapLayer").selectAll("path")
+                    .data(json.features)
+                    .enter()
+                    .append("path")
+                    // here we use the familiar d attribute again to define the path
+                    .attr("d", path)
+                    .style("fill", function (d) {
+                        return color(d.properties.value);
+                    });
+            });
         });
-    });
-  });
-
-  </script>
+    }
+</script>
 </body>
 </html>
