@@ -22,21 +22,28 @@
   <body>
     <div id="map"></div>
     <script>
-      var map;
-      function initMap() {
-        // if using d3 instead of the native DOM API, the call should be: d3.select("#map").node(). 
-        //notice the use of node() to access the actual DOM node instead of the d3 selection. 
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat:  40.7608, lng: -111.8910}, //Salt Lake City
-          //center: {lat: -23.5505, lng: -46.6333}, // Sao Paulo, Brazil
-          zoom: 8,
-          // mapTypeId: 'terrain'
-        });
-      }
+        {
+            let map;
+
+            function initMap() {
+                // The first parameter of this function is the element that you want to render the map to.
+                // We here use the native DOM API.
+                // if using d3 instead of the native DOM API, the call should be: d3.select("#map").node().
+                // notice the use of node() to access the actual DOM node instead of the d3 selection.
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 40.7608, lng: -111.8910}, //Salt Lake City
+                    //center: {lat: -23.5505, lng: -46.6333}, // Sao Paulo, Brazil
+                    zoom: 8,
+                    // mapTypeId: 'terrain'
+                });
+            }
+        }
     </script>
     <!-- The script tag below including d3 is only necessary if using d3.select() in the map constructor above -->
     <!-- <script src="//d3js.org/d3.v4.js"></script> --> 
-<!--     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeuqYAoD2lUBNikOZng7QsNOXhZ9-mH5o&callback=initMap"
-    async defer></script> -->
+    <!-- Here this calls the initMap function -->
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+    async defer></script>
+    
   </body>
 </html>
