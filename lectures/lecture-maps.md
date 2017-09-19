@@ -346,11 +346,29 @@ Here is a simple example of rendering the US states:
 
 ### Adding markers on top of D3 Map
 
-Now that we have the base map, we can draw marks on top of maps, in this case the size of cities:
+Now that we have the base map, we can draw marks on top of maps, in this case the size of the [50 largest cities]({{site.baseurl}}/lectures/lecture-maps/us-cities.csv) in the US. Here are the first couple of lines of this file: 
+
+```csv
+rank,place,population,lat,lon
+1,New York city,8175133,40.71455,-74.007124
+2,Los Angeles city,3792621,34.05349,-118.245323
+3,Chicago city,2695598,45.37399,-92.888759
+4,Houston city,2099451,41.337462,-75.733627
+```
 
 {% include code.html id="d3_cities" file="d3_cities.html" code="" js="false" preview="true" %}
 
-Here is an example for a choropleth map, coloring each state by its agricultural output. The trick here is to join the data about the ouptut to the geography information:
+Here is an example for a choropleth map, coloring [each state by its agricultural output]({{site.baseurl}}/lectures/lecture-maps/us-ag-productivity-2004.csv). Here are the first couple of lines of this file: 
+
+```csv
+state,value
+Alabama,1.1791
+Arkansas,1.3705
+Arizona,1.3847
+California,1.7979
+```
+ 
+ The trick here is to join the data about the ouptut to the geography information:
 
 {% include code.html id="d3_choropleth" file="d3_choropleth.html" code="" js="false" preview="true" %}
 
