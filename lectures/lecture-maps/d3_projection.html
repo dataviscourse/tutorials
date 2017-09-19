@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>D3 Projections</title>
-  <script src="https://d3js.org/d3.v4.js"></script>
+    <meta charset="utf-8">
+    <title>D3 Projections</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
 </head>
 <body>
-  <script type="text/javascript">
+<script type="text/javascript">
+    {
+        let d = {'lon': -83.903347, 'lat': 38.769315};
+        // In order to convert lat / lon (spherical!) coordinates to fit in the 2D
+        // coordinate system of our screen, we need to create a projection function:
+        let projection = d3.geoAlbersUsa();  // a USA-specific projection (that deals with Hawaii / Alaska)
 
-   {
-    d={'lon':-83.903347,'lat':38.769315};
-    // In order to convert lat / lon (spherical!) coordinates to fit in the 2D
-    // coordinate system of our screen, we need to create a projection function:
-    var projection = d3.geoAlbersUsa()  // a USA-specific projection (that deals with Hawaii / Alaska)
-    
-    
-    let pos=projection([d.lon, d.lat])
-
-     console.log(pos);
-  }
-  </script>
+        let pos = projection([d.lon, d.lat]);
+        console.log("Original positions:");
+        console.log(d);
+        console.log("Projected positions: " + pos);
+    }
+</script>
 </body>
 </html>
