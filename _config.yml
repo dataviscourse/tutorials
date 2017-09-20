@@ -12,11 +12,12 @@ google_analytics: "UA-65153996-1"
 
 
 # Build settings
-#markdown: kramdown
-#kramdown:
-#   input: GFM
+markdown: kramdown
+kramdown:
+   input: GFM
 
 #highlighter: pygments
+highlighter: rouge
 
 permalink: pretty
 

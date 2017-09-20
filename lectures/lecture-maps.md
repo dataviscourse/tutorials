@@ -49,214 +49,213 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
   
   1. **Point** - a single position.
 
-```JSON
+``` javascript
 {
-    "type": "Point",
-    "coordinates": [
-        -105.01621,
-        39.57422
-    ]
+  "type": "Point",
+  "coordinates": [
+    -105.01621,
+    39.57422
+  ]
 }
 ```
 
 2. **MultiPoint** - an array of positions.
 
-```JSON
+``` javascript
 {
-    "type": "MultiPoint",
-    "coordinates": [
-        [
-            -105.01621,
-            39.57422
-        ],
-        [
-            -80.6665134,
-            35.0539943
-        ]
+  "type": "MultiPoint",
+  "coordinates": [
+    [
+      -105.01621,
+      39.57422
+    ],
+    [
+      -80.6665134,
+      35.0539943
     ]
+  ]
 }
 
 ```
 
 3. **LineString** - an array of positions forming a continuous line.
 
-```JSON
+``` javascript
 {
-    "type": "LineString",
-    "coordinates": [
-        [
-            -101.744384765625,
-            39.32155002466662
-        ],
-        [
-            -101.5521240234375,
-            39.330048552942415
-        ],
-        [
-            -101.40380859375,
-            39.330048552942415
-        ],
-        [
-            -101.33239746093749,
-            39.364032338047984
-        ],
-        [
-            -101.041259765625,
-            39.36827914916011
-        ]
+  "type": "LineString",
+  "coordinates": [
+    [
+      -101.744384765625,
+      39.32155002466662
+    ],
+    [
+      -101.5521240234375,
+      39.330048552942415
+    ],
+    [
+      -101.40380859375,
+      39.330048552942415
+    ],
+    [
+      -101.33239746093749,
+      39.364032338047984
+    ],
+    [
+      -101.041259765625,
+      39.36827914916011
     ]
+  ]
 }
 ```
 
 4. **MultiLineString** - an array of arrays of positions forming several lines.
 
-```JSON
+``` javascript
 {
-    "type": "MultiLineString",
-    "coordinates": [
-        [
-            [
-                -105.0214433670044,
-                39.57805759162015
-            ],
-            [
-                -105.02150774002075,
-                39.57780951131517
-            ],
-            [
-                -105.02157211303711,
-                39.57749527498758
-            ]
-        ],
-        [
-            [
-                -105.0142765045166,
-                39.57397242286402
-            ],
-            [
-                -105.01412630081175,
-                39.57403858136094
-            ]
-        ]
+  "type": "MultiLineString",
+  "coordinates": [
+    [
+      [
+        -105.0214433670044,
+        39.57805759162015
+      ],
+      [
+        -105.02150774002075,
+        39.57780951131517
+      ],
+      [
+        -105.02157211303711,
+        39.57749527498758
+      ]
+    ],
+    [
+      [
+        -105.0142765045166,
+        39.57397242286402
+      ],
+      [
+        -105.01412630081175,
+        39.57403858136094
+      ]
     ]
+  ]
 }
 ```
 
 5. **Polygon** - an array of arrays of positions forming a polygon (possibly with holes).
 
-```JSON
+``` javascript
 {
-    "type": "Polygon",
-    "coordinates": [...]
+  "type": "Polygon",
+  "coordinates": [...]
 }
 ```
 
 6. **MultiPolygon** - a multidimensional array of positions forming multiple polygons.
 
-```JSON
+``` javascript
 {
-    "type": "MultiPolygon",
-    "coordinates": [
+  "type": "MultiPolygon",
+  "coordinates": [
+    [
+      [
         [
-            [
-                [
-                    -84.32281494140625,
-                    34.9895035675793
-                ],...
-            ]
-        ]              
-                
+          -84.32281494140625,
+          34.9895035675793
+        ],...
+      ]
+    ]        
+  ]
+}      
 ```
 
 
 7. **GeometryCollection** - an array of geometry objects.
 
-```JSON
+``` javascript
 {
-    "type": "GeometryCollection",
-    "geometries": [
-        {
-            "type": "Point",
-            "coordinates": [
-                -80.66080570220947,
-                35.04939206472683
-            ]
-        },
-        {
-            "type": "Polygon",
-            "coordinates": [...]
-        }
-    ]
+  "type": "GeometryCollection",
+  "geometries": [
+    {
+      "type": "Point",
+      "coordinates": [
+        -80.66080570220947,
+        35.04939206472683
+      ]
+    },
+    {
+      "type": "Polygon",
+      "coordinates": [...]
+    }
+  ]
 }
 ```
 
 8. **Feature** - a feature containing one of the above geometry objects.
 
-```JSON
+``` javascript
 {
-    "type": "Feature",
-    "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-            [
-                [
-                    -80.72487831115721,
-                    35.26545403190955
-                ],...
-             ]
-          ]
-    },
-    "properties": {
-        "name": "Plaza Road Park"
-    }
+  "type": "Feature",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -80.72487831115721,
+          35.26545403190955
+        ],...
+       ]
+      ]
+  },
+  "properties": {
+    "name": "Plaza Road Park"
+  }
 }
-
 ```
 
 9. **FeatureCollection** - an array of feature objects.
 
-```JSON
+``` javascript
 {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -80.87088507656375,
-                    35.21515162500578
-                ]
-            },
-            "properties": {
-                "name": "ABBOTT NEIGHBORHOOD PARK",
-                "address": "1300  SPRUCE ST"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [
-                            -80.72487831115721,
-                            35.26545403190955
-                        ],
-                        [
-                            -80.72135925292969,
-                            35.26727607954368
-                        ]
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "Plaza Road Park"
-            }
-        }
-    ]
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.87088507656375,
+          35.21515162500578
+        ]
+      },
+      "properties": {
+        "name": "ABBOTT NEIGHBORHOOD PARK",
+        "address": "1300  SPRUCE ST"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -80.72487831115721,
+              35.26545403190955
+            ],
+            [
+              -80.72135925292969,
+              35.26727607954368
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "name": "Plaza Road Park"
+      }
+    }
+  ]
 }
-
 ```
 
 ### TopoJSON
@@ -278,17 +277,18 @@ If we simply open a topoJSON file in an editor, this is an example of what we wo
 
 Because D3 only handles data in the GeoJSON format, there is a d3 library that does the job of converting TopoJSON to GeoJSON. 
 
-```HTML
+``` html
 <script src="http://d3js.org/topojson.v1.min.js"></script>
-``` 
+```
 
 The TopoJSON client API supports converting TopoJSON objects into GeoJSON for use in a web browser. The usage is as follows:
 
-```JS
+``` javascript
 topojson.feature(topology, object)
 
 console.log(topojson.feature(json, json.objects.countries))
-``` 
+```
+
 
 ![Alt Image Text](./images/topo2geo.png)
 
@@ -297,20 +297,20 @@ console.log(topojson.feature(json, json.objects.countries))
 
 Let's take a closer look at a GeoJSON file that contains data for the US States. Here is a [data file containing US states](us-states.json).
 
-{% highlight javascript linenos %}
+``` javascript
 {
-     "type":  "FeatureCollection",
-     "features":
-     [
-         {
-             "type": "Feature",
-             "id": "01",
-             "properties": {"name": "Alabama"},
-             "geometry": {
-                "type": "Polygon",
-                "coordinates": [[[-87.359296, 35.00118], [-85.606675, 34.984749], [-85.431413,34.124869],[-85.184951,32.859696], ...
+   "type":  "FeatureCollection",
+   "features":
+   [
+     {
+       "type": "Feature",
+       "id": "01",
+       "properties": {"name": "Alabama"},
+       "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-87.359296, 35.00118], [-85.606675, 34.984749], [-85.431413,34.124869],[-85.184951,32.859696], ...
  }
- {% endhighlight %}
+```
 
 You can see that the coordinates are within the geometry object, and that the properties tell us that this is the shape representing Alabama.
 
@@ -348,7 +348,7 @@ Here is a simple example of rendering the US states:
 
 Now that we have the base map, we can draw marks on top of maps, in this case the size of the [50 largest cities]({{site.baseurl}}/lectures/lecture-maps/us-cities.csv) in the US. Here are the first couple of lines of this file: 
 
-```csv
+``` csv
 rank,place,population,lat,lon
 1,New York city,8175133,40.71455,-74.007124
 2,Los Angeles city,3792621,34.05349,-118.245323
@@ -360,7 +360,7 @@ rank,place,population,lat,lon
 
 Here is an example for a choropleth map, coloring [each state by its agricultural output]({{site.baseurl}}/lectures/lecture-maps/us-ag-productivity-2004.csv). Here are the first couple of lines of this file: 
 
-```csv
+``` csv
 state,value
 Alabama,1.1791
 Arkansas,1.3705
@@ -398,17 +398,16 @@ Let's see this in action:
 
 ###  The Map Object
 
-``` JS
+``` javascript
 map = new google.maps.Map(document.getElementById("map"), {...});
 ```
 
 The map object defines a single map on the page. You must create a new object for each new instance of a map that you want on the page.  The parameters for the map constructor are as follows: 
 
-``` Map(mapDiv:Node, opts?:MapOptions )	``` 
-
+``` Map(mapDiv:Node, opts?:MapOptions )	```
 where mapDiv is the DIV element where you want the map to live and MapOptions are the parameters that are used for creating this map. Of these parameters, only two are required: **center, and zoom**. 
 
-``` JS
+``` javascript
 map = new google.maps.Map(document.getElementById('map'), {
   center: {lat: -34.397, lng: 150.644},
   zoom: 8,
@@ -420,11 +419,11 @@ map = new google.maps.Map(document.getElementById('map'), {
 
 When you're setting the zoom levels programatically, it can be helpful to know how the numeric zoom level translates to the amount of detail your user can see in the map. Here is a helpful conversion table. 
 
-Zoom Level  | Level of Detail           
+Zoom Level  | Level of Detail       
 ------|------------------
 1  	| World   
 5  | Landmass/Continent   
-10 | City    
+10 | City  
 15 | Streets 
 20 | Buildings 
 
@@ -439,7 +438,7 @@ The following map types are available in the API:
 
 You can also set the mapTypeID programatically (say as a result of a user action) with : 
 
-``` JS
+``` javascript
 map.setMapTypeId('terrain');
 ```
 

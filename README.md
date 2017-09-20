@@ -1,6 +1,6 @@
 ### CS 5630 / CS 6630
 
-The 2016 Visualization website is built with [Jekyll](http://jekyllrb.com).
+The visualization tutorials website is built with [Jekyll](http://jekyllrb.com) and uses the github-pages plugin. It is build directly by github pages.
 
 #### Ubuntu Prerequisites
 
@@ -12,20 +12,39 @@ $ sudo apt-get install ruby-dev
 
 Requires Jekyll 3 or later.
 
-```ShellSession
+``` bash
 $ gem install jekyll
+$ gem install bundler
 ```
+
+Then clone the repository: 
+
+``` bash
+$ git clone https://github.com/dataviscourse/tutorials
+```
+
+We're on the gh-pages branch:
+``` bash
+$ cd tutorials
+$ git checkout gh-pages
+```
+
+Now install the necessary stuff: 
+``` bash
+$ bundle install
+```
+
 
 #### Generate and/or Serve Site
 
-```ShellSession
-$ jekyll serve 
+``` bash
+$ bundle exec jekyll serve
 ```
 
 #### View Site
 
 ```ShellSession
-$ open http://0.0.0.0:4000/2016/
+$ open http://0.0.0.0:4000/tutorials/
 ```
 
 ### Liquid Syntax
@@ -38,4 +57,9 @@ http://jekyll-windows.juthilo.com/1-ruby-and-devkit/
 
 ### Deployment
 
-just push your changes. An automatic build will compile it using jekyll 2.4.0 and push it to the public repository  
+Just push your changes, GitHub Pages will automatically build. 
+
+### Troubleshooting
+
+See [this tutorial](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/) if you're running into problems.
+
