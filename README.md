@@ -11,6 +11,15 @@ $ sudo apt-get install ruby-dev
 #### Setup
 
 Requires Jekyll 3 or later.
+Requires Ruby 2.1.0 or later
+
+You can find your version of Ruby with : 
+
+``` bash
+$ Ruby -v
+```
+
+If you need to update Ruby, instructions can be found [here](http://codingpad.maryspad.com/2017/04/29/update-mac-os-x-to-the-current-version-of-ruby/)
 
 ``` bash
 $ gem install jekyll
