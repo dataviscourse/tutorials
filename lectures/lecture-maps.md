@@ -75,7 +75,6 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
     ]
   ]
 }
-
 ```
 
 3. **LineString** - an array of positions forming a continuous line.
