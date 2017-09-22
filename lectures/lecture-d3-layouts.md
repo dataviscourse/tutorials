@@ -7,6 +7,91 @@ nomenu: true
 
 *Material based on Scott Murray's book and [blocks](http://bl.ocks.org/mbostock/3887235) [by](http://bl.ocks.org/mbostock/4062045) Mike Bostock*
 
+## Asynchronous Data Loading
+
+Before we jump into the world of layouts, let's quickly cover an important aspect related to data loading. The code snippet below loads in a file called myData.json, and when all the plotting is finished, prints 'Done Plotting' to the console.
+
+``` javascript
+console.log('Hello'); // Prints Hello
+
+ // Makes an async request for a resource from the server using d3.json
+$d3.json('myData.json', function (error,data) {
+    //d3 functions that will process and plot your data 
+     console.log('Done Plotting!'); // Prints when the request finishes
+});
+
+console.log('World'); // Prints World
+```
+The question is: What is the order in which the three statements above will print to the console? Hello , World, Done Plotting  or Hello, Done Plotting, World ?
+
+If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An asynchronous call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instaneous, and javascript does not wait for it to return before continuing to run the rest of the script. 
+
+In practice, what this means is that you will not have guaranteed access to the data inside MyData.json outside of the callback function for d3.json. So if you have something like this: 
+
+``` javascript
+ // Makes an async request for a resource from the server using d3.json
+$d3.json('myData.json', function (error,data) {
+		//Data wrangling and cleanup. 
+        console.log('Done Cleaning!'); // Prints when the request finishes
+});
+
+ //d3 functions that will process and plot your data 
+
+```
+
+Your d3 functions will be called, before d3.json has returned with the data inside myData.json and you will either get an error or no visualization at all. 
+
+### A Quick Introduction to Promises
+
+Promises are a pattern that help with asynchronous functions that returns a single result asynchronously. In the examples above, we saw a popular way of receiving this result, which is through a callback function. This function only evaluates once the asyncronous function returns a value. This pattern looks like this: 
+
+``` javascript
+asyncFunction(arg1, arg2,
+    result => {
+        console.log(result);
+    });
+    
+```
+
+A common problem with this approach is what is known as 'callback hell'. This happens when you have multiple asynchronous function calls and each of them must be nested within the callback of the previous one to ensure that they have access to the necessary data/results. 
+
+
+Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise, an object that serves as a placeholder and container for the final result. Callbacks registered via the Promise method then() are notified of the result: 
+
+``` javascript
+asyncFunction(arg1, arg2)
+.then(result => {
+    console.log(result);
+});
+
+```
+
+Using promises has a few advantages, such as (from [exploringjs.com](http://exploringjs.com/es6/ch_promises.html#sec_introduction-promises))
+
+* No inversion of control: similarly to synchronous code, Promise-based functions return results, they don’t (directly) continue – and control – execution via callbacks. That is, the caller stays in control.
+
+* Chaining is simpler: If the callback of then() returns a Promise (e.g. the result of calling another Promise-based function) then then() returns that Promise (how this really works is more complicated and explained later). As a consequence, you can chain then() method calls:
+
+``` javascript
+  asyncFunction1(a, b)
+  .then(result1 => {
+      console.log(result1);
+      return asyncFunction2(x, y);
+  })
+  .then(result2 => {
+      console.log(result2);
+  });
+  
+``` 
+
+* Composing asynchronous calls (loops, mapping, etc.): is a little easier, because you have data (Promise objects) you can work with.
+
+* Error handling: Error handling is simpler with Promises, because, once again, there isn’t an inversion of control. Furthermore, both exceptions and asynchronous errors are managed the same way.
+
+* Cleaner signatures: With callbacks, the parameters of a function are mixed; some are input for the function, others are responsible for delivering its output. With Promises, function signatures become cleaner; all parameters are input.
+
+* Standardized: Prior to Promises, there were several incompatible ways of handling asynchronous results (Node.js callbacks, XMLHttpRequest, IndexedDB, etc.). With Promises, there is a clearly defined standard: ECMAScript 6. ES6 follows the standard Promises/A+ [1]. Since ES6, an increasing number of APIs is based on Promises.
+
 ## Layouts
 
 Layouts make it easier to spatially arrange, shape and size elements representing data on the screen. While we've produced layouts ourselves already, we've only used simple position and size assignments that were directly driven by the data. And while these cover important classes of visualization techniques, there are more advanced techniques for different data types that are not as easily placed. Layouts are typically based on algorithms that define, e.g., where to put a node in a network visualization, or where to place a rectangle in a tree map. In this lecture we will learn how to use D3's layout features to render such complex layouts.
@@ -27,8 +112,28 @@ The interesting intermediate stages here are the values produced by the pie layo
 The path that is generated by the arc function, is the second piece of information: `M1.1634144591899855e-14,-190A190,190 0 1,1 -176.58002257840997,-70.13911623486732L0,0Z`. This defines the actual path drawn.
 
 
+## Hierarchy Layouts
 
-### A Force-Directed Graph Layout
+### Chord Layout
+
+Chord diagrams are often used to show directed relationships among a group of entities. 
+
+ {% include code.html id="d3_chord" file="d3_chord.html" code="" js="false" preview="true" %}
+
+
+### Tree Layout
+{% include code.html id="d3_tree" file="d3_tree.html" code="" js="false" preview="true" %}
+
+
+### Treemap Layout
+
+{% include code.html id="d3_tree_map" file="d3_tree_map.html" code="" js="false" preview="true" %}
+
+
+
+## Network Layouts
+
+### Node Link Force-Directed Graph Layout
 
 We've mainly talked about tabluar data up to this point. As we will soon learn, there are other data forms. A major other data form is the graph or network. Graphs describe relations between elements. The elements are usually referred to as nodes or vertices, the relationships as links or edges. A common, but not the only representation for graphs are node link diagrams, where nodes are often rendered as circles and edges as lines connecting the circles. There are many ways to lay the nodes in a graph out. We could have all nodes on a circle, or in a grid, or use some other method for laying them out. A common method is a force-directed layout. The idea behind a force directed layout is a physical model: the nodes repulse each other, while the edges are considered springs that pull each other close. The idea behind this is that as nodes that are tightly connected will be close to each other, i.e., form visible clusters, whereas nodes that are not connected are far from each other. The D3 implementation does not actually model this as springs, but as [geometric constraints](https://github.com/d3/d3-force#link_distance), but the mental model is still useful.
 
@@ -73,6 +178,7 @@ We then use the [force layout](https://github.com/d3/d3-force) to calculate the 
 
 
 The layout uses a "cooling" factor that stops the iteration cycle.
+
 
 ### Other Layouts
 
