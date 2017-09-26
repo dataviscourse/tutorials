@@ -230,6 +230,8 @@ simulation
 
  These happen to be the three forces that are at play in the example we will look through below. In order to understand their effect, let's take a look at what happens when we remove each one.
  
+ ![alt_text](./images/force_layout.gif)
+ 
 ### forceLink()
  
  The link force pushes linked nodes together or apart according to the desired link distance. When we remove it, there is nothing keeping the nodes together. 
@@ -240,7 +242,7 @@ simulation
      .force("center", d3.forceCenter(width / 2, height / 2));
 ```
 
-[alt_text](./images/force_layout.gif)
+![alt_text](./images/no_link.gif)
 
 
 The syntax for forceLink() is as follows: 
@@ -268,6 +270,7 @@ simulation
      .force("center", d3.forceCenter(width / 2, height / 2));
 ```
 
+![alt_text](./images/no_charge.gif)
 
 ### forceCenter()
 
@@ -278,7 +281,7 @@ simulation
      .force("link", d3.forceLink().id(function(d) { return d.id; }))
      .force("charge", d3.forceManyBody())
 ```
-
+![alt_text](./images/no_center.gif)
 
 ### forceCollide()
 
@@ -288,6 +291,8 @@ The collision force treats nodes as circles with a given radius, rather than poi
 simulation 
      .force("collide", d3.forceCollide([50])
 ```
+
+![alt_text](./images/collide.gif)
 
 
 ### d3.forceX([X]) / d3.forceY([y])
@@ -336,11 +341,7 @@ Each link is an object with the following properties:
 The collision force treats nodes as circles with a given radius, rather than points, and prevents nodes from overlapping
 
 
-
-
 The layout uses a "cooling" factor that stops the iteration cycle.
-
-{% include code.html id="d3_force_playground" file="d3_force_playground.html" code="" js="false" preview="true" %}
 
 
 
