@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+
+  .links line {
+    stroke: #999;
+    stroke-opacity: 0.6;
+  }
+
+  .nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+  }
+
+  </style>
+</head>
+<body>
+  <svg></svg>
+
+  <script>
+    {
+
+  var width = 800;
+  var height = 600;
+
+  var svg = d3.select("svg")
+    .attr('width', width)
+    .attr('height', height);
+
+  var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+  // Here we create our simulation, and give it some forces to apply to all the nodes:
+  var simulation = d3.forceSimulation()
+    // forceLink creates tension along each link, keeping connected nodes together
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    // forceManyBody creates a repulsive force between nodes, keeping them away from each other
+    .force("charge", d3.forceManyBody())
+    // forceCenter acts like gravity, keeping the whole visualization in the middle of the screen
+    .force("center", d3.forceCenter(width / 2, height / 2));
+
+  function myForce(alpha) {
+    const k = alpha * 1e-4;
+    myNodes.forEach(node => {
+      node.vx -= node.x * k;
+      node.vy -= node.y * k;
+    });
+  }
+
+
+
+
+  // This part triggers an asynchronous call to go grab the data in another file...
+  // stuff inside this function might not actually happen for a while!
+  d3.json("miserables.json", function(error, graph) {
+
+    const myNodes = graph.nodes;
+
+ 
+
+    d3.forceSimulation()
+      .nodes(myNodes)
+      .force('toZero', myForce)
+      .on('tick', () => {
+        // Draw nodes
+        const dot = domNode
+          .selectAll('circle')
+          .data(myNodes); 
+        
+        dot.merge(
+          dot.enter
+            .append('circle')
+            .attr('r', 5)
+        )
+          .attr('cx', d => d.x)
+          .attr('cy', d => d.y);
+      });
+
+    if (error) throw error;
+    // Okay, we didn't have any issues getting our data...
+
+    // First we create the links in their own group that comes before the node group;
+    // using groups like layers, the circles will always be on top of the lines
+  //   var linkLayer = svg.append("g")
+  //     .attr("class", "links");
+  //   // Now let's create the lines
+  //   var links = linkLayer.selectAll("line")
+  //     .data(graph.links)
+  //     .enter().append("line")
+  //     .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  //   // Now we create the node layer, and the nodes inside it
+  //   var nodeLayer = svg.append("g")
+  //     .attr("class", "nodes");
+  //   var nodes = nodeLayer
+  //     .selectAll("circle")
+  //     .data(graph.nodes)
+  //     .enter().append("circle")
+  //     .attr("r", 5)
+  //     .attr("fill", function(d) { return color(d.group); })
+  //     // This part adds event listeners to each of the nodes; when you click,
+  //     // move, and release the mouse on a node, each of these functions gets called
+  //     // (we've defined them at the end of the file)
+  //     .call(d3.drag()
+  //       .on("start", dragstarted)
+  //       .on("drag", dragged)
+  //       .on("end", dragended));
+
+  //   // We can add a tooltip to each node, so when you hover over a circle, you see the node's id
+  //   nodes.append("title")
+  //     .text(function(d) { return d.id; });
+
+  //   // Now that we have the data, let's give it to the simulation...
+  //   simulation.nodes(graph.nodes);
+  //   // The tension force (the forceLink that we named "link" above) also needs to know
+  //   // about the link data that we finally have - we couldn't give it earlier, because it
+  //   // hadn't been loaded yet!
+  //   simulation.force("link")
+  //     .links(graph.links);
+
+  //   // Finally, let's tell the simulation how to update the graphics
+  //   simulation.on("tick", function () {
+  //     // Every "tick" of the simulation will create / update each node's coordinates;
+  //     // we need to use those coordinates to move the lines and circles into place
+  //     links
+  //       .attr("x1", function(d) { return d.source.x; })
+  //       .attr("y1", function(d) { return d.source.y; })
+  //       .attr("x2", function(d) { return d.target.x; })
+  //       .attr("y2", function(d) { return d.target.y; });
+
+  //     nodes
+  //       .attr("cx", function(d) { return d.x; })
+  //       .attr("cy", function(d) { return d.y; });
+  //   });
+  });
+
+  // function dragstarted(d) {
+  //   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  //   d.fx = d.x;
+  //   d.fy = d.y;
+  // }
+
+  // function dragged(d) {
+  //   d.fx = d3.event.x;
+  //   d.fy = d3.event.y;
+  // }
+
+  // function dragended(d) {
+  //   if (!d3.event.active) simulation.alphaTarget(0);
+  //   d.fx = null;
+  //   d.fy = null;
+  // }
+}
+
+  </script>
+</body>
+</html>
