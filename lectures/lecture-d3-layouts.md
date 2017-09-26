@@ -136,12 +136,13 @@ promise.then(function(result) {
 ES6 introduced an even easier way of handling promises: `await`. The call to await will simply pause the execution of my method until the value from the promise is available.
 
 
-```  javscript 
+``` javascript 
 async function getFirstUser() {
     let users = await getUsers();
     return users[0].name;
 }
 ```
+
 Now we can revert to the try/catch functionality to catch errors:
 
 ```  javascript
