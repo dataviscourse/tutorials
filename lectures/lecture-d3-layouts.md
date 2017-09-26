@@ -210,7 +210,7 @@ Pie charts are a much criticised visualization technique as they have multiple w
 
 <!--In the following example, we use the [D3 pie layout](https://github.com/d3/d3-shape/blob/master/README.md#pie) to calculate the angles and the [d3.arc](https://github.com/d3/d3-shape#arcs) function to calculate the arcs used for drawing the wedges.-->
 
-Let us consider the following line of code: ` pie = d3.pie(data)`. It is important to note that the [`d3.pie()`](https://github.com/d3/d3-shape/blob/master/README.md#pie) call does not produce a shape directly, but computes the necessary angles to represent a dataset as a pie or donut chart. 
+Let us consider the following line of code: `pie = d3.pie(data)`. It is important to note that the [`d3.pie()`](https://github.com/d3/d3-shape/blob/master/README.md#pie) call does not produce a shape directly, but computes the necessary angles to represent a dataset as a pie or donut chart. 
 
 The data output by `d3.pie(data)` can then be used as follows: `arc = d3.arc(pie)`. 
 Here, [`d3.arc()`](https://github.com/d3/d3-shape#arcs) (the arc generator) produces a circular svg shape, as in a pie or donut chart.

@@ -1,133 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>D3 Pie</title>
-  <script src="https://d3js.org/d3.v4.js"></script>
+    <meta charset="UTF-8">
+    <title>D3 Pie</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
 </head>
 <body>
-  <svg></svg>
-</body>
-  <script>
+<svg></svg>
+<script>
     {
+        let data = [
+            {
+                os: "Android",
+                share: 82.8
+            },
+            {
+                os: "iOS",
+                share: 13.9
+            },
+            {
+                os: "Win",
+                share: 2.6
+            },
+            {
+                os: "BB",
+                share: 2.6
+            },
+            {
+                os: "",
+                share: 0.3
+            }
+        ];
 
-  var data = [
-    {
-      os: "Android",
-      share: 82.8
-    },
-    {
-      os: "iOS",
-      share: 13.9
-    },
-    {
-      os: "Win",
-      share: 2.6
-    },
-    {
-      os: "BB",
-      share: 2.6
-    },
-    {
-      os: "",
-      share: 0.3
+        let width = 800;
+        let height = 400;
+        let radius = Math.min(width, height) / 2 - 10;
+
+        let svg = d3.select("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        // A color scale for each of the slices
+        let color = d3.scaleOrdinal()
+            .range(['#b3e2cd',
+                '#fdcdac',
+                '#cbd5e8',
+                '#f4cae4',
+                '#e6f5c9']);
+
+        // This creates a pie layout generator; if you give it a data set, it will
+        // figure out the needed angles in order to draw a pie
+        let pie = d3.pie();
+
+        // Here we tell the pie generator which attribute
+        // of the object to use for the layout
+        pie.value(function (d) {
+            return d.share;
+        });
+        // You can customize the generator further...
+        // Add padding between the slices:
+        // pie.padAngle(0.05);
+        // Set the start and end angles:
+        // pie.startAngle(-Math.PI/2)
+        // pie.endAngle(Math.PI/2);
+
+        // Now that we've set up our generator, let's give it our data:
+        let pieData = pie(data);
+        // We'll log it to the console to see how it transformed the data:
+        console.log('pieData:', pieData);
+
+        // To make SVG pie slices, we still need more information - for that,
+        // we'll create an arc generator, that takes the computed pie data, and
+        // produces SVG path strings
+        let arc = d3.arc();
+
+        // Let's tell it how large we want it
+        arc.outerRadius(radius);
+        // We also need to give it an inner radius...
+        arc.innerRadius(0);
+        // If you change that number, it will give us donut slices instead of pie slices!
+
+        //Notice that you can also set a padding on the arc generator (instead of with d3.pie() )
+        //That being said, Mike Bostock himself suggest setting the padding with .pie() in order to preserve the relative areas of the arcs. 
+        // https://bl.ocks.org/mbostock/3e961b4c97a1b543fff2
+        //arc.padAngle(0.04)
+
+        //We can also round the corners with
+        //arc.cornerRadius(30)
+
+        // Let's test the arc generator, by giving it the first pie slice:
+        console.log('first arc:', arc(pieData[0]));
+
+        // With the pie data generator, and the arc path generator, we're
+        // finally ready to start drawing!
+
+        // We'll want a path and a text label for each slice, so first, we'll
+        // create a group element:
+        let groups = svg.selectAll("g").data(pieData)
+            .enter()
+            .append("g");
+
+        // Add the path, and use the arc generator to convert the pie data to
+        // an SVG shape
+        groups.append("path")
+            .attr("d", arc)
+            // While we're at it, let's set the color of the slice using our color scale
+            .style("fill", function (d) {
+                return color(d.data.os);
+            });
+
+        // Now let's add a label
+        groups.append("text")
+            .text(function (d) {
+                return d.data.os;
+            })
+            // We need to move the label to the middle of the slice. Our arc generator
+            // is smart enough to know how to do this. Notice that arc.centroid gives us the center of the visible wedge. 
+            .attr("transform", function (d) {
+                return "translate(" + arc.centroid(d) + ")";
+            })
+            // Finally some extra text styling to make it look nice:
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .style("font-size", "10px");
     }
-  ];
-
-  var width = 800;
-  var height = 400;
-  var radius = Math.min(width, height) / 2 - 10;
-
-  var svg = d3.select("svg")
-    .attr("width", width)
-    .attr("height",height)
-    .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-  // A color scale for each of the slices
-  var color = d3.scaleOrdinal()
-    .range(['#b3e2cd',
-            '#fdcdac',
-            '#cbd5e8',
-            '#f4cae4',
-            '#e6f5c9']);
-
-  // This creates a pie layout generator; if you give it a data set, it will
-  // figure out the needed angles in order to draw a pie
-  var pie = d3.pie();
-
-  // Here we tell the pie generator which attribute
-  // of the object to use for the layout
-  pie.value(function (d) {
-    return d.share;
-  });
-  // You can customize the generator further...
-  // Add padding between the slices:
-  // pie.padAngle(0.05);
-  // Set the start and end angles:
-  // pie.startAngle(-Math.PI/2)
-  // pie.endAngle(Math.PI/2);
-
-  // Now that we've set up our generator, let's give it our data:
-  var pieData = pie(data);
-  // We'll log it to the console to see how it transformed the data:
-  console.log('pieData:', pieData);
-
-  // To make SVG pie slices, we still need more information - for that,
-  // we'll create an arc generator, that takes the computed pie data, and
-  // produces SVG path strings
-  var arc = d3.arc();
-
-  // Let's tell it how large we want it
-  arc.outerRadius(radius);
-  // We also need to give it an inner radius...
-  arc.innerRadius(0);
-  // If you change that number, it will give us donut slices instead of pie slices!
-
-  //Notice that you can also set a padding on the arc generator (instead of with d3.pie() )
-  //That being said, Mike Bostock himself suggest setting the padding with .pie() in order to preserve the relative areas of the arcs. 
-  // https://bl.ocks.org/mbostock/3e961b4c97a1b543fff2
-  //arc.padAngle(0.04)
-
-  //We can also round the corners with
-   //arc.cornerRadius(30)
-
-  // Let's test the arc generator, by giving it the first pie slice:
-  console.log('first arc:', arc(pieData[0]));
-
-  // With the pie data generator, and the arc path generator, we're
-  // finally ready to start drawing!
-
-  // We'll want a path and a text label for each slice, so first, we'll
-  // create a group element:
-  var groups = svg.selectAll("g").data(pieData)
-    .enter()
-    .append("g");
-
-  // Add the path, and use the arc generator to convert the pie data to
-  // an SVG shape
-  groups.append("path")
-    .attr("d", arc)
-    // While we're at it, let's set the color of the slice using our color scale
-    .style("fill", function (d) {
-      return color(d.data.os);
-    });
-
-  // Now let's add a label
-  groups.append("text")
-    .text(function (d) {
-      return d.data.os;
-    })
-    // We need to move the label to the middle of the slice. Our arc generator
-    // is smart enough to know how to do this. Notice that arc.centroid gives us the center of the visible wedge. 
-    .attr("transform", function (d) {
-      return "translate(" + arc.centroid(d) + ")";
-    })
-    // Finally some extra text styling to make it look nice:
-    .attr("dy", ".35em")
-    .style("text-anchor", "middle")
-    .style("font-size", "10px");
-  }
-  </script>
+</script>
 </body>
 </html>
