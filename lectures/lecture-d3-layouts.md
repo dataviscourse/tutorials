@@ -24,7 +24,8 @@ console.log('World'); // Prints World
 ```
 The question is: What is the order in which the three statements above will print to the console? Hello , World, Done Plotting  or Hello, Done Plotting, World ?
 
-If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An asynchronous call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instaneous, and javascript does not wait for it to return before continuing to run the rest of the script. 
+
+If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An asynchronous call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instaneous, and javascript does not wait for it to return before continuing to run the rest of the script. Asyncronous functions are often related to doing I/O, e.g. downloading things, reading files, talking to databases, etc.
 
 In practice, what this means is that you will not have guaranteed access to the data inside MyData.json outside of the callback function for d3.json. So if you have something like this: 
 
@@ -47,26 +48,130 @@ Promises are a pattern that help with asynchronous functions that returns a sing
 
 ``` javascript
 asyncFunction(arg1, arg2,
-    result => {
+    function(result){
         console.log(result);
     });
     
 ```
 
-A common problem with this approach is what is known as 'callback hell'. This happens when you have multiple asynchronous function calls and each of them must be nested within the callback of the previous one to ensure that they have access to the necessary data/results. 
-
-
-Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise, an object that serves as a placeholder and container for the final result. Callbacks registered via the Promise method then() are notified of the result: 
+A common problem with this approach is what is known as 'callback hell'. This happens when you have multiple asynchronous function calls and each of them must be nested within the callback of the previous one to ensure that they have access to the necessary data/results.  Here is an example of callback hell: 
 
 ``` javascript
-asyncFunction(arg1, arg2)
-.then(result => {
-    console.log(result);
+async1(function(){
+    async2(function(){
+        async3(function(){
+            async4(function(){
+                ....
+            });
+        });
+    });
 });
-
 ```
 
-Using promises has a few advantages, such as (from [exploringjs.com](http://exploringjs.com/es6/ch_promises.html#sec_introduction-promises))
+
+Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise, an object that serves as a placeholder and container for the final result. Callbacks registered via the Promise method then() are notified of the result. Here is how we would fix the above example of callback hell with promises: 
+
+``` javascript
+
+// Callback approach
+async1(function(){
+    async2(function(){
+        async3(function(){
+            ....
+        });
+    });
+});
+
+// Promise approach
+var task1 = async1();
+var task2 = task1.then(async2);
+var task3 = task2.then(async3);
+
+task3.catch(function(){
+    // Solve your thrown errors from task1, task2, task3 here
+})
+
+// Promise approach with chaining
+async1(function(){..})
+    .then(async2)
+    .then(async3)
+    .catch(function(){
+        // Solve your thrown errors here
+    })
+```
+
+The asynchronous function itself should return a Promise Object. This Promise object has two methods, then and catch. The methods will later be called depending on the state (fulflled || rejected) of the Promise Object.
+
+A promise can be:
+
+* fulfilled - The action relating to the promise succeeded
+* rejected - The action relating to the promise failed
+* pending - Hasn't fulfilled or rejected yet
+* settled - Has fulfilled or rejected
+
+``` javascript
+asyncWithPromise() // Returns a promise object
+    .then(function(){ // if object's state is fulfilled, go here
+        ...
+    })
+    .catch(function(){ // if object's state is rejected, go here
+        ...
+    })
+```
+
+promise.then() takes two arguments, a callback for a success case, and another for the failure case. Both are optional, so you can add a callback for the success or failure case only.
+
+
+``` javascript
+promise.then(function(result) {
+  console.log(result); // "Stuff worked!"
+}, function(err) {
+  console.log(err); // Error: "It broke"
+});
+```
+
+
+
+## Async/await
+
+ES6 introduced an even easier way of handling promises: `await`. The call to await will simply pause the execution of my method until the value from the promise is available.
+
+
+```  javscript 
+async function getFirstUser() {
+    let users = await getUsers();
+    return users[0].name;
+}
+```
+Now we can revert to the try/catch functionality to catch errors:
+
+```  javascript
+async function getFirstUser() {
+    try {
+        let users = await getUsers();
+        return users[0].name;
+    } catch (err) {
+        return {
+            name: 'default user'
+        };
+    }
+}
+```
+
+So what happens if we type this: 
+
+``` javascript 
+let user = getFirstUser();
+```
+
+Because we didn't use the await syntax, `user` will refer to a promise object (rather than the resolved value).
+
+It’s important to remember: async functions don’t magically wait for themselves. You must await, or you’ll get a promise instead of the value you expect.
+
+And most importantly,  remember that async/await and promises are the same thing under the hood!
+
+<!--
+Using promises has a few advantages:
 
 * No inversion of control: similarly to synchronous code, Promise-based functions return results, they don’t (directly) continue – and control – execution via callbacks. That is, the caller stays in control.
 
@@ -91,6 +196,8 @@ Using promises has a few advantages, such as (from [exploringjs.com](http://expl
 * Cleaner signatures: With callbacks, the parameters of a function are mixed; some are input for the function, others are responsible for delivering its output. With Promises, function signatures become cleaner; all parameters are input.
 
 * Standardized: Prior to Promises, there were several incompatible ways of handling asynchronous results (Node.js callbacks, XMLHttpRequest, IndexedDB, etc.). With Promises, there is a clearly defined standard: ECMAScript 6. ES6 follows the standard Promises/A+ [1]. Since ES6, an increasing number of APIs is based on Promises.
+
+-->
 
 ## Layouts
 
@@ -153,6 +260,8 @@ Let's wrap up Chord Diagrams with this look at a storytelling piece that uses [C
 
 
 ### Treemap Layout
+
+This example is based on [this block](https://bl.ocks.org/mbostock/8fe6fa6ed1fa976e5dd76cfa4d816fec)
 
 {% include code.html id="d3_tree_map" file="d3_tree_map.html" code="" js="false" preview="true" %}
 
@@ -263,6 +372,8 @@ function id(d, i) {
 ### forceManyBody()
 
 The many-body force applies mutually amongst all nodes. It can be used to simulate gravity (attraction) if the strength is positive, or electrostatic charge (repulsion) if the strength is negative.
+
+You can set the strength of this force with d3.forceManyBody().strength([strength]). If strength is not specified, returns the current strength accessor, which defaults to -30. 
  
 ``` javascript 
 simulation      
@@ -304,13 +415,15 @@ To fix a node in a given position, specify:
 fx - the node’s fixed x-position
 fy - the node’s fixed y-position
 
+![alt_text](./images/fixed_node.gif)
 
+
+### Rendering the Simulation
 So we've created a simulation and added forces, now we assign nodes to the simulation: 
 
 ``` javascript
 simulation
      .nodes(graph.nodes)
-     .on("tick", ticked);
 ```
 
 Each node must be an object. The following properties are assigned by the simulation:
@@ -334,11 +447,9 @@ Each link is an object with the following properties:
 * target - the link’s target node; 
 * index - the zero-based index into links, assigned by this method
 
+Let's check out a complete example: 
+
 {% include code.html id="d3_force" file="d3_force.html" code="" js="false" preview="true" %}
-
-
-
-The collision force treats nodes as circles with a given radius, rather than points, and prevents nodes from overlapping
 
 
 The layout uses a "cooling" factor that stops the iteration cycle.
