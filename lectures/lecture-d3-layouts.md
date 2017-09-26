@@ -296,6 +296,80 @@ Let's wrap up Chord Diagrams with this look at a really creative use of a Chord 
 
 ### Tree Layout
 
+Let's talk about trees, a very common layout for hierarchical data. 
+
+d3.tree() Creates a new tree layout with default settings. 
+
+However, before we can compute a hierarchical layout, we need a root node. If our data is already in a hierarchical format, such as JSON, we can pass it directly to d3.hierarchy; otherwise, we can rearrange tabular data, such as comma-separated values (CSV), into a hierarchy using d3.stratify.
+
+Let's assume with have this data: 
+
+``` javascript
+
+{
+  "name": "Eve",
+  "children": [
+    {
+      "name": "Cain"
+    },
+    {
+      "name": "Seth",
+      "children": [
+        {
+          "name": "Enos"
+        },
+        {
+          "name": "Noam"
+        }
+      ]
+    },
+    {
+      "name": "Abel"
+    },
+    {
+      "name": "Awan",
+      "children": [
+        {
+          "name": "Enoch"
+        }
+      ]
+    },
+    {
+      "name": "Azura"
+    }
+  ]
+}
+```
+
+
+We can now call d3.hierarchy on this data as such:
+
+```javascript
+let root = d3.hierarchy(data[, children]) 
+```
+The returned node root and each descendant has the following properties:
+
+* node.data - the associated data, as specified to the constructor.
+* node.depth - zero for the root node, and increasing by one for each descendant generation.
+* node.height - zero for leaf nodes, and the greatest distance from any descendant leaf for internal nodes.
+* node.parent - the parent node, or null for the root node.
+* node.children - an array of child nodes, if any; undefined for leaf nodes.
+* node.value - the summed value of the node and its descendants; optional, see node.sum and node.count.
+
+
+the node objects also have two functions that will prove useful in this context: 
+* node.ancestors() - Returns the array of ancestors nodes, starting with this node, then followed by each parent up to the root.
+
+* node.descendants() - Returns the array of descendant nodes, starting with this node, then followed by each child in topological order.
+
+Once we have our root node, we can feed it into the tree layout. 
+
+tree(root) Lays out the specified root hierarchy, assigning the following properties on root and its descendants:
+
+* node.x - the x-coordinate of the node
+* node.y - the y-coordinate of the node
+
+
 
 {% include code.html id="d3_tree" file="d3_tree.html" code="" js="false" preview="true" %}
 
