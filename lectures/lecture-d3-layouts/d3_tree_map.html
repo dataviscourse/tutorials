@@ -87,6 +87,7 @@ d3.csv("d3.csv", function(d) {
       .attr("xlink:href", function(d) { var p = d.data.path.split("/"); return "https://github.com/" + p.slice(0, 2).join("/") + "/blob/v" + version[p[1]] + "/src/" + p.slice(2).join("/"); })
       .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; });
 
+  //Notice that the fill is dependent on the hierarchy (2 levels up)
   cell.append("rect")
       .attr("id", function(d) { return d.id; })
       .attr("width", function(d) { return d.x1 - d.x0; })

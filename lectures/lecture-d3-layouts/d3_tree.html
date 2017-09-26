@@ -65,6 +65,8 @@ let treemap = d3.tree().size([height, width]);
 
 // Assigns parent, children, height, depth
 root = d3.hierarchy(treeData, function(d) { return d.children; });
+
+//We use x0 and y0 to keep track of the parent's position. We will use it to animate the children. 
 root.x0 = height / 2;
 root.y0 = 0;
 
@@ -74,8 +76,8 @@ root.children.forEach(collapse);
 update(root);
 
 // Collapse the node and all it's children
+//Here we create a _children attribute to hide the 'hidden' children. 
 function collapse(d) {
-  console.log(d);
   if(d.children) {
     d._children = d.children
     d._children.forEach(collapse)

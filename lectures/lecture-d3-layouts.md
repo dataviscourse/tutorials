@@ -364,7 +364,7 @@ the node objects also have two functions that will prove useful in this context:
 
 Once we have our root node, we can feed it into the tree layout. 
 
-tree(root) Lays out the specified root hierarchy, assigning the following properties on root and its descendants:
+tree(root) Lays out the specified root hierarchy, assigning the following properties on root and its descendants and assigns a x and y coordinate to each node. 
 
 * node.x - the x-coordinate of the node
 * node.y - the y-coordinate of the node
@@ -376,7 +376,57 @@ tree(root) Lays out the specified root hierarchy, assigning the following proper
 
 ### Treemap Layout
 
+Introduced by Ben Shneiderman in 1991, a treemap recursively subdivides area into rectangles according to each node’s associated value.
+
 This example is based on [this block](https://bl.ocks.org/mbostock/8fe6fa6ed1fa976e5dd76cfa4d816fec)
+
+For the Treemap layout we will be looking at how to convert tabular data in csv form to the final layout. 
+
+Let's consider our input data, which looks something like this: 
+
+```  csv
+size,path
+90,d3/d3-array/array.js
+86,d3/d3-array/ascending.js
+238,d3/d3-array/bisect.js
+786,d3/d3-array/bisector.js
+72,d3/d3-array/constant.js
+86,d3/d3-array/descending.js
+```
+
+Because our final layout is meant to represent hierarchical data, we must first wrangle this table into a hierarchy of some sort. 
+
+Enter, d3.stratify(); 
+
+d3.stratify()(data) generates a new hierarchy from the specified tabular data. Let's take a closer look at what this means: 
+
+``` javascript
+//construc a new stratify operator
+var root = d3.stratify()
+    .id(function(d) { return d.name; })
+    .parentId(function(d) { return d.parent; })
+
+//Add data to our stratify operator
+root(table)
+```
+
+Root now looks like this: 
+
+ ![alt_text](./images/stratify.png)
+ 
+Once we have our root, we can use d3.treemap() to get our layout/positions: 
+
+d3.treemap()- Creates a new treemap layout with default settings.
+
+treemap(root) - Lays out the specified root hierarchy, assigning the following properties on root and its descendants:
+
+* node.x0 - the left edge of the rectangle
+* node.y0 - the top edge of the rectangle
+* node.x1 - the right edge of the rectangle
+* node.y1 - the bottom edge of the rectangle
+
+Note that you must call root.sum before passing the hierarchy to the treemap layout. You probably also want to call root.sort to order the hierarchy before computing the layout. Any ideas why? 
+ 
 
 {% include code.html id="d3_tree_map" file="d3_tree_map.html" code="" js="false" preview="true" %}
 
@@ -568,6 +618,8 @@ Let's check out a complete example:
 
 
 The layout uses a "cooling" factor that stops the iteration cycle.
+
+And to wrap up [a cool example using custom made forces!](http://slides.com/vasturiano/unconf2017#/8)
 
 
 
