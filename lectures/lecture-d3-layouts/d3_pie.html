@@ -84,6 +84,14 @@
   arc.innerRadius(0);
   // If you change that number, it will give us donut slices instead of pie slices!
 
+  //Notice that you can also set a padding on the arc generator (instead of with d3.pie() )
+  //That being said, Mike Bostock himself suggest setting the padding with .pie() in order to preserve the relative areas of the arcs. 
+  // https://bl.ocks.org/mbostock/3e961b4c97a1b543fff2
+  //arc.padAngle(0.04)
+
+  //We can also round the corners with
+   arc.cornerRadius(30)
+
   // Let's test the arc generator, by giving it the first pie slice:
   console.log('first arc:', arc(pieData[0]));
 
@@ -111,7 +119,7 @@
       return d.data.os;
     })
     // We need to move the label to the middle of the slice. Our arc generator
-    // is smart enough to know how to do this:
+    // is smart enough to know how to do this. Notice that arc.centroid gives us the center of the visible wedge. 
     .attr("transform", function (d) {
       return "translate(" + arc.centroid(d) + ")";
     })
