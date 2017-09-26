@@ -1,6 +1,6 @@
 ---
 layout: code-lecture
-title:  Advanced D3&#58; Layouts and Maps
+title:  Advanced D3&#58; Layouts
 permalink: /lectures/lecture-d3-layouts/
 nomenu: true
 ---
@@ -15,7 +15,7 @@ Before we jump into the world of layouts, let's quickly cover an important aspec
 console.log('Hello'); // Prints Hello
 
  // Makes an async request for a resource from the server using d3.json
-$d3.json('myData.json', function (error,data) {
+d3.json('myData.json', function (error,data) {
     //d3 functions that will process and plot your data 
      console.log('Done Plotting!'); // Prints when the request finishes
 });
@@ -25,13 +25,13 @@ console.log('World'); // Prints World
 The question is: What is the order in which the three statements above will print to the console? Hello , World, Done Plotting  or Hello, Done Plotting, World ?
 
 
-If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An asynchronous call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instaneous, and javascript does not wait for it to return before continuing to run the rest of the script. Asyncronous functions are often related to doing I/O, e.g. downloading things, reading files, talking to databases, etc.
+If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An asynchronous call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instantaneous, and javascript does not wait for it to return before continuing to run the rest of the script. Asynchronous functions are often related to doing I/O, e.g. downloading things, reading files, talking to databases, etc.
 
 In practice, what this means is that you will not have guaranteed access to the data inside MyData.json outside of the callback function for d3.json. So if you have something like this: 
 
 ``` javascript
  // Makes an async request for a resource from the server using d3.json
-$d3.json('myData.json', function (error,data) {
+d3.json('myData.json', function (error,data) {
 		//Data wrangling and cleanup. 
         console.log('Done Cleaning!'); // Prints when the request finishes
 });
@@ -72,7 +72,6 @@ async1(function(){
 Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise, an object that serves as a placeholder and container for the final result. Callbacks registered via the Promise method then() are notified of the result. Here is how we would fix the above example of callback hell with promises: 
 
 ``` javascript
-
 // Callback approach
 async1(function(){
     async2(function(){
