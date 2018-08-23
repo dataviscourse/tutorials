@@ -63,7 +63,7 @@ To create a **local variable**, use the keyword ``var``, ``let``, or ``const``. 
 
 So what is the difference between these? 
 
- * ``var``creates variables of **function scope**. That means that the only way to isolate a variable, is to wrap it in a function. This is different from most programming languages, and has rarely advantages. 
+ * ``var``creates variables of **function scope**. That means that the only way to isolate a variable, is to wrap it in a function. This is different from most programming languages, and rarely has advantages. 
  * ``let`` creates a variable of **block scope**, which is similar to most other programming languages. The means that a variable defined with ``let`` within an ``if`` clause, cannot be accessed outside of that ``if`` clause. 
  * `` const`` creates a variable of **block scope** (again, if defined within a block, otherwise global) where the variable can't be reassigned. That doesn't mean that the variable is immutable, though, it just means that it can't be reassigned.
  
