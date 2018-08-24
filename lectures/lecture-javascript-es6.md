@@ -7,35 +7,35 @@ nomenu: true
 
 *Material based on the lecture by [Carlos Scheidegger](http://cscheid.net/courses/spr15/cs444/lectures/week3.html)* 
 
-If you’re following the text below, my suggestion is that you either open the Developer Tools’s JavaScript console on a browser window, and type the examples to see what they do, like we go over in class. You should also try variants, and just generally play around with the console, to get a feel for the language.
+If you’re following the text below, my suggestion is that you open the Developer Tools’s JavaScript console on a browser window and type the examples to see what they do, like we go over in class. You should also try variants, and just generally play around with the console, to get a feel for the language.
 
-Before we get started, though, a few words of warning: there is a lot of bad JavaScript advice on the internet. For example, although StackOverflow is typically a high-quality Q&A website, I would stay well away from it when it comes to JavaScript (why that is the case is beyond my understanding). Finally, the introduction below is not meant to give you a comprehensive description of JavaScript, but rather a foothold.
+Before we get started, though, a few words of warning: there is a lot of bad JavaScript advice on the internet. For example, although StackOverflow is typically a high-quality Q&A website, I would stay well away from it when it comes to JavaScript (why that is the case is beyond my understanding). Finally, the introduction below is not meant to give you a comprehensive description of JavaScript but, rather, a foothold.
 
-Once you become proficient in the language, then you can start worrying about best practices and special cases, especially as they related to performance and portability across browsers. It’s easier for you simply not to worry about that kind of stuff right now. (This does mean that if you’re a veteran JavaScript programmer, you’ll spot places where what I’m writing is not 100% accurate. If you were to complain, you’d be technically correct (which is the best kind of correct), but what are you doing reading a JavaScript beginner’s guide?
+Once you become proficient in the language, then you can start worrying about best practices and special cases, especially as they related to performance and portability across browsers. It’s easier for you simply not to worry about that kind of stuff right now. This does mean that if you’re a veteran JavaScript programmer, you’ll spot places where what I’m writing is not 100% accurate. If you were to complain, you’d be technically correct (which is the best kind of correct), but what are you doing reading a JavaScript beginner’s guide?
 
 ## JavaScript Background
 
-Why do we want to use JavaScript? So far we have only written **static HTML and SVG code**. In your homework, for example, you have to encode a dataset by hand multiple times: for your line-chart, bar chart, scatterplot, etc.
-If we had a dynamic and general way to load the data, we could use the same variables for all charts and we could also plot the charts with various datasets of different size and with different characteristics. I like to think of pure HTML and SVG as analogous to pen and paper - you can create things that look nice once, but you **can't re-use them efficiently and you can't interact with them**. Computer programming brings **interactivity and generalizability (re-use)** to the table. We can tell the computer how to do something for certain classes of (legal) input, and the computer will do that for all possible cases of legal input. 
+Why do we want to use JavaScript? So far, we have only written **static HTML and SVG code**. In your homework, for example, you have to encode a dataset by hand multiple times: for your line-chart, bar chart, scatterplot, etc.
+If we had a dynamic and general way to load the data, we could use the same variables for all charts and we could also plot the charts with various datasets of different size and with different characteristics. I like to think of pure HTML and SVG as analogous to pen and paper - you can create things that look nice once, but you **can't re-use them efficiently and you can't interact with them**. Computer programming brings **interactivity and generalizability (re-use)** to the table. We can tell the computer how to do something for certain classes of legal input, and the computer will do that for all possible cases of legal input. 
   
-JavaScript is the most important programming language of the web, and the only programming language that can be used on most web-browsers without any plugins. Alternatives such as Java Applets or Flash were popular in the past but have lost significant ground to JavaScript and will be discontinued in the near future. JavaScript is mostly used on the client-side of a client-server application, other languages such as Java and Python are popular on the server, but JavaScript is nowadays also used on the server e.g., using [Node.js](https://nodejs.org/). We will be focusing on the client-side in this class. 
+JavaScript is the most important programming language of the web and the only programming language that can be used on most web-browsers without any plugins. Alternatives such as Java Applets or Flash were popular in the past but have lost significant ground to JavaScript and will be discontinued in the near future. JavaScript is mostly used on the client-side of a client-server application. Other languages such as Java and Python are popular on the server, though nowadays JavaScript can also be used on the server (e.g., using [Node.js](https://nodejs.org/). We will be focusing on the client-side in this class. 
 
 JavaScript can be used with **imperative/procedural, object-oriented, and functional programming styles**.  
 
 It is a **dynamically typed language**, which can be strange for developers who mainly work with strongly typed languages such as C/C++ and Java. 
 
-Also, Javascript uses **prototypical inheritance** instead of a class-based model for it's object oriented purposes, yet the latest version of JavaScript has introduced "syntactic sugar" to make object-oriented programming more consistent with other programming languages. That means there now are "class" definitions, but you still can use the prototypical features for inheritance that can be extended at runtime. If this doesn't mean much to you now, don't worry - we'll go through it slowly.
+Also, Javascript uses **prototypical inheritance** instead of a class-based model for it's object oriented purposes. The latest version of JavaScript *has* introduced "syntactic sugar" to make object-oriented programming more consistent with other programming languages. That means there now are "class" definitions, but you can still use the prototypical features for inheritance that can be extended at runtime. If this doesn't mean much to you now, don't worry - we'll go through it slowly.
 
 
 ## Versioning and Transpiling 
 
-JavaScript has undergone many versions, and a while ago the JavaScript language started to be standardized by the Ecma International. Significant changes were introduced with ECMAScript 6 in 2015 (also called ECMAScript 2015), which is the basis of this tutorial. Since then, ECMAScript has transitioned to a more incremental update plan, so that ECMAScript 7 and 8 are only minor updates.  
+JavaScript has undergone many versions, and, a while ago, the JavaScript language started to be standardized by the Ecma International. Significant changes were introduced with ECMAScript 6 in 2015 (also called ECMAScript 2015), which is the basis of this tutorial. Since then, ECMAScript has transitioned to a more incremental update plan, so that ECMAScript 7 and 8 are only minor updates.  
 
 Instead of relying on a particular version, you should check for the availability of features [across browsers](http://kangax.github.io/compat-table/es2016plus/).
 
-Older browsers, even those that are currently still in use (I'm NOT talking about Internet Explorer 6 here), will unlikely support current and future features. Fortunately, there are various remedies for that, so that you can start using these features now. Note that for all classwork, we will be using the latest Google Chrome, so you can rely on that and avoid using these remedies. 
+Older browsers, even those that are currently still in use (I'm NOT talking about Internet Explorer 6 here), will unlikely support current and future features. Fortunately, there are various remedies for this, so that you can start using these features now. Note that, for all classwork, we will be using the latest Google Chrome, which will avoid the need to use such remedies. 
  
-The most important approach to making your state-of-the-art JavaScript code compatible is transpiling. I.e, you take your code, run a transpiler (transformation + compiling) such as [Babel](http://babeljs.io/repl/), and out comes an ECMAScript 5 compatible code file. 
+The most important approach to making your state-of-the-art JavaScript code compatible is *transpiling*. You take your code, run a transpiler (transformation + compiling) such as [Babel](http://babeljs.io/repl/), and out comes an ECMAScript 5 compatible code file. 
  
 Here is an example of how a ES6 code feature is transpiled into ES5 code:
  
@@ -47,7 +47,7 @@ Again, you won't need to do this for this class, but in modern web-development t
 
 If you know any other mainstream programming language, JavaScript will feel sufficiently familiar. 
 
-We can write to the console (helpful for debugging by calling the log method of the console object). **Hint: open up your browser's developer tools to see the output generated by the examples here. Type in a `clear()` and re-execute this as we go so that it's easier to follow along)**
+We can write to the console (helpful for debugging by calling the *log* method of the *console* object). **Hint: open up your browser's developer tools to see the output generated by the examples here. Type in a `clear()` and re-execute this as we go so that it's easier to follow along)**
 
 {% include code.html id="consolelog" file="consolelog.js" code="" js="true" preview="false" %}
 
@@ -63,14 +63,14 @@ To create a **local variable**, use the keyword ``var``, ``let``, or ``const``. 
 
 So what is the difference between these? 
 
- * ``var``creates variables of **function scope**. That means that the only way to isolate a variable, is to wrap it in a function. This is different from most programming languages, and rarely has advantages. 
- * ``let`` creates a variable of **block scope**, which is similar to most other programming languages. The means that a variable defined with ``let`` within an ``if`` clause, cannot be accessed outside of that ``if`` clause. 
- * `` const`` creates a variable of **block scope** (again, if defined within a block, otherwise global) where the variable can't be reassigned. That doesn't mean that the variable is immutable, though, it just means that it can't be reassigned.
+ * ``var``creates variables of **function scope**. That means that the only way to isolate a variable is to wrap it in a function. This is different from most programming languages and rarely has advantages. 
+ * ``let`` creates a variable of **block scope**, which is similar to most other programming languages. The means that a variable defined with ``let`` within an ``if`` clause cannot be accessed outside of that ``if`` clause. 
+ * `` const`` creates a variable of **block scope** (again, if defined within a block, otherwise global) where the variable can't be reassigned. That doesn't mean that the variable is immutable, though. It just means that it can't be reassigned.
  
  {% include code.html id="scope" file="scope.js" code="" js="true" preview="false" %}
 
 
-As a general rule: **minimize your use of global variables, and never define global variables in a function**.
+As a general rule: **minimize your use of global variables and never define global variables in a function**.
 
 You can execute **operations** on these variables. Below are a couple of important examples, refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators)  for the full list:
 
@@ -100,13 +100,13 @@ JavaScript comes with standard conditional control structures - if and switch.
 
 ### Loops
 
-Loops are C-like: for, do-while and while loops are available. To loop over arrays, use either a regular for loop, the [forEach function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) of arrays, or the new for-of statement.
+Loops are C-like: for, do-while, and while loops are available. To loop over arrays, use either a regular for loop, the [forEach function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) of arrays, or the new for-of statement.
 
 {% include code.html id="mloops" file="loops.js" code="" js="true" preview="false" %}
 
 ### Functions
 
-Functions are one of the key features in computer science and are common to almost all programming languages. JavaScript uses function both the way we know them from languages such as C or Java, but also allows anonymous functions. 
+Functions are one of the key features in computer science and are common to almost all programming languages. JavaScript not only uses functions the way we know them from languages such as C or Java but also allows anonymous functions. 
 
 {% include code.html id="mfunctions" file="functions.js" code="" js="true" preview="false" %}
 
@@ -119,7 +119,7 @@ Local variables in JavaScript use scope as you'd hope they would:
 There is an alternative way of defining functions:
 {% include code.html id="function_expression" file="function_expression.js" code="" js="true" preview="false" %}
 
-Pay attention to what’s happening here: this is assigning a value to a variable, in the same way that x = "hi" assigns the string value "hi" to the variable x. But that value is a function! This is important. In JavaScript, **functions are values that can be stored in variables**. This is your first exposure to the idea that JavaScript is a “functional” language. In the same way that you can store function values in variables, you can pass them around as parameters, store them in arrays, object fields, and even use them as return values of other functions! This is a powerful idea that we will use a lot.
+Pay attention to what’s happening here: this is assigning a value to a variable in the same way that x = "hi" assigns the string value "hi" to the variable x. But that value is a function! This is important. In JavaScript, **functions are values that can be stored in variables**. This is your first exposure to the idea that JavaScript is a “functional” language. In the same way that you can store function values in variables, you can pass them around as parameters, store them in arrays, object fields, and even use them as return values of other functions! This is a powerful idea that we will use a lot.
 
 In particular, we will use a lot of anonymous functions, or "lambda abstractions" when working with D3. We've already used one example for sorting an array above. Here is another example: 
 
@@ -134,7 +134,7 @@ Arrow functions are recommended for short expressions, you probably should use p
 
 ### Object Oriented JavaScript
 
-JavaScript is a [prototype-based language](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain). That means that under the hood, it does not use the concept of classes, such as Java or C++. Instead, objects are created and their signature is defined. 
+JavaScript is a [prototype-based language](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain). That means that, under the hood, it does not use the concept of classes like in Java or C++. Instead, objects are created and their signature is defined. 
 
 ES6 introduces a `class` keyword and other related features which we will be using, but that doesn't mean that JavaScript supports proper classes - instead, JavaScript classes are just synthactic sugar to make creating consistent objects easier. 
 
@@ -151,7 +151,7 @@ Every JavaScript object has a special field which points to another object. Then
 
 ### Classes
 
-ECMA Script 6 [adds syntax for classes](http://es6-features.org/#ClassDefinition), but remember that this is only syntactic sugar, i.e., JavaScript remains a prototypical language.
+ECMA Script 6 [adds syntax for classes](http://es6-features.org/#ClassDefinition), but remember that this is only syntactic sugar. JavaScript remains a prototypical language.
 
 Here is an example: 
 
@@ -167,12 +167,12 @@ JavaScript has a special variable that is available at every scope called ``this
 
 So far, so good: we’ve used ``this`` to change the value bound to the x field in the object. That’s pretty convenient.
 
-However, the convenience comes with a caveat. The way JavaScript decides to associate ``this`` with a given object is simple to explain: it assumes the context of the calling object. 
+This convenience, however, comes with a caveat. The way JavaScript decides to associate ``this`` with a given object is simple to explain: it assumes the context of the calling object. 
 
 Here’s what can go wrong:
 {% include code.html id="thiswrong" file="thiswrong.js" code="" js="true" preview="false" %}
 
-What happened in the example that goes wrong is that when `t()` is called, `this` is bound to the calling object, which is the global `window` object in the latter case. 
+What happens in this latter example is that when `t()` is called, `this` is bound to the calling object, which is the global `window` object in the latter case. 
 
 
 
