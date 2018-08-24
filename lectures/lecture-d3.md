@@ -64,7 +64,7 @@ Here we have three SVG rectangles and use selectAll to apply a new style to them
 
 ### Data
 
-THE key feature of D3 is mapping DOM elements with data. We can do this by calling the [`data()`](https://github.com/d3/d3-selection/blob/master/README.md#selection_data) method on a slection:
+THE key feature of D3 is mapping DOM elements with data. We can do this by calling the [`data()`](https://github.com/d3/d3-selection/blob/master/README.md#selection_data) method on a selection:
 
 {% include code.html id="d3_data" file="d3_data.html" code="" js="false" preview="true" %}
 
