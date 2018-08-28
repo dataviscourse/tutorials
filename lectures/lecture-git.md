@@ -462,7 +462,7 @@ $ git commit -a -m "added demo file"
 
 Now it's time to push it to the server!
  
-{% highlight bash linenos %} 
+{% highlight bash linenos %}
 $ git push 
 Counting objects: 3, done.
 Delta compression using up to 8 threads.
