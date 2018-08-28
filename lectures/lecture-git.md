@@ -312,7 +312,7 @@ Spinning round and round
 And commit
 
 {% highlight bash linenos %}
-$ git commit -a 
+$ git commit -a -m "Confirmed, spinning"
 [draft 059daaa] Confirmed, spinning
  1 file changed, 1 insertion(+)
 {% endhighlight %}
@@ -346,15 +346,19 @@ $ git commit -a
  
 At this point we have changed the file in two different branches of the repository. This is great for working on new features without breaking a stable codebase, but it can result in conflicts. 
 **Let's try to merge those two branches.**
+
+The `git merge` command merges the specified branch into the currently active one. `master` is active, and we want to merge `draft` into master. 
  
  {% highlight bash linenos %}
-# the git merge command merges the specified branch into the currently active one. "master" is active, and we want to merge in "draft". 
 $ git merge draft
 Auto-merging demo.txt
 CONFLICT (content): Merge conflict in demo.txt
 Automatic merge failed; fix conflicts and then commit the result.
+{% endhighlight %}
 
-# The result
+The result
+
+{% highlight bash linenos %}
 $ cat demo.txt 
 I am here!
 Hello World!
@@ -364,20 +368,26 @@ Indeed!
 =======
 Spinning round and round
 >>>>>>> draft
+{% endhighlight %}
 
-# The first line was merged without problems, The final line, where we have two alternative versions is a conflict. We have to manually resolve the conflict.
+The first line was merged without problems, The final line, where we have two alternative versions is a **conflict**. We have to manually resolve the conflict.
 
-# Once this is done, we can commit again.
-$ git commit -a 
+Once this is done, we can commit again.
+
+{% highlight bash linenos %}
+$ git commit -a -m "resovled conflict"
 [master 4dad82f] Merge branch 'draft'
+{% endhighlight %}
 
-# Everything back in order.
+Everything back in order.
+
+{% highlight bash linenos %}
 $ git status 
 # On branch master
 nothing to commit, working directory clean
 {% endhighlight %}
 
-These are the basics of git on a local server. Now we'll learn how to sync with other people. This can be done with just git, but we'll be using GitHub as we're also using GitHub in the homeworks.
+These are the basics of git on a local git repository. Now we'll learn how to sync with other people. This can be done with just git, but we'll be using GitHub as we're also using GitHub in the homeworks.
 
 ### Working with GitHub
 
@@ -388,10 +398,12 @@ First, we'll create a new repository on github by going to  [https://github.com/
 Now let's clone the repository from GitHub.
  
 {% highlight bash linenos %}
-
 $ git clone https://github.com/alexsb/Demo.git
+{% endhighlight %}
 
-# Let's see how the config looks for this one.
+Let's see how the config looks for this one.
+
+{% highlight bash linenos %}
 $ cat .git/config 
 [core]
 	repositoryformatversion = 0
@@ -428,7 +440,12 @@ $ git commit -a -m "added demo file"
 [master 2e1918d] added demo file
  1 file changed, 1 insertion(+)
  create mode 100644 demo.txt
-# Pushing it to the server!
+{% endhighlight %}
+
+
+Now it's time to push it to the server!
+ 
+{% highlight bash linenos %} 
 $ git push 
 Counting objects: 3, done.
 Delta compression using up to 8 threads.
@@ -462,22 +479,21 @@ Fast-forward
 $ cat demo.txt 
 Hello world
 Are you still spinning?
-
 {% endhighlight %}
 
 ### Other GitHub Features
 
-* **GitHub Issues** 
+* **GitHub Issues**   
  Github Issues are a great way to keep track of open tasks and problems. Issues can be references and closed from commits. 
-* **Forking** 
+* **Forking**   
  Forking is essentially making use of the distributed nature of git, while having the benefits of a server. When you fork a repository you make a clone of someone else's code that you are not allowed to read. The repository appears in your github account and you can start editing the code. If you think you improved the code, you can send a "pull request" to the original owner. The owner can then review your code and merge your modifications into his main repository. Forking is hence virtually the same as branching, with the exception that it resolves issues with write permissions.
 
 ### GUI Clients
 
-* **GitHub Desktop** 
+* **GitHub Desktop**   
   Good option if you want a GUI client. [Download here](https://desktop.github.com/)
-* **Integrated in IDEs** 
-  Many operations can be done out of a IDE such as WebStorm 
+* **Integrated in IDEs**   
+  Many operations can be done out of a IDE such as [Visual Studio Code](https://code.visualstudio.com/) or [WebStorm](https://www.jetbrains.com/webstorm/) 
   
 ### Getting updates to the homeworks
  
@@ -486,8 +502,8 @@ The homeworks are hosted in a git repository. Every time we release a homework w
 To get the homework repository, run the following:
 
 {% highlight bash linenos %}
-$ git clone https://github.com/dataviscourse/2017-dataviscourse-homework -o homework
-$ cd 2017-dataviscourse-homework
+$ git clone https://github.com/dataviscourse/2018-dataviscourse-homework -o homework
+$ cd 2018-dataviscourse-homework
 {% endhighlight %}
 
 Note that by using the `-o homework` option we're not using the default remote `origin` but a user-defined remote called `homework`.
@@ -524,7 +540,7 @@ You should do this frequently: as often as you have an incremental, standalone i
 
 #### Getting new homework assignments
 
-When we release a new assignment we will simply add it to the [homework github repository](https://github.com/dataviscourse/2017-dataviscourse-homework).
+When we release a new assignment we will simply add it to the homework github repository.
 
 To get the latest homework assignments and potential updates or corrections to the assignment, run the following.
 
