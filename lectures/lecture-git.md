@@ -28,7 +28,7 @@ You should already have git installed, if not see the [official documentation](h
  You developed something awesome and want to share it. But not only do you want to make it available, you're also happy about contributions from others! 
 
 
-![Version Control with Central Repository](images/centralized.png)
+![Version Control with a Central Repository](images/centralized.png)
 
 ### Types of Version Control: Central Repository
 
@@ -89,7 +89,7 @@ You should already have git installed, if not see the [official documentation](h
 
 ### Why git?
 
- * Popular (~50% of open source projects)
+ * Popular ([~70-80% of searches on google, questions on stack overflow](https://rhodecode.com/insights/version-control-systems-2016))
  * Truly distributed
  * Very fast
  * Everything is local
@@ -100,7 +100,7 @@ You should already have git installed, if not see the [official documentation](h
 ### git model 
  
 Whiteboard sketch of git with a server. A git repository is essentially a large graph.
- 
+ ``
 ### git tutorial
 
 This is a quick intro to git, used in combination with GitHub. This is not a complete tutorial, but will use the most important git features. 
@@ -176,16 +176,15 @@ $ git add demo.txt
 
 **Let's look at what is going on with the repository**
 {% highlight bash linenos %}
-$ git status
-# On branch master
-#
-# Initial commit
-#
-# Changes to be committed:
-#   (use "git rm --cached <file>..." to unstage)
-#
-#       new file:   demo.txt
-#
+$git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+	new file:   demo.txt
 {% endhighlight %}
 
 That means: git knows that it's supposed to track this file, but it's not yet versioned.
@@ -215,8 +214,11 @@ $ echo 'Are you still spinning?' >> demo.txt
 $ cat demo.txt 
 Hello World!
 Are you still spinning?
+{% endhighlight %}
 
-# Let's check the status of git!
+Let's check the status of git!
+
+{% highlight bash linenos %}
 $ git status
 On branch master
 Changes not staged for commit:
@@ -225,31 +227,40 @@ Changes not staged for commit:
 
       modified:   demo.txt
 no changes added to commit (use "git add" and/or "git commit -a")
+{% endhighlight %}
 
-# So git knows that something has changed, but hasn't recorded it. Let's commit. 
+So git knows that something has changed, but hasn't recorded it. Let's commit. 
+
+{% highlight bash linenos %}
 $ git commit -m "Added a line to the demo file" 
 On branch master
 Changes not staged for commit:
-	modified:   demo.txt
-	
-# That didn't work! You have to add all the files you want to commit every time. There is a shorthand that you can use to add all the tracked files: append '-a'.
-$ git commit -a -m "added a line to the demo file" 
+	modified:   demo.txt	
+{% endhighlight %}
+
+That didn't work! You have to add all the files you want to commit every time. There is a shorthand that you can use to add all the tracked files: append '-a'.
+
+{% highlight bash linenos %}
+$ git commit -a -m "Added a line to the demo file" 
 [master b03178f] added a line to the demo file
  1 file changed, 1 insertion(+)
+{% endhighlight %}
 
-# Better. Now, let's look at what happened up to now
-$ git log
-  commit bf92da7ad772480f7fe5f28ef105227383e07a45
-  Author: Alexander Lex <alex@sci.utah.edu>
-  Date:   Wed Aug 24 14:39:45 2016 -0600
-  
-      Added another line to the demo file
-  
-  commit 2886218c7f65ba3c2d7d7339e2b8a7b9ab4420c0
-  Author: Alexander Lex <alex@sci.utah.edu>
-  Date:   Wed Aug 24 14:37:06 2016 -0600
-  
-      added demo file
+Better. Now, let's look at what happened up to now
+
+{% highlight bash linenos %}
+$git log
+commit 64e1c31cff02e568cda9ede94fbc8eeeb9e337ee (HEAD -> master)
+Author: alexander.lex@gmail.com <alexander.lex@gmail.com>
+Date:   Tue Aug 28 10:25:11 2018 -0600
+
+    Added a line to the demo file
+
+commit 3b32255e5b92b65ed59be3bf20bb8a751c149a1e
+Author: alexander.lex@gmail.com <alexander.lex@gmail.com>
+Date:   Tue Aug 28 10:19:37 2018 -0600
+
+    Commiting the test file
 {% endhighlight %}
 
 Through this cycle of editing, adding and committing, you can develop software in a linear fashion. Now let's see how we can create alternate versions. 
