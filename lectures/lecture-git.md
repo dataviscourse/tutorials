@@ -9,22 +9,22 @@ These notes are meant for classroom use but also for reading them offline. We wi
 
 ## Git
 
-We will be using a version control tool called git to track changes to our code. We'll also be using Github, an online tool for hosting git repositories.
+We will be using a version control tool called git to track changes to our code. We'll also be using GitHub, an online tool for hosting git repositories.
 
 You should already have git installed, if not see the [official documentation](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on how to install git on your operating system. 
 
 
 ### Why version Control?
  
- * **Keep copies of multiple states of files** 
+ * **Keep copies of multiple states of files**   
   By committing you record a state of the file to which you can go back any time.
- * **Create alternative states**
- Imagine you just want to try out something, but you realize you have to modify multiple files. You're not sure whether it works or is worth it. With version control you can just create a **branch** where you can experiment or develop new features without changing the main or other branches.
- * **Collaborate in teams** 
- Nobody wants to send code via e-mail or share via Dropbox. If two people work on a file at the same time it's unclear how to merge the code. Version control lets you keep your code in a shared central location and has dedicated ways to merge and deal with conflicts. 
- * **Keep your work safe**
+ * **Create alternative states**  
+ Imagine you just want to try out something, but you realize you have to modify multiple files. You're not sure whether it will works. With version control you can just create a **branch** where you can experiment or develop new features without changing the main or other branches.
+ * **Collaborate in teams**   
+ Nobody wants to send code via e-mail or share via Dropbox. If two people work on a file at the same time it's not clear how to merge the code. Version control lets you keep your code in a shared central location and has dedicated ways to merge and deal with conflicts. 
+ * **Keep your work safe**  
  Your hard drive breaks. Your computer is stolen. But your code is safe because you store it not only on your computer but also on a remote server. 
- * **Share**
+ * **Share**  
  You developed something awesome and want to share it. But not only do you want to make it available, you're also happy about contributions from others! 
 
 
@@ -39,11 +39,11 @@ You should already have git installed, if not see the [official documentation](h
  * Pros: 
    * Simple
  * Cons: 
-   * Complex for larger and community projects
+   * Complex for larger projects
         * Who is allowed to write? 
+   * Difficult for community projects
         * How do you apply changes that someone outside your team made? 
         
-
 
 ### Types of Version Control: Distributed Version Control
 
@@ -52,7 +52,7 @@ You should already have git installed, if not see the [official documentation](h
 
  * Everybody has a full history of the repository locally
  * No dedicated server - every node is equal.
-   * In practice: often server is used for one "official" copy of code.
+   * In practice: often a server is used for one "official" copy of the code.
     This is a server by convention only, there is no technical difference.
  * Pros: 
     * No access issues
