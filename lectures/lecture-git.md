@@ -271,12 +271,13 @@ Through this cycle of editing, adding and committing, you can develop software i
 
 {% highlight bash linenos %}
 $ git branch draft
+{% endhighlight %}
 
-# This created a branch with the name draft. Let's look at all the other branches
+This created a branch with the name draft. Let's look at all the other branches
+{% highlight bash linenos %}
 $ git branch
   draft
 * master
-
 {% endhighlight %}
 
 
@@ -289,29 +290,36 @@ The files in your folders are in the state as they are stored in the active bran
 {% highlight bash linenos %}
 $ git checkout draft
 Switched to branch 'draft'
+{% endhighlight %}
 
-# Let's see if there is something different
+Let's see if there is something different
+{% highlight bash linenos %}
 $ cat demo.txt 
 Hello World!
 Are you still spinning?
+{% endhighlight %}
 
-# No - it's the same! Now let's edit.
+No - it's the same! Now let's edit.
+
+{% highlight bash linenos %}
 $ echo "Spinning round and round" >> demo.txt 
 $ cat demo.txt 
 Hello World!
 Are you still spinning?
 Spinning round and round
+{% endhighlight %}
 
-# And commit
+And commit
+
+{% highlight bash linenos %}
 $ git commit -a 
 [draft 059daaa] Confirmed, spinning
  1 file changed, 1 insertion(+)
 {% endhighlight %}
  
-We have now written changes to the new branch, draft. The master branch should remain unchanged. Let's see if that's true.  
+We have now written changes to the new branch, `draft`. The master branch should remain unchanged. Let's see if that's true.  
  
 {% highlight bash linenos %}
-# Now let's switch back to master again
 $ git checkout master
 Switched to branch 'master'
 
