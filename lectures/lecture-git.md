@@ -387,6 +387,23 @@ $ git status
 nothing to commit, working directory clean
 {% endhighlight %}
 
+### Ignoring specifific files and folders
+
+It's common that you will have temporary and generated files in your working directory that you don't want to commit to the repository. For example, IDEs will create folders for cached data, or you might generate JavaScript from TypeScript. 
+
+To tell git to not add certain files, file types, or folders you can use a `.gitignore` file in the root directory of your repository. 
+
+Here is an example: 
+
+{% highlight txt linenos %}
+_site/
+.sass-cache/
+.jekyll-metadata
+.idea
+Gemfile.lock
+*.css.map
+{% endhighlight %}
+
 These are the basics of git on a local git repository. Now we'll learn how to sync with other people. This can be done with just git, but we'll be using GitHub as we're also using GitHub in the homeworks.
 
 ### Working with GitHub
