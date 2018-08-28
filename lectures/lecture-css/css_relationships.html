@@ -10,7 +10,7 @@
         }
 
         /* This is a descendant selector.
-           Every time a b is nested within a div this matches */
+           Every time 'b' is nested within a <div> this matches */
         div  b {
             color: green;
         }
@@ -20,11 +20,10 @@
 <body>
 
 <p>Here is text <b>and this is bold within a paragraph.</b></p>
-<p>Here is another <span>example <b>with something bold</b></span> but this is not highlighted in blue. </p>
+<p>Here is another <span>example <b>with something bold</b></span> but this is not highlighted in blue because of the span.</p>
 
-This next <b>few words are also bold</b> but not within a paragraph.
+These next <b>few words are also bold</b> but not within a paragraph. <br>
 
 <div>Here is an example <span>of a <b>bold text</b> that is highlighted by a descendant  selector. A child selector doesn't match here.</span></div>
-
 </body>
 </html>

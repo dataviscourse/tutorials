@@ -9,7 +9,7 @@ nomenu: true
 
 HTML specifies the content of a web page, but plain HTML says relatively little about how the content looks. This is where CSS comes in. CSS stands for Cascading Style Sheets: they are external declarations that control the way your elements will get rendered by a web browser. A full discussion of CSS syntax is, as usual, given at the [MDN CSS website](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax); we show the very basics here.
 
-A stylesheet will usually consist of a list of CSS rules that are inserted in ``<style>`` elements on the HTML header, ``<head>``. A single CSS rule associates a CSS selector with a set of CSS declarations. These are easier to see through examples.
+A stylesheet will usually consist of a list of CSS rules that are inserted in ``<style>`` elements in the HTML header, ``<head>``. A single CSS rule associates a CSS selector with a set of CSS declarations.
 
 **More important than styling, however, are the rules on how we identify elements in the dom, the selectors.**
 
@@ -19,13 +19,13 @@ Let’s look at a very simple CSS rule:
 
 {% include code.html id="simple_css" file="simple_css.html" code="" %}
 
-In this rule, **strong is the selector**, and each line inside the curly brackets is a **declaration**. Roughly, the way this goes is: for every DOM element with tag name strong, make its background color red, and its font size 300% of the base size. CSS rules are applied in order that they appear in the document, and if more than one rule matches the element, then they both apply. For instance, the example below is entirely equivalent to the above:
+In this rule, **`strong` is the element selector**, and each line inside the curly brackets is a **declaration**. Roughly, the way this goes is: for every DOM element with tag name strong, make its background color red, and its font size 300% of the base size. CSS rules are applied in order that they appear in the document, and if more than one rule matches the element, then they both apply. For instance, the example below is entirely equivalent to the above:
 
 {% include code.html id="simple_css2" file="simple_css2.html" code="" %}
 
 ### CSS Class Selectors
 
-CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with "important" text and a "footnote". Both are in a div, but they have different semantics, and we also want to display them differently. Class selectors are identified by a leading `.`, e.g., `.menu`.
+CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with "important" text and a "footnote". Both are in a `<div>`, but they have different semantics, and we also want to display them differently. Class selectors are identified by a leading `.`, e.g., `.menu`.
 
 {% include code.html id="css_classes" file="css_classes.html" code="" %}
 
@@ -33,13 +33,17 @@ Note that we can also apply multiple classes to a single element, as you can see
 
 ### CSS ID Selectors
 
-ID selectors work similar to class selectors, but IDs may only be used once for an element in the DOM. ID selectors are identified by a leading `#`, e.g., `#header`.You can use IDs as "anchors" to refer to a site by appending ``#idname`` to the URL. But you can also use IDs to apply custom styles in CSS:
+ID selectors work similar to class selectors, but IDs may only be used once for an element in the DOM. ID selectors are identified by a leading `#`, e.g., `#header`. You can use IDs as "anchors" to refer to a site by appending ``#idname`` to the URL. For example, following [this link](#css-id-selectors) (`#css-id-selectors`) will scroll your browser to this section. 
+
+But you can also use IDs to apply custom styles in CSS:
 
 {% include code.html id="css_ids" file="css_ids.html" code="" %}
 
 You can also use the combination of IDs and CSS to create layouts of a page:
 
 {% include code.html id="css_layouts" file="css_layouts.html" code="" %}
+
+However, nowadays, you should probably start using [CSS Grid Layouts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) to lay out a potentially responsive web page. 
 
 ### CSS Relationship Selectors
 
@@ -52,6 +56,8 @@ The child selector matches every time an element is directly enclosed by a diffe
 ### Multiple Rules in CSS
 
 When more than one CSS rule matches, then different CSS declarations might conflict with one another. In that case, “the most specific declaration wins”. The rules for what counts as more specific are [really disgusting](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity), so if you find yourself debugging CSS code because the styles “don’t take”, the first thing you should try is to set completely different classes for the element, add all the declarations to this class. Then, with help from the Developer Tools, you can add classes back to your element to see which declarations might be winning the specificity race. In order to avoid this kind of trouble, it’s better to stick to simple declarations as much as possible.
+
+Try editing CSS directly in the inspector! 
 
 ### Other ways of declaring CSS 
 
