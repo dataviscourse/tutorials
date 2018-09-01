@@ -1,8 +1,9 @@
 ---
 layout: code-lecture
 title:  JavaScript Fundamentals
-permalink: /lectures/lecture-javascript-es6/
+permalink: /lectures/lecture-javascript/
 nomenu: true
+redirect_from: /lectures/lecture-javascript-es6/
 ---
 
 *Material based on the lecture by [Carlos Scheidegger](http://cscheid.net/courses/spr15/cs444/lectures/week3.html)* 

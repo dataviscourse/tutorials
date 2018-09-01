@@ -11,6 +11,9 @@ github_username:  dataviscourse
 google_analytics: "UA-65153996-1"
 
 
+plugins:
+  - jekyll-redirect-from
+
 # Build settings
 markdown: kramdown
 kramdown:
