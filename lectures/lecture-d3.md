@@ -59,6 +59,7 @@ Here we have three SVG rectangles and use selectAll to apply a new style to them
 
  1. the **method chaining** used to make this convenient to write,
  2. the use of **anonymous functions** and the parameters d and i.
+ 3. the comparison of explicit anonymous function and the **arrow function**.
 
 {% include code.html id="d3_selectallsvg" file="d3_selectallsvg.html" code="" js="false" preview="true" %}
 

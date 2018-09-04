@@ -23,12 +23,12 @@
     execute = function () {
         p = d3.selectAll("rect");
         p.attr("x", 0)
+                // here we use a long-hand anonymous function
                 .attr("y", function (d, i) {
                     return i * 90 + 50
                 })
-                .attr("width", function (d, i) {
-                    return i * 150 + 100;
-                })
+                // here is the shorhand with arrow notation
+                .attr("width", (d, i) =>  i * 150 + 100)
                 .attr("height", 20);
         p.style("fill", "steelblue");
     }
