@@ -20,12 +20,8 @@
         ];
 
         let lineFn = d3.line()
-                .x(function (d) {
-                    return d.x
-                })
-                .y(function (d) {
-                    return d.y
-                });
+                .x(d => d.x)
+                .y(d => d.y);
         // https://github.com/d3/d3-shape/blob/master/README.md#curves
         //.curve(d3.curveCatmullRom.alpha(0.5));
         //.curve(d3.curveBundle.beta(0.5));

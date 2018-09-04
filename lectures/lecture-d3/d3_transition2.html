@@ -52,12 +52,8 @@
                 .transition()
                 .duration(3000)
                 .attr("x", 0)
-                .attr("y", function (d, i) {
-                    return i * 50 + 50
-                })
-                .attr("width", function (d) {
-                    return d;
-                })
+                .attr("y", (d, i) => i * 50 + 50)
+                .attr("width", d => d)
                 .attr("height", 20)
                 .style("fill", "steelblue")
 
@@ -67,9 +63,7 @@
                 // wait for three seconds before going into the next transition
                 .delay(3000)
                 .style("fill", "green")
-                .attr("width", function (d) {
-                    return d * 1.5;
-                });
+                .attr("width", d => d * 1.5);
     }
 </script>
 <script src="run.js" charset="utf-8"></script>

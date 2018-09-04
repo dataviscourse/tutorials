@@ -23,12 +23,8 @@
                 .data([127, 61, 256])
                 .enter().append("rect")
                 .attr("x", 0)
-                .attr("y", function (d, i) {
-                    return i * 60 + 50
-                })
-                .attr("width", function (d) {
-                    return d;
-                })
+                .attr("y", (d, i) => i * 60 + 50)
+                .attr("width", d => d)
                 .attr("height", 20)
                 .style("fill", "steelblue");
     }
