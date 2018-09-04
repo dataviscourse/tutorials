@@ -5,7 +5,9 @@
     <title>DOM Manipulation</title>
 </head>
 <body>
+<h1>Colorful Text</h1>
 <div id="mainDiv"></div>
+
 <script>
     function divWithText(text) {
         let div = document.createElement("div");
@@ -18,7 +20,7 @@
     function textAt(text, x, y) {
         let node = divWithText(text);
         node.setAttribute("style", "position:absolute; left: " + x + "px; top: " + y % 50 + "px; " +
-                "color: hsl(" + x % 255 + ", 100%, 50%)");
+            "color: hsl(" + x % 255 + ", 100%, 50%)");
         return node;
     }
 

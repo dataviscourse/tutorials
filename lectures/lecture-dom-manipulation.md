@@ -17,7 +17,7 @@ Here are the very first steps:
 
 `document` is a global javascript object that contains the DOM. If you log the document object you will see exactly the same as in the DOM view in the web inspector. It is this object that we are manipulating dynamically and that the browser then renders. The document object contains functions, like the [`getElementByID()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) method we're using here to retreive a specific element, or the [`createElement()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement), which creates a new HTML element, or the [`createTextNode()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode) functions used to create new text content. We've also used the [`appendChild()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) method (which is defined on a [`node`](https://developer.mozilla.org/en-US/docs/Web/API/Node)) that appends the passed element to the end of the list of the node. 
 
-Now we can make use of the features we learned about last lecture to make more complicated programs that write websites: 
+Now we can make use of the features we learned about before to make more complicated programs that write websites: 
 
 {% include code.html id="dom_manipulation2" file="dom_manipulation2.html" code="" js="false" preview="true" %}
 
