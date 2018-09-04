@@ -16,3 +16,15 @@ console.log(type);
 // String concatenation
 let compoundString = "two " + "words";
 
+// Parsing/Casting - This is important when you read data from csv files
+let myNumber = parseInt("13");
+console.log("Int:", myNumber);
+
+myNumber = parseFloat("17.5");
+console.log("Float:", myNumber);
+
+myNumber = parseInt("17.5");
+console.log("Float to Int:", myNumber);
+
+myNumber = +"33.5";
+console.log("Shorthand parse:", myNumber);

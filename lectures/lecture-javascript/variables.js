@@ -4,9 +4,9 @@ a = 0;
 // a string
 b = "1";
 // an array
-c = ["Paul", "John", "Ringo", "George"]
+c = ["Paul", "John", "Ringo", "George"];
 // another array
-d = [1981, 1984, 1954, 1949]
+d = [1981, 1984, 1954, 1949];
 // yet another array, but PLEASE don't do this for real!
 e = [1, 2, "3", [4]];
 // a boolean
@@ -19,6 +19,7 @@ f = 34.56;
 console.log(typeof(f));
 
 // -- "local", function-scoped variables --
+// var is discouraged because of the uncommon scope
 var name="Alex";
 
 // New in ES6

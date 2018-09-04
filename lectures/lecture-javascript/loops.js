@@ -6,7 +6,7 @@ for (let i = 0; i < 10; ++i) {
 console.log("For loop: " + output);
 
 // while loops;
-i = 3;
+let i = 3;
 output = "";
 while (i < 100) {
     output += i + ", ";
@@ -25,13 +25,14 @@ console.log("Do while loop: " + output);
 
 let years = [1954, 1949, 1981, 1982];
 // Looping over an array with the built-in forEach function
+console.log("Foreach function")
 years.forEach(function(d){
     console.log(d)
 });
 
 // Looping over an array with the new (ECMA Script 6) - this might not work in your browser yet!
-console.log("For of loop is new");
-for (year of years){
+console.log("For of loop (newish)");
+for (let year of years){
     console.log(year)
 }
 

@@ -13,6 +13,13 @@ function demoBlockScope() {
         let letB = 3;
     }
     // undefined!
-    // console.log("In Block Scope:" + letA + letB);
+    // console.log("In Block Scope:", letA + letB);
 }
 demoBlockScope();
+
+function demoGlobalScope(){
+    // DON'T EVER DO THIS!!!!
+    globalA = 3;
+}
+demoGlobalScope();
+console.log("Here I can access a variable defined inside a function: ", globalA);

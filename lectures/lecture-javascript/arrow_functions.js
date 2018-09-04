@@ -1,4 +1,4 @@
-myNumbers = [13, 16, 19, 22];
+let myNumbers = [13, 16, 19, 22];
 
 // the shorthand arrow function used for an anonymous function
 myNumbers = myNumbers.map(d => d*2);
@@ -15,6 +15,7 @@ let f2 = x => x * 2;
 console.log("f2 for 4:", f2(4));
 
 // a function with two parameters
+// we can also use curly brackets for multiple statements
 let f3 = (x,y) => {
 	let z = x * 2 + y;
 	y++;

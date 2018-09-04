@@ -22,17 +22,19 @@ let newLength = numArray.push(4);
 let lastElement = numArray.pop();
 
 // find index of entry:
-let pos = numArray.indexOf(2);
+let pos = numArray.indexOf(21);
+console.log("Index: ", pos)
 
 // sort an array
-numArray = numArray.sort();
+numArray.sort();
 // [12, 15, 21, 3, 4]
-console.log(numArray);
+console.log("Sorted as strings: ", numArray);
 
-// sorting is based on string values. we need to supply a compare function
+// sorting is based on string values by default.
+// We need to supply a compare function if we want to sort numerically.
 function compareNumbers(a, b) {
     return a - b;
 }
 
 numArray.sort(compareNumbers);
-console.log(numArray);
+console.log("Sorted as numbers: ", numArray);

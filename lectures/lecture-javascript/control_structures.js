@@ -1,7 +1,8 @@
 // The familiar if
 if (1 === parseFloat("1")) {
     console.log("First if");
-    // note that you can use parseFloat or the unary + operator, the latter is usually better
+    // note that you can use parseFloat or the
+    // unary + operator, the latter is usually better
 } else if (2 === +"3") {
     console.log("Else if");
 } else {
@@ -15,7 +16,9 @@ if (1 == "1") {
 
 // use === to not do that implicitly
 if (1 === "1") {
-    console.log("This is safer!");
+    // not reaching this
+} else {
+    console.log("String and Int are not the same! This is safer!");
 }
 
 // The ternary if operator

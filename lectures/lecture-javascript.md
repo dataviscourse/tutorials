@@ -17,20 +17,24 @@ Once you become proficient in the language, then you can start worrying about be
 ## JavaScript Background
 
 Why do we want to use JavaScript? So far, we have only written **static HTML and SVG code**. In your homework, for example, you have to encode a dataset by hand multiple times: for your line-chart, bar chart, scatterplot, etc.
-If we had a dynamic and general way to load the data, we could use the same variables for all charts and we could also plot the charts with various datasets of different size and with different characteristics. I like to think of pure HTML and SVG as analogous to pen and paper - you can create things that look nice once, but you **can't re-use them efficiently and you can't interact with them**. Computer programming brings **interactivity and generalizability (re-use)** to the table. We can tell the computer how to do something for certain classes of legal input, and the computer will do that for all possible cases of legal input. 
-  
-JavaScript is the most important programming language of the web and the only programming language that can be used on most web-browsers without any plugins. Alternatives such as Java Applets or Flash were popular in the past but have lost significant ground to JavaScript and will be discontinued in the near future. JavaScript is mostly used on the client-side of a client-server application. Other languages such as Java and Python are popular on the server, though nowadays JavaScript can also be used on the server (e.g., using [Node.js](https://nodejs.org/). We will be focusing on the client-side in this class. 
+If we had a dynamic and general way to load the data, we could use the same variables for all charts and we could also plot the charts with various datasets of different size and with different characteristics. I like to think of pure HTML and SVG as analogous to pen and paper – you can create things that look nice once, but you **can't re-use them efficiently and you can't interact with them**. 
+
+Computer programming brings **interactivity and generalizability (re-use)** to the table. We can tell the computer how to do something for certain classes of legal input, and the computer will do that for all possible cases of legal input. 
+   
+JavaScript is the most important programming language of the web and the only programming language that can be used on most web-browsers without any plugins, although [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly) might change things in the near future. Alternatives such as Java Applets or Flash were popular in the past but have lost significant ground to JavaScript and will be discontinued in the near future. JavaScript is mostly used on the client-side of a client-server application. Other languages such as Java and Python are popular on the server, though nowadays JavaScript can also be used on the server (e.g., using [Node.js](https://nodejs.org/). We will be focusing on the client development only in this class.
+
+The most important aspect of JavaScript though, is it's tight integration with the DOM. We'll be talking about this in the next two section of the class. 
 
 JavaScript can be used with **imperative/procedural, object-oriented, and functional programming styles**.  
 
-It is a **dynamically typed language**, which can be strange for developers who mainly work with strongly typed languages such as C/C++ and Java. 
+It is a **dynamically typed language**, which can be strange for developers who mainly work with strongly typed languages such as C/C++ and Java. I personally prefer to work with [TypeScript](https://www.typescriptlang.org/), a strongly typed language that is transpiled into JavaScript for the browser to run. However, it's still important to know vanilla JavaScript well.
 
-Also, Javascript uses **prototypical inheritance** instead of a class-based model for it's object oriented purposes. The latest version of JavaScript *has* introduced "syntactic sugar" to make object-oriented programming more consistent with other programming languages. That means there now are "class" definitions, but you can still use the prototypical features for inheritance that can be extended at runtime. If this doesn't mean much to you now, don't worry - we'll go through it slowly.
+Javascript uses **prototypical inheritance** instead of a class-based model for it's object oriented purposes. The the ECMAScript 6 version of JavaScript *has* introduced syntactic “sugar” to make object-oriented programming more consistent with other programming languages. That means there now are **class definitions**, but you can still use the prototypical features for inheritance that can be extended at runtime. If this doesn't mean much to you now, don't worry – we'll go through it slowly.
 
 
 ## Versioning and Transpiling 
 
-JavaScript has undergone many versions, and, a while ago, the JavaScript language started to be standardized by the Ecma International. Significant changes were introduced with ECMAScript 6 in 2015 (also called ECMAScript 2015), which is the basis of this tutorial. Since then, ECMAScript has transitioned to a more incremental update plan, so that ECMAScript 7 and 8 are only minor updates.  
+JavaScript has undergone many versions, and, a while ago, the JavaScript language started to be standardized by the ECMA International. Significant changes were introduced with ECMAScript 6 (ES6)in 2015 (also called ECMAScript 2015). Since then, ECMAScript has transitioned to a more incremental update plan, so that ECMAScript 7, 8, and 9 are only minor updates. This tutorial uses ECMAScript 2018, but most of the features have been available since ES6.  
 
 Instead of relying on a particular version, you should check for the availability of features [across browsers](http://kangax.github.io/compat-table/es2016plus/).
 
@@ -58,14 +62,14 @@ It has **variables** which hold **values**:
 
 The first thing to notice is that JavaScript’s variables are **dynamically typed**: you don’t need to declare their types before using them, and they can refer to values of different types at different times in the program execution. (This is convenient but quite error-prone: it’s usually a bad idea to make too much use of this feature.)
 
-You also do not need to declare a variable ahead of time. If you don’t, then JavaScript either assumes you’re referring to an already existing variable, or it creates a new global variable. Again, this is convenient but very error-prone (this is a theme, as you’ll see). One common source of confusion is that typos in variable assignments are not caught: they just become global variables.
+You also do not need to declare a variable ahead of time. If you don’t, then JavaScript either assumes you’re referring to an already existing variable, or it creates a new global variable. Again, this is convenient but very error-prone (this is a theme, as you’ll see). One common source of confusion is that typos in variable assignments are not caught: they just become global variables. Syntax highlighting in a good IDE will help you catch this.
 
-To create a **local variable**, use the keyword ``var``, ``let``, or ``const``. Local here refers to the current execution context. When used within a function or block these variables are **private to that function/block**, however, when they are declared outside a function, as in the above example, they are still global. 
+To create a **local variable**, use the keyword ``let`` or ``const``, with an outdated option: ``var``. Local here refers to the current execution context. When used within a function or block these variables are **private to that function/block**, however, when they are declared outside a function, as in the above example, they are still global. 
 
 So what is the difference between these? 
 
  * ``var``creates variables of **function scope**. That means that the only way to isolate a variable is to wrap it in a function. This is different from most programming languages and rarely has advantages. 
- * ``let`` creates a variable of **block scope**, which is similar to most other programming languages. The means that a variable defined with ``let`` within an ``if`` clause cannot be accessed outside of that ``if`` clause. 
+ * ``let`` creates a variable of **block scope**, which is similar to most other programming languages. The means that, for example, a variable defined with ``let`` within an ``if`` clause cannot be accessed outside of that ``if`` clause. 
  * `` const`` creates a variable of **block scope** (again, if defined within a block, otherwise global) where the variable can't be reassigned. That doesn't mean that the variable is immutable, though. It just means that it can't be reassigned.
  
  {% include code.html id="scope" file="scope.js" code="" js="true" preview="false" %}
@@ -89,13 +93,13 @@ You can do much more with arrays than shown here, again, check out the [MDN docu
 
 [Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) are the second type of compound values in JavaScript. 
 
-**Objects in JavaScript are also dictionaries/hash maps/associative arrays (pick your favorite name).**  
+Objects in JavaScript are also **dictionaries/hash maps/associative arrays (pick your favorite name).**  
 {% include code.html id="mobjects" file="objects.js" code="" js="true" preview="false" %}
 
 
 ### Control Structures
 
-JavaScript comes with standard conditional control structures - if and switch. 
+JavaScript comes with standard conditional control structures – if and switch. 
 
 {% include code.html id="control_structures" file="control_structures.js" code="" js="true" preview="false" %}
 
@@ -113,14 +117,14 @@ Functions are one of the key features in computer science and are common to almo
 
 None of the calls above cause runtime errors. If you call a function with too many parameters, JavaScript will simply ignore the extra ones. If you call a function with too few parameters, JavaScript gives the local parameters the special value undefined. 
 
-Local variables in JavaScript use scope as you'd hope they would:
+<!-- Local variables in JavaScript use scope as you'd hope they would:
 
-{% include code.html id="mfunction_scope" file="functionscope.js" code="" js="true" preview="false" %}
+{% include code.html id="mfunction_scope" file="functionscope.js" code="" js="true" preview="false" %} -->
 
 There is an alternative way of defining functions:
 {% include code.html id="function_expression" file="function_expression.js" code="" js="true" preview="false" %}
 
-Pay attention to what’s happening here: this is assigning a value to a variable in the same way that x = "hi" assigns the string value "hi" to the variable x. But that value is a function! This is important. In JavaScript, **functions are values that can be stored in variables**. This is your first exposure to the idea that JavaScript is a “functional” language. In the same way that you can store function values in variables, you can pass them around as parameters, store them in arrays, object fields, and even use them as return values of other functions! This is a powerful idea that we will use a lot.
+Pay attention to what’s happening here: this is assigning a value to a variable in the same way that `x = "hi"` assigns the string value "hi" to the variable x. But that value is a function! This is important. In JavaScript, **functions are values that can be stored in variables**. This is your first exposure to the idea that JavaScript is a “functional” language. In the same way that you can store function values in variables, you can pass them around as parameters, store them in arrays, object fields, and even use them as return values of other functions! This is a powerful idea that we will use a lot.
 
 In particular, we will use a lot of anonymous functions, or "lambda abstractions" when working with D3. We've already used one example for sorting an array above. Here is another example: 
 
@@ -177,7 +181,7 @@ What happens in this latter example is that when `t()` is called, `this` is boun
 
 
 
-## Other noteworthy new things in ES6
+## Other noteworthy things in JavaScript
 
 
 ### Default Values
@@ -196,16 +200,20 @@ uniqueID() is only called when foo() is called (without arguments), not before.
 
 **Spread** 
 
+When `...` is used in front of an array (actually, any iterable), it acts to “spread” it out into its individual values.
+
 {% include code.html id="spread" file="spread.js" code="" js="true" preview="false" %}
 
-When ... is used in front of an array (actually, any iterable), it acts to “spread” it out into its individual values.
+
 
 
 **Gather** 
 
+The inverse works with gather. The ...z in this snippet is saying: gather the rest of the arguments (if any) into an array called z.
+
 {% include code.html id="gather" file="gather.js" code="" js="true" preview="false" %}
 
-The ...z in this snippet is saying: gather the rest of the arguments (if any) into an array called z.
+
 
 ### Destructuring
 
