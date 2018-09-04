@@ -103,6 +103,11 @@ We have a similar problem as before. Here, the element that was not bound to dat
 
 {% include code.html id="d3_exit2" file="d3_exit2.html" code="" js="false" preview="true" %}
 
+Here is a an illustration showing the differences between the enter, update and exit selection: 
+
+![data_concept](../lecture-advanced-d3/images/data_concept.png)
+
+
 We now have all the knowledge to select, bind data, react to changes in data. Next, we'll look at how we can make state changes look great. 
 
 ### Transitions
