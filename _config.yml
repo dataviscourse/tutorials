@@ -26,3 +26,6 @@ permalink: pretty
 
 collections:
  - lectures
+
+whitelist:
+ - jekyll-redirect-from
