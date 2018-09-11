@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D3 Enter</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
     <style>
         rect {
             fill: lightgray;
@@ -35,12 +35,8 @@
         // now we do something with the incoming selection
         enter.append("rect")
                 .attr("x", 0)
-                .attr("y", function (d, i) {
-                    return i * 90 + 50
-                })
-                .attr("width", function (d, i) {
-                    return d;
-                })
+                .attr("y", (d, i) => i * 90 + 50)
+                .attr("width", d => d)
                 .attr("height", 20)
                 .style("fill", "steelblue");
 
@@ -51,5 +47,4 @@
     }
 </script>
 <script src="run.js" charset="utf-8"></script>
-
 </html>

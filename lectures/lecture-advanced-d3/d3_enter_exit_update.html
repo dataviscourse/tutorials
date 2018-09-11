@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D3: Enter, Exit, Update</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
     <style>
         rect {
             fill: lightgray;
@@ -19,37 +19,26 @@
 </body>
 <script>
     execute = function (myData) {
-        if (!myData) {
-            myData = [127, 61, 256, 71, 15, 23];
-        }
+        myData = !myData ? [127, 61, 256, 71, 15, 23] : myData;
 
         let svg = d3.select("svg");
-
         // the data join
         let bars = svg.selectAll(".bars")
                 .data(myData);
-
         // how do we handle things that are removed?
         bars.exit().remove();
-
         // how do we handle new elements?
         bars = bars.enter().append("rect").classed("bars", true)
                 // merge the enter and the update selection
                 .merge(bars);
-
         // how do we handle updates?
         bars.attr("x", 0)
-                .attr("y", function (d, i) {
-                    return i * 30 + 50
-                })
-                .attr("width", function (d) {
-                    return d;
-                })
+                .attr("y", (d, i) => i * 30 + 50)
+                .attr("width", d => d)
                 .attr("height", 20)
                 .style("fill", "steelblue")
                 .attr("opacity", 1);
     };
-
     // a button setting another dataset
     d3.select("#next").on("click", function () {
         execute([500, 100, 120]);

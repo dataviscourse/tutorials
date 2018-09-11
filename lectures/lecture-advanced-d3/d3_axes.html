@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D3 Axes</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
 </head>
 <body>
 <svg>
@@ -40,15 +40,9 @@
             .data(data)
             .enter()
             .append("rect")
-            .attr("x", function (d) {
-                return xScale(Math.min(0, d));
-            })
-            .attr("y", function (d, i) {
-                return i * spacing
-            })
-            .attr("width", function (d) {
-                return Math.abs(xScale(d) - xScale(0));
-            })
+            .attr("x", d => xScale(Math.min(0, d)))
+            .attr("y", (d, i) => i * spacing)
+            .attr("width", d => Math.abs(xScale(d) - xScale(0)))
             .attr("height", 20)
             .style("fill", function (d) {
                 return colorScale(d);

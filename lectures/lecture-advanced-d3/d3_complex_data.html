@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D3 Complex Data</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="https://d3js.org/d3-selection-multi.v0.4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
     <script src="http://d3js.org/colorbrewer.v1.js"></script>
 </head>
 <body>
@@ -13,8 +12,7 @@
 <select id="dropDown">
     <option selected value="type">Type</option>
     <option value="product">Product</option>
-    <option value="tonnage">Tonnage</option>
-
+    <option value="weight">Weight</option>
 </select>
 </body>
 <script>
@@ -65,10 +63,8 @@
     height = 500 - margin.top - margin.bottom;
 
     svg = d3.select("#chart")
-        .attrs({
-            width: width + margin.left + margin.right,
-            height: height + margin.top + margin.bottom
-        })
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
         // here we create a master <g> element and move everything by the margins
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -78,7 +74,7 @@
     d3.select("#dropDown").on("change", function () {
         // d3.event is set to the current event within an event listener
         let active = d3.event.srcElement.value;
-        // sorting the array based on product, type, or tonnage
+        // sorting the array based on product, type, or weight
         data = data.sort(function compare(a, b) {
             switch (active) {
                 case "product":
@@ -91,11 +87,9 @@
                         return 1;
                     else
                         return 0;
-                    break;
-                case "tonnage":
+                case "weight":
                     // sorting by magnitude of tons
                     return b.tons - a.tons;
-                    break;
             }
         });
         // this execute serves as the update
@@ -132,7 +126,7 @@
         // Note that execute here is also called as the update function,
         // so everything that can be is already initialized outside of this function
 
-        // here we update the yscale
+        // here we update the yscale and set the domain to product initially
         // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
         yScale.domain(data.map(d => d.product));
 
@@ -150,12 +144,19 @@
         // we package each data item into a g
             .append("g")
             .classed("barGroup", true)
-            // and position this g globally
-            .attr("transform", function (d) {
-                return "translate(" + 0 + "," + yScale(d.product) + ")";
-            });
+            .attr("transform", d => "translate(" + 0 + "," + yScale(d.product) + ")");
 
-        barGroupsEnter.append("text").text(d => d.product)
+        barGroupsEnter.append("text")
+            .attr("opacity", 0);
+        barGroupsEnter.append("rect")
+            .attr("width", 0);
+
+        barGroups.exit().remove();
+
+        barGroups = barGroups.merge(barGroupsEnter);
+
+        barGroups.select("text")
+            .text(d => d.product)
             .attr("x", textWidth - 10)
             // dy is a shift along the y axis
             .attr("dy", yScale.step() / 2)
@@ -163,12 +164,10 @@
             .attr("text-anchor", "end")
             // center it
             .attr("alignment-baseline", "middle")
-            .attr("opacity", 0)
-            .transition().duration(3000)
+            .transition().duration(2000)
             .attr("opacity", 1);
 
-        barGroupsEnter.append("rect")
-            .attr("width", "0")
+        barGroups.select("rect")
             .attr("x", textWidth)
             // bandwidth accesses the automatically computed width of the bar
             .attr("height", yScale.bandwidth())
@@ -176,8 +175,7 @@
                 // here we apply the color scale
                 return colorScale(d.type);
             })
-            .attr("width", 0)
-            .transition().duration(5000)
+            .transition().duration(2000)
             .attr("width", function (d) {
                 // here we call the scale function.
                 return xScale(d.tons) - xScale(0);
@@ -185,7 +183,7 @@
 
         //---------------- Update Animations after sort --------------------
 
-        barGroups.transition().duration(3000)
+        barGroups.transition().duration(2000)
             .attr("transform", function (d) {
                 return "translate(" + 0 + "," + yScale(d.product) + ")";
             });

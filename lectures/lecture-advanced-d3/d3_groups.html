@@ -19,31 +19,28 @@
 </body>
 <script>
     execute = function (myData) {
-        if (!myData) {
-            myData = [127, 61, 256, 71, 15, 23]
-        }
+        myData = !myData ? [127, 61, 256, 71, 15, 23] : myData;
         let barHeight = 30;
         let svg = d3.select("svg");
 
         let barGroups = svg.selectAll(".barGroup")
-                .data(myData);
+            .data(myData);
 
         // ------ taking care of entering elements ----
         let barGroupsEnter = barGroups.enter()
-                .append("g")
-                .classed("barGroup", true); // assigning the class
-
-        // ------ taking care of removing elements ----
-        barGroups.exit().remove();
-
+            .append("g")
+            .classed("barGroup", true); // assigning the class
 
         // appending and initializing the rects
         barGroupsEnter.append("rect")
-                .attr("width", "0")
-                .attr("height", 20)
-                .style("fill", "gray");
+            .attr("width", "0")
+            .attr("height", 20)
+            .style("fill", "gray");
 
         barGroupsEnter.append("text");
+
+        // ------ taking care of removing elements ----
+        barGroups.exit().remove();
 
         // merge selections
         barGroups = barGroups.merge(barGroupsEnter);
@@ -51,34 +48,27 @@
         // ------ taking care of updates ----
         // update groups
         barGroups.attr("transform", function (d, i) {
-                    return "translate(0," + i * barHeight + ")";
-                });
+            return "translate(0," + i * barHeight + ")";
+        });
 
         // the selection propagates update data from the group to the rectangle
         barGroups.select("rect")
-                .transition().duration(3000)
-                .attr("width", function (d) {
-                    return d;
-                })
-                .style("fill", "steelblue")
-                .attr("opacity", 1);
+            .transition().duration(3000)
+            .attr("width", d => d)
+            .style("fill", "steelblue")
+            .attr("opacity", 1);
 
         // the selection propagates update data from the group to the text
         barGroups.select("text")
-                .attr("transform", function (d) {
-                    return "translate(" + (d + 5) + ", 0)";
-                })
-                .text(function (d) {
-                    return d;
-                })
-                .attr("dy", barHeight / 2)
-                .attr("opacity", 0)
-                .transition()
-                .delay(2000)
-                .duration(1000)
-                .attr("opacity", 1);
+            .attr("transform", d => "translate(" + (d + 5) + ", 0)")
+            .text(d => d)
+            .attr("dy", barHeight / 2)
+            .attr("opacity", 0)
+            .transition()
+            .delay(2000)
+            .duration(1000)
+            .attr("opacity", 1);
     };
-
     // a button setting another dataset
     d3.select("#next").on("click", function () {
         execute([500, 100, 120]);

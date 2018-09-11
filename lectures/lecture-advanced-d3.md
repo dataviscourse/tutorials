@@ -1,6 +1,6 @@
 ---
 layout: code-lecture
-title:  Advanced D3&#58; More on selections and data; scales; axis
+title:  "Advanced D3: More on selections and data; scales; axis"
 permalink: /lectures/lecture-advanced-d3/
 nomenu: true
 ---
@@ -9,7 +9,13 @@ nomenu: true
 
 ## Selections and Data
 
-First, let's go over how selections and data mapping works again. We talked about the selection methods `select()` and  `selectAll()`, that take CSS selectors. That means that we can select on elements - `select("svg")`, classes - `selectAll(".className")`, IDs - `selectAll("#cancelButton")`, but also other selection expression such as parent child relationships - `selectAll("p > span")`. Here is a simple example:
+First, let's go over how selections and data mapping works again. We talked about the selection methods `select()` and  `selectAll()` that take CSS selectors. That means that we can select on
+  * **elements** - `select("svg")`, 
+  * **classes** - `selectAll(".className")`,
+  * **IDs** - `selectAll("#cancelButton")`, 
+  * but also arbitrary complex selection expression such as parent child relationships - `selectAll("p > span")`. 
+  
+Here is a simple example:
 
 {% include code.html id="d3_selectall" file="d3_selectall.html" code="" js="false" preview="true" %}
 
@@ -20,13 +26,25 @@ The selections returns a `Selection` object which contains (among other things) 
 
 ### Mapping Data
 
-When we map data to that object (called a data-join), we can see where the data is stored: 
+When we map data to that object – called a **data-join** – we can see where the data is stored: 
 
 {% include code.html id="d3_data" file="d3_data.html" code="" js="false" preview="true" %}
 
 ![data assinged](images/data.png)
-If we look at the properties of the `Selection` object after we assigned the data we can see the distinct selections: `_enter` for all data items that didn't match to a DOM element and are scheduled to be a
-dded, `_exit` for all DOM elements that didn't map to a data item, and the familiar `_groups` for the updated selection. When we drill down to the `rect` DOM elements, we can see a field `__data__` that holds the actual data values. We then can access these data values through the first parameter passed into a function `.attr("width", function (d) {return d;})`. An optional second parameter is the index of the current element, in the order of how they occur in the DOM. 
+If we look at the properties of the `Selection` object after we assigned the data we can see the distinct selections:
+ * `_enter` for all data items that didn't match to a DOM element and are scheduled to be a
+dded, 
+ * `_exit` for all DOM elements that didn't map to a data item, 
+ * and the familiar `_groups` for the updated selection. 
+ 
+When we drill down to the `rect` DOM elements, we can see a field `__data__` that holds the actual data values. We then can access these data values through the first parameter passed into a function  
+`.attr("width", function (d) {return d;})`   
+or  
+`.attr("width", d => d)`  
+
+An optional second parameter  
+`.attr("width", (d, i) => i)`  
+is the index of the current element, in the order of how they occur in the DOM. 
 
 The following figure illustrates the differences between the enter, update and exit selection: 
 
@@ -72,7 +90,8 @@ The latter is the better approach, as we only have to define the common aspects 
 {% include code.html id="d3_groups_broken" file="d3_groups_broken.html" code="" js="false" preview="true" %}
 
 ![broken group](images/broken_group.png)
-This doesn't work as we would hope. The update isn't handled correctly. When we look at the selection we can see why: the data in the `g` element is updated correctly, but not the data in the `rect` or the `text`. 
+
+This doesn't work as we would hope. The update isn't handled correctly. When we look at the selection we can see why: the data in the `g` element is updated correctly, but not the data in the `rect` or the `text`; these are only handled upon *enter* not upon *update*. 
 
 We can fix this by separating the update from the enter and by explicitly selecting the lower-level elements (the rectangle and the text). The selection propagates the data to the actual elements:  <br /><br /><br /><br /><br />
 
@@ -87,7 +106,9 @@ Here is an example of a dataset that is not suitable for direct plotting:
 {% include code.html id="d3_noscale" file="d3_noscale.html" code="" js="false" preview="true" %}
 
 
-Generally speaking what we are looking for is a function `f()` that maps an input dataset `D` to a derived dataset `D'`, i.e., `D'=f(D)`. Naturally, we want to choose `f()` such that the resulting derived dataset can be used for plotting.
+Generally speaking what we are looking for is a function `f()` that maps an input dataset `D` to a derived dataset `D'`, i.e.,  
+ `D'=f(D)`  
+Naturally, we want to choose `f()` such that the resulting derived dataset can be used for plotting.
 
 Let's write a function that we can call so that this is dataset can be easily plotted:
 
@@ -123,7 +144,7 @@ Drawing Axes and legends is critical for data visualization. All of our examples
 
 {% include code.html id="d3_axes" file="d3_axes.html" code="" js="false" preview="true" %}
 
-This worked! We create a new axes by calling `d3.scaleLinear()` and tell it its value range by passing the relevant scale. We then append the scale to the svg with this call: `svg.append("g").call(xAxis)`. Now, we can see that it overlaps with our bar charts and that some of the numbers are close to the edge of the svg. To fix this we have to style the chart and add some margins. We'll also apply some custom styles to our axis.
+This worked! We create a new axes by calling `d3.axisBottom();` and tell it its value range by passing the relevant scale. We then append the scale to the svg with this call: `svg.append("g").call(xAxis)`. Now, we can see that it overlaps with our bar charts and that some of the numbers are close to the edge of the svg. To fix this we have to style the chart and add some margins. We'll also apply some custom styles to our axis.
 
 {% include code.html id="d3_axes_nice" file="d3_axes_nice.html" code="" js="false" preview="true" %}
 
@@ -141,7 +162,6 @@ Among the new concepts introduced in this example are:
  * How to use a scale with [bands](https://github.com/d3/d3-scale#band-scales) to evenly space the bars. 
  * How to update a scale.
  * How to ensure object consistency for transitions with the [key function of the data mapping](https://github.com/d3/d3-selection#selection_data).
- * How to use the object notation to define many attributes at the same time.
  
 {% include code.html id="d3_complex_data" file="d3_complex_data.html" code="" js="false" preview="true" %}
 

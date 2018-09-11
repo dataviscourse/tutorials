@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D3: Updating with Groups - Broken.</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
     <style>
         rect {
             fill: lightgray;
@@ -20,49 +20,41 @@
 </body>
 <script>
     execute = function (myData) {
-        if (!myData) {
-            myData = [127, 61, 256, 71, 15, 23]
-        }
+        myData = !myData ? [127, 61, 256, 71, 15, 23] : myData;
         let barHeight = 30;
         let svg = d3.select("svg");
 
         let barGroups = svg.selectAll(".barGroup")
-                .data(myData);
+            .data(myData);
 
         // append new g elements for each data point
         let enterBarGroups = barGroups.enter()
-                .append("g")
-                .classed("barGroup", true); // assigning the class
+            .append("g")
+            .classed("barGroup", true); // assigning the class
+
+        // append a rect to the g element
+        enterBarGroups.append("rect")
+            .attr("width", d => d)
+            .attr("height", 20)
+            .style("fill", "steelblue");
+
+        // add a label to the group
+        enterBarGroups.append("text")
+            .attr("transform", function (d) {
+                // move it five pixel right of the bar
+                return "translate(" + (d + 5) + ", 0)";
+            })
+            .text(d => d)
+            .attr("dy", barHeight / 2);
 
         barGroups.exit().remove();
 
         barGroups = barGroups.merge(enterBarGroups);
+
         barGroups.attr("transform", function (d, i) {
-                    // positioning the group in y
-                    return "translate(0," + i * barHeight + ")";
-                });
-
-        // append a rect to the g element
-       enterBarGroups.append("rect")
-                .attr("width", function (d) {
-                    return d;
-                })
-                .attr("height", 20)
-                .style("fill", "steelblue");
-
-        // add a label to the group
-       enterBarGroups.append("text")
-                .attr("transform", function (d) {
-                    // move it five pixel right of the bar
-                    return "translate(" + (d + 5) + ", 0)";
-                })
-                .text(function (d) {
-                    return d;
-                })
-                .attr("dy", barHeight / 2);
-
-        // let's see what's wrong here
-        console.log(enterBarGroups);
+            // positioning the group in y
+            return "translate(0," + i * barHeight + ")";
+        });
     };
 
     // a button setting another dataset

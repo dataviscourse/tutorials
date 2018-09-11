@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D3 Clamping a Scale</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
 </head>
 <body>
 <svg height="300" width="800">
@@ -17,28 +17,23 @@
 
         // here we define the scale
         let xScale = d3.scaleLinear()
-                // the domain defines the value range of the input dataset
-                .domain([0, 1.5])
-                // the range defines to which range you want to map the input dataset.
-                .range([0, 500]);
-                // uncomment to see the effect of clamping
-                // .clamp(true);
+        // the domain defines the value range of the input dataset
+            .domain([0, 1.5])
+            // the range defines to which range you want to map the input dataset.
+            .range([0, 500]);
+        // uncomment to see the effect of clamping
+        // .clamp(true);
 
         let svg = d3.select("svg");
         svg.selectAll("rect")
-                .data(data)
-                .enter()
-                .append("rect")
-                .attr("x", 0)
-                .attr("y", function (d, i) {
-                    return i * 50 + 50
-                })
-                .attr("width", function (d) {
-                    // here we call the scale function.
-                    return xScale(d);
-                })
-                .attr("height", 20)
-                .style("fill", "steelblue")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", 0)
+            .attr("y", (d, i) => i * 50 + 50)
+            .attr("width", d => xScale(d))
+            .attr("height", 20)
+            .style("fill", "steelblue");
     }
 </script>
 <script src="run.js" charset="utf-8"></script>

@@ -11,30 +11,28 @@
 </body>
 <script>
     execute = function () {
+        // the scale function
+        let scale = function (input) {
+            return input * 500;
+        };
+
         // a dataset that doesn't work well in screen coordinates
         let data = [0.3, 0.01, 1.5];
 
         let svg = d3.select("svg");
         svg.selectAll("rect")
-                .data(data)
-                .enter()
-                .append("rect")
-                .attr("x", 0)
-                .attr("y", function (d, i) {
-                    return i * 90 + 50
-                })
-                .attr("width", function (d){
-                    // here we don't use the data directly, but call the scale function.
-                    return scale(d);
-                })
-                .attr("height", 20)
-                .style("fill", "steelblue");
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", 0)
+            .attr("y", (d, i) => i * 90 + 50)
+            .attr("width", function (d) {
+                // here we don't use the data directly, but call the scale function.
+                return scale(d);
+            })
+            .attr("height", 20)
+            .style("fill", "steelblue");
     };
-
-    // the scale function
-    scale = function (input) {
-        return input * 500;
-    }
 </script>
 <script src="run.js" charset="utf-8"></script>
 </html>
