@@ -25,7 +25,7 @@
         },
         {
             product: "Bananas",
-            tons: 11204,
+            tons: 12000,
             type: "fruit"
         },
         {
@@ -75,8 +75,10 @@
 
     xScale = d3.scaleLinear()
         .domain([0, max])
-        .range([textWidth, width])
+        .range([0, width-textWidth])
         .nice();
+
+    animationDuration = 2000;
 
     colorScale = d3.scaleOrdinal()
         .domain(types)
@@ -93,7 +95,7 @@
 
     svg.append("g")
         .classed("axis", true)
-        .attr("transform", "translate(" + 0 + "," + height + ")")
+        .attr("transform", "translate(" + textWidth + "," + height + ")")
         .call(xAxis);
 
     execute = function () {
@@ -141,7 +143,7 @@
             .attr("text-anchor", "end")
             // center it
             .attr("alignment-baseline", "middle")
-            .transition().duration(2000)
+            .transition().duration(animationDuration)
             .attr("opacity", 1);
 
         barGroups.select("rect")
@@ -152,15 +154,15 @@
                 // here we apply the color scale
                 return colorScale(d.type);
             })
-            .transition().duration(2000)
+            .transition().duration(animationDuration)
             .attr("width", function (d) {
                 // here we call the scale function.
-                return xScale(d.tons) - xScale(0);
+                return xScale(d.tons);
             });
 
         //---------------- Update Animations after sort --------------------
 
-        barGroups.transition().duration(2000)
+        barGroups.transition().duration(animationDuration)
             .attr("transform", function (d) {
                 return "translate(" + 0 + "," + yScale(d.product) + ")";
             });
