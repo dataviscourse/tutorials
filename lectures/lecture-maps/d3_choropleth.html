@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>D3: Loading GeoJSON data and generating SVG paths</title>
@@ -12,76 +13,77 @@
         }
     </style>
 </head>
+
 <body>
-<svg width="800" height="600">
-    <g id="mapLayer"></g>
-</svg>
-<script type="text/javascript">
-    async function choropleth(){
-        let svg = d3.select("svg");
-        let width = parseInt(svg.attr("width"));
-        let height = parseInt(svg.attr("height"));
+    <svg width="800" height="600">
+        <g id="mapLayer"></g>
+    </svg>
+    <script type="text/javascript">
+        async function choropleth() {
+            let svg = d3.select("svg");
+            let width = parseInt(svg.attr("width"));
+            let height = parseInt(svg.attr("height"));
 
-        let projection = d3.geoAlbersUsa()
-            .translate([width / 2, height / 2])
-            .scale([700]);
+            let projection = d3.geoAlbersUsa()
+                .translate([width / 2, height / 2])
+                .scale([700]);
 
-        let path = d3.geoPath()
-            .projection(projection);
+            let path = d3.geoPath()
+                .projection(projection);
 
-        // Define a quantized scale to sort data values into buckets of color
-        let color = d3.scaleQuantize()
-            .range(["#edf8fb",
-                "#b2e2e2",
-                "#66c2a4",
-                "#2ca25f",
-                "#006d2c"]);
+            // Define a quantized scale to sort data values into buckets of color
+            let color = d3.scaleQuantize()
+                .range(["#edf8fb",
+                    "#b2e2e2",
+                    "#66c2a4",
+                    "#2ca25f",
+                    "#006d2c"]);
 
 
-        // Load in GeoJSON data
-        let json = await d3.json("us-states.json");
-        
-        
-            // Load in the agriculture data; note that, unlike the city data,
-            // we have to do this AFTER we've already loaded the GeoJSON data
-        let stateData = await d3.csv("us-ag-productivity-2004.csv");
+            // Load in GeoJSON data
+            let json = await d3.json("us-states.json");
 
-                // Set input domain for color scale based on the lowest and highest values in the data
-                color.domain([
-                    d3.min(stateData, function (d) {
-                        return d.value;
-                    }),
-                    d3.max(stateData, function (d) {
-                        return d.value;
-                    })
-                ]);
 
-                // Convert the data array to an object, so that it's easy to look up
-                // data values by state names
-                let dataLookup = {};
-                stateData.forEach(function (stateRow) {
-                    // d3.csv will read the values as strings; we need to convert them to floats
-                    dataLookup[stateRow.state] = parseFloat(stateRow.value);
+            // Load in the agriculture data; 
+            let stateData = await d3.csv("us-ag-productivity-2004.csv");
+
+            // Set input domain for color scale based on the lowest and highest values in the data
+            color.domain([
+                d3.min(stateData, function (d) {
+                    return d.value;
+                }),
+                d3.max(stateData, function (d) {
+                    return d.value;
+                })
+            ]);
+
+            // Convert the data array to an object, so that it's easy to look up
+            // data values by state names
+            let dataLookup = {};
+            stateData.forEach(function (stateRow) {
+                // d3.csv will read the values as strings; we need to convert them to floats
+                dataLookup[stateRow.state] = parseFloat(stateRow.value);
+            });
+
+            // Now we add the data values to the geometry for every state
+            json.features.forEach(function (feature) {
+                feature.properties.value = dataLookup[feature.properties.name];
+            });
+
+            // Bind data and create one path per GeoJSON feature
+            d3.select("#mapLayer").selectAll("path")
+                .data(json.features)
+                .enter()
+                .append("path")
+                // here we use the familiar d attribute again to define the path
+                .attr("d", path)
+                .style("fill", function (d) {
+                    return color(d.properties.value);
                 });
 
-                // Now we add the data values to the geometry for every state
-                json.features.forEach(function (feature) {
-                    feature.properties.value = dataLookup[feature.properties.name];
-                });
-
-                // Bind data and create one path per GeoJSON feature
-                d3.select("#mapLayer").selectAll("path")
-                    .data(json.features)
-                    .enter()
-                    .append("path")
-                    // here we use the familiar d attribute again to define the path
-                    .attr("d", path)
-                    .style("fill", function (d) {
-                        return color(d.properties.value);
-                    });
- 
-    };
-    choropleth();
-</script>
+        };
+        choropleth();
+    </script>
 </body>
+
 </html>

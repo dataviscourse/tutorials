@@ -13,7 +13,7 @@ There are, however, cases, when the spatial position is paramount, and in this c
 But let's get to how we can visualize data on top of maps with D3. Generally, there are two approaches:
 
 
- 1. **Data Maps**: If you want to present data on an abstract map, e.g., only showing counties or state borders, D3 is the way to go! Data maps are mostly used for when you want to communicate trends and let users compar between different areas. In these maps you have full control over how the maps is colored, and how to encode information onto the map. Typically, you can't zoom in to show more detail.
+ 1. **Data Maps**: If you want to present data on an abstract map, e.g., only showing counties or state borders, D3 is the way to go! Data maps are mostly used for when you want to communicate trends and let users compare between different areas. In these maps you have full control over how the map is colored, and how to encode information onto the map. Typically, you can't zoom in to show more detail.
  2. **Street Map with Data**: If you want to show something in the context of a real street map, your best bet is to use something like the [Google Maps API](https://developers.google.com/maps/?hl=en) - [here's an example of how it's used with D3](http://bl.ocks.org/mbostock/899711), or the [OpenStreetMap API](http://wiki.openstreetmap.org/wiki/API). You can use D3 to draw things on top of those, but you'll mainly work with the API provided by the vendor. This is great if you need multiple levels of zoom, and if you really care about the position of an item, for example, if you visualize the ratings of a restaurant, it is convenient to also show it's exact location. 
 
 We'll be taking about both street maps and data maps, giving examples of how to go about using each one.
@@ -262,12 +262,12 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 TopoJSON hence eliminates redundancy, offering much more compact representations of geometry than with GeoJSON; typical TopoJSON files are 80% smaller than their GeoJSON equivalents.
 
-If we console.log what a topoJSON file looks like, this is an example of what we would see. 
+<!-- If we console.log what a topoJSON file looks like, this is an example of what we would see. 
 
-![Alt Image Text](./images/topoJSON.png) 
+![Alt Image Text](./images/topoJSON.png)  -->
 
 
-If we simply open a topoJSON file in an editor, this is an example of what we would see. 
+If we open a topoJSON file in an editor, this is an example of what we would see. 
 
 
 ![Alt Image Text](./images/topoJSON_pretty.png) 
@@ -279,16 +279,37 @@ Because D3 only handles data in the GeoJSON format, there is a d3 library that d
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 ```
 
-The TopoJSON client API supports converting TopoJSON objects into GeoJSON for use in a web browser. The usage is as follows:
+The TopoJSON client API supports converting TopoJSON objects into GeoJSON for use in a web browser. From the documentation: 
+
+Returns the GeoJSON Feature or FeatureCollection for the specified object in the given topology. If the specified object is a GeometryCollection, a FeatureCollection is returned, and each geometry in the collection is mapped to a Feature. Otherwise, a Feature is returned. The returned feature is a shallow copy of the source object: they may share identifiers, bounding boxes, properties and coordinates.
+
+Some examples:
+
+A point is mapped to a feature with a geometry object of type “Point”.
+Likewise for line strings, polygons, and other simple geometries.
+A null geometry object (of type null in TopoJSON) is mapped to a feature with a null geometry object.
+A geometry collection of points is mapped to a feature collection of features, each with a point geometry.
+A geometry collection of geometry collections is mapped to a feature collection of features, each with a geometry collection.
+
+
+The usage is as follows:
 
 ``` javascript
-topojson.feature(topology, object)
+topojson.feature(topology, object-to-be-converted)
 
-console.log(topojson.feature(json, json.objects.countries))
+console.log(topojson.feature(topoJSON, topoJSON.objects.usStates))
+
 ```
-
-
 ![Alt Image Text](./images/topo2geo.png)
+
+After converting topoJSON to geoJSON, remember that what you will want to feed into the .data() portion of your d3 code, is the geoJSON.features array. 
+
+`` 
+   let geoJSON = topojson.feature(topoJSON,topoJSON.objects.countries);
+   
+   ...
+   .data(geoJSON.features)
+   ``
 
  
 ### Using Projections 

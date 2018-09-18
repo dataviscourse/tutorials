@@ -53,8 +53,7 @@
         let layer = d3.select(this.getPanes().overlayLayer).append("div")
             .attr("class", "hurricane");
 
-        // Draw each marker as a separate SVG element.
-        // We could use a single SVG, but what size would it have?
+       
         overlay.draw = function () {
             let projection = this.getProjection(),
                 padding = 10;
@@ -79,22 +78,40 @@
                 .domain([d3.min(data, d => d.wind), d3.max(data, d => d.wind)])
                 .range([2, 10]);
 
+         // Draw each marker as a separate SVG element.
+        // We could use a single SVG, but what size would it have?
             let marker = layer.selectAll("svg")
-                .data(data)
-                .each(transform) // update existing markers
-                .enter().append("svg")
+                .data(data);
+
+            let markerEnter = marker.enter().append("svg");
+
+            markerEnter.append("circle")
+            .attr("cx", padding)
+                .attr("cy", padding)
+                .style('opacity', .8);
+
+            marker = marker.merge(markerEnter);
+
+            marker
+                // .style('left',d=>{
+                //     d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
+                //     d = projection.fromLatLngToDivPixel(d);
+                //     return (d.x - padding) + "px";
+                // })
+                // .style('top',d=>{
+                //     d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
+                //     d = projection.fromLatLngToDivPixel(d);
+                //     return (d.y - padding) + "px";
+                // })
                 .each(transform)
                 .attr("class", "marker");
 
             // Add a circle.
-            marker.append("circle")
+            marker.select("circle")
                 .attr("r", d => windScale(d.wind))
-                .attr("cx", padding)
-                .attr("cy", padding)
                 .attr('fill', d => {
                     return d.Name === hurricaneName ? colorScale(d.wind) : '#a3a5a8'
-                })
-                .style('opacity', .8);
+                });
 
             function transform(d) {
                 d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
