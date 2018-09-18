@@ -56,11 +56,9 @@
                 .attr("d", path);
 
 
-            // Load in cities data. Note that, as this data is independent of the
-            // state shapes, we don't have to wait for the us-states.json file to be
-            // loaded - so we can do this outside of the d3.json() callback
+            // Load in cities data.
             let data = await d3.csv("us-cities.csv");
-            
+
             d3.select("#cityLayer").selectAll("circle")
                 .data(data)
                 .enter()
