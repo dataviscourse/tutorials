@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <style>
-
-    html, body, #map {
+    html,
+    body,
+    #map {
         width: 100%;
         height: 100%;
         margin: 0;
         padding: 0;
     }
 
-    .hurricane, .hurricane svg {
+    .hurricane,
+    .hurricane svg {
         position: absolute;
     }
 
@@ -20,91 +22,93 @@
         padding-right: 100px;
         font: 10px sans-serif;
     }
-
 </style>
 <div id="map"></div>
 <script src="//maps.google.com/maps/api/js?key=AIzaSyDeuqYAoD2lUBNikOZng7QsNOXhZ9-mH5o"></script>
-<script src="//d3js.org/d3.v4.js"></script>
+<script src="//d3js.org/d3.v5.js"></script>
 <script>
-    {
-        // Create the Google Map…
-        let map = new google.maps.Map(d3.select("#map").node(), {
-            zoom: 3,
-            center: {lat: 34.713556220390046, lng: -53.124999999999986},
-            mapTypeId: 'satellite'
-        });
+    async function googleMap() {
+    // Create the Google Map…
+    let map = new google.maps.Map(d3.select("#map").node(), {
+        zoom: 3,
+        center: {
+            lat: 34.713556220390046,
+            lng: -53.124999999999986
+        },
+        mapTypeId: 'satellite'
+    });
 
-        // we downloaded hurrican data for 2015 from here:
-        // ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r09/wmo/csv/year/Year.2005.ibtracs_wmo.v03r09.csv
-        // this includes Katrina
+    // we downloaded hurrican data for 2015 from here:
+    // ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r09/wmo/csv/year/Year.2005.ibtracs_wmo.v03r09.csv
+    // this includes Katrina
 
-        // Load the station data. When the data comes back, create an overlay.
-        d3.csv("Katrina.csv", function (error, data) {
-            if (error) throw error;
+    // Load the station data. When the data comes back, create an overlay.
+    let data = await d3.csv("Katrina.csv");
 
-            let overlay = new google.maps.OverlayView();
 
-            // Add the container when the overlay is added to the map.
-            overlay.onAdd = function () {
-                let layer = d3.select(this.getPanes().overlayLayer).append("div")
-                    .attr("class", "hurricane");
+    let overlay = new google.maps.OverlayView();
 
-                // Draw each marker as a separate SVG element.
-                // We could use a single SVG, but what size would it have?
-                overlay.draw = function () {
-                    let projection = this.getProjection(),
-                        padding = 10;
+    // Add the container when the overlay is added to the map.
+    overlay.onAdd = function () {
+        let layer = d3.select(this.getPanes().overlayLayer).append("div")
+            .attr("class", "hurricane");
 
-                    //Pick a Hurricane to Focus on
-                    let hurricaneName = 'KATRINA';
+        // Draw each marker as a separate SVG element.
+        // We could use a single SVG, but what size would it have?
+        overlay.draw = function () {
+            let projection = this.getProjection(),
+                padding = 10;
 
-                    // Constrain background hurricanes to the North Atlantic
-                    data = data.filter(d => d.Basin === ' NA');
+            //Pick a Hurricane to Focus on
+            let hurricaneName = 'KATRINA';
 
-                    data.map(d => d.wind = d['Wind(WMO)']);
-                    // sort the data so that the selected hurricane is on top
-                    data = data.sort(d => d.Name === hurricaneName);
+            // Constrain background hurricanes to the North Atlantic
+            data = data.filter(d => d.Basin === ' NA');
 
-                    //Color Scale for Hurricane Winds from https://en.wikipedia.org/wiki/Template:Storm_colour
-                    let colorScale = d3.scaleLinear()
-                        .domain([35, 73, 95, 110, 130, 155, 200])
-                        // each color matches to an interpolation point
-                        .range(['#5ebaff', '#00faf4', "#ffffcc", "#ffe775", '#ffc140', '#ff8f20', '#ff6060',]);
+            data.map(d => d.wind = d['Wind(WMO)']);
+            // sort the data so that the selected hurricane is on top
+            data = data.sort(d => d.Name === hurricaneName);
 
-                    let windScale = d3.scaleLinear()
-                        .domain([d3.min(data, d => d.wind), d3.max(data, d => d.wind)])
-                        .range([2, 10]);
+            //Color Scale for Hurricane Winds from https://en.wikipedia.org/wiki/Template:Storm_colour
+            let colorScale = d3.scaleLinear()
+                .domain([35, 73, 95, 110, 130, 155, 200])
+                // each color matches to an interpolation point
+                .range(['#5ebaff', '#00faf4', "#ffffcc", "#ffe775", '#ffc140', '#ff8f20', '#ff6060', ]);
 
-                    let marker = layer.selectAll("svg")
-                        .data(data)
-                        .each(transform) // update existing markers
-                        .enter().append("svg")
-                        .each(transform)
-                        .attr("class", "marker");
+            let windScale = d3.scaleLinear()
+                .domain([d3.min(data, d => d.wind), d3.max(data, d => d.wind)])
+                .range([2, 10]);
 
-                    // Add a circle.
-                    marker.append("circle")
-                        .attr("r", d => windScale(d.wind))
-                        .attr("cx", padding)
-                        .attr("cy", padding)
-                        .attr('fill', d => {
-                            return d.Name === hurricaneName ? colorScale(d.wind) : '#a3a5a8'
-                        })
-                        .style('opacity', .8);
+            let marker = layer.selectAll("svg")
+                .data(data)
+                .each(transform) // update existing markers
+                .enter().append("svg")
+                .each(transform)
+                .attr("class", "marker");
 
-                    function transform(d) {
-                        d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
-                        d = projection.fromLatLngToDivPixel(d);
-                        return d3.select(this)
-                            .style("left", (d.x - padding) + "px")
-                            .style("top", (d.y - padding) + "px");
-                    }
-                };
-            };
+            // Add a circle.
+            marker.append("circle")
+                .attr("r", d => windScale(d.wind))
+                .attr("cx", padding)
+                .attr("cy", padding)
+                .attr('fill', d => {
+                    return d.Name === hurricaneName ? colorScale(d.wind) : '#a3a5a8'
+                })
+                .style('opacity', .8);
 
-            // Bind our overlay to the map…
-            overlay.setMap(map);
-        });
-    }
+            function transform(d) {
+                d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
+                d = projection.fromLatLngToDivPixel(d);
+                return d3.select(this)
+                    .style("left", (d.x - padding) + "px")
+                    .style("top", (d.y - padding) + "px");
+            }
+        };
+    };
 
+    // Bind our overlay to the map…
+    overlay.setMap(map);
+    };
+
+    googleMap();
 </script>

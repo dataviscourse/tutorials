@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>D3: Loading GeoJSON data and generating SVG paths</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
     <style>
         path {
             fill: none;
@@ -12,37 +13,40 @@
         }
     </style>
 </head>
+
 <body>
-<svg width="800" height="600">
-    <g id="mapLayer"></g>
-    <g id="cityLayer"></g>
-</svg>
+    <svg width="800" height="600">
+        <g id="mapLayer"></g>
+        <g id="cityLayer"></g>
+    </svg>
 
-<script type="text/javascript">
-    {
-        let svg = d3.select("svg");
-        let width = parseInt(svg.attr("width"));
-        let height = parseInt(svg.attr("height"));
+    <script type="text/javascript">
+        async function cities() {
+            let svg = d3.select("svg");
+            let width = parseInt(svg.attr("width"));
+            let height = parseInt(svg.attr("height"));
 
-        let projection = d3.geoAlbersUsa()
-            .translate([width / 2, height / 2])
-            .scale([700]);
+            let projection = d3.geoAlbersUsa()
+                .translate([width / 2, height / 2])
+                .scale([700]);
 
-        let path = d3.geoPath()
-            .projection(projection);
+            let path = d3.geoPath()
+                .projection(projection);
 
-        // Load in GeoJSON data
-        d3.json("us-states.json", function (json) {
+            // Load in GeoJSON data
+            let json = await d3.json("us-states.json");
+
+
             d3.select("#mapLayer").selectAll("path")
                 .data(json.features)
                 .enter()
                 .append("path")
                 .attr("d", path);
-        });
 
 
-        // Load in GeoJSON data
-        d3.json("us-states.json", function (json) {
+
+            // Load in GeoJSON data
+            json = await d3.json("us-states.json");
             // Bind data and create one path per GeoJSON feature
             d3.select("#mapLayer").selectAll("path")
                 .data(json.features)
@@ -50,12 +54,13 @@
                 .append("path")
                 // here we use the familiar d attribute again to define the path
                 .attr("d", path);
-        });
 
-        // Load in cities data. Note that, as this data is independent of the
-        // state shapes, we don't have to wait for the us-states.json file to be
-        // loaded - so we can do this outside of the d3.json() callback
-        d3.csv("us-cities.csv", function (data) {
+
+            // Load in cities data. Note that, as this data is independent of the
+            // state shapes, we don't have to wait for the us-states.json file to be
+            // loaded - so we can do this outside of the d3.json() callback
+            let data = await d3.csv("us-cities.csv");
+            
             d3.select("#cityLayer").selectAll("circle")
                 .data(data)
                 .enter()
@@ -71,8 +76,10 @@
                 })
                 .style("fill", "steelblue")
                 .style("opacity", 0.8);
-        });
-    }
-</script>
+
+        };
+        cities();
+    </script>
 </body>
+
 </html>

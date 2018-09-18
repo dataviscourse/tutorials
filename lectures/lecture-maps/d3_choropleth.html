@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>D3: Loading GeoJSON data and generating SVG paths</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
     <style>
         path {
             fill: none;
@@ -17,7 +17,7 @@
     <g id="mapLayer"></g>
 </svg>
 <script type="text/javascript">
-    {
+    async function choropleth(){
         let svg = d3.select("svg");
         let width = parseInt(svg.attr("width"));
         let height = parseInt(svg.attr("height"));
@@ -37,11 +37,15 @@
                 "#2ca25f",
                 "#006d2c"]);
 
+
         // Load in GeoJSON data
-        d3.json("us-states.json", function (json) {
+        let json = await d3.json("us-states.json");
+        
+        
             // Load in the agriculture data; note that, unlike the city data,
             // we have to do this AFTER we've already loaded the GeoJSON data
-            d3.csv("us-ag-productivity-2004.csv", function (stateData) {
+        let stateData = await d3.csv("us-ag-productivity-2004.csv");
+
                 // Set input domain for color scale based on the lowest and highest values in the data
                 color.domain([
                     d3.min(stateData, function (d) {
@@ -75,9 +79,9 @@
                     .style("fill", function (d) {
                         return color(d.properties.value);
                     });
-            });
-        });
-    }
+ 
+    };
+    choropleth();
 </script>
 </body>
 </html>

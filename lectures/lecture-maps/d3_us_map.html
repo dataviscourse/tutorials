@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>D3: Loading GeoJSON data and generating SVG paths</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
     <style>
         path {
             fill: none;
@@ -24,7 +24,7 @@
     <g id="cityLayer"></g>
 </svg>
 <script type="text/javascript">
-    {
+    async function usMap(){
         let svg = d3.select("svg");
         let width = parseInt(svg.attr("width"));
         let height = parseInt(svg.attr("height"));
@@ -40,7 +40,8 @@
             .projection(projection);
 
         // Load in GeoJSON data
-        d3.json("us-states.json", function (json) {
+        let json = await d3.json("us-states.json"); 
+        
             // Bind data and create one path per GeoJSON feature
             d3.select("#mapLayer").selectAll("path")
                 .data(json.features)
@@ -51,8 +52,9 @@
 
             // let graticule = d3.geoGraticule();
             // d3.select("#mapLayer").append('path').datum(graticule).attr('class', "grat").attr('d', path).attr('fill', 'none');
-        });
-    }
+    };
+
+    usMap();
 </script>
 </body>
 </html>
