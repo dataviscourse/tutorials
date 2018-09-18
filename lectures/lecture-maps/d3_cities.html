@@ -34,18 +34,6 @@
                 .projection(projection);
 
             // Load in GeoJSON data
-            let json = await d3.json("us-states.json");
-
-
-            d3.select("#mapLayer").selectAll("path")
-                .data(json.features)
-                .enter()
-                .append("path")
-                .attr("d", path);
-
-
-
-            // Load in GeoJSON data
             json = await d3.json("us-states.json");
             // Bind data and create one path per GeoJSON feature
             d3.select("#mapLayer").selectAll("path")
