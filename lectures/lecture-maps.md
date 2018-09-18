@@ -23,8 +23,7 @@ We'll be taking about both street maps and data maps, giving examples of how to 
 Let's start off talking about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : 
  * [A Map of Netflix Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), 
  * [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future),
- * [What Americans eat on Thanksgiving](http://www.nytimes.com/interactive/2009/11/26/us/20091126-search-graphic.html),
- * [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html), and last but not least, 
+  * [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html), and last but not least, 
   * [Bars vs Grocery Stores](https://flowingdata.com/2014/05/29/bars-versus-grocery-stores-around-the-world/). 
   
 In all these maps, the specific data and trends are the focus of the visualization. 
