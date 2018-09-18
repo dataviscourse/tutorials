@@ -28,103 +28,114 @@
 <script src="//d3js.org/d3.v5.js"></script>
 <script>
     async function googleMap() {
-    // Create the Google Map…
-    let map = new google.maps.Map(d3.select("#map").node(), {
-        zoom: 3,
-        center: {
-            lat: 34.713556220390046,
-            lng: -53.124999999999986
-        },
-        mapTypeId: 'satellite'
-    });
+        // Create the Google Map…
+        let map = new google.maps.Map(d3.select("#map").node(), {
+            zoom: 3,
+            center: {
+                lat: 34.713556220390046,
+                lng: -53.124999999999986
+            },
+            mapTypeId: 'satellite'
+        });
 
-    // we downloaded hurrican data for 2015 from here:
-    // ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r09/wmo/csv/year/Year.2005.ibtracs_wmo.v03r09.csv
-    // this includes Katrina
+        // we downloaded hurricane data for 2015 from here:
+        // ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r09/wmo/csv/year/Year.2005.ibtracs_wmo.v03r09.csv
+        // this includes Katrina
 
-    // Load the station data. When the data comes back, create an overlay.
-    let data = await d3.csv("Katrina.csv");
+        // Load the station data. When the data comes back, create an overlay.
+        let data = await d3.csv("Katrina.csv");
 
+        let overlay = new google.maps.OverlayView();
 
-    let overlay = new google.maps.OverlayView();
+        // Add the container when the overlay is added to the map.
+        overlay.onAdd = function () {
 
-    // Add the container when the overlay is added to the map.
-    overlay.onAdd = function () {
-        let layer = d3.select(this.getPanes().overlayLayer).append("div")
-            .attr("class", "hurricane");
+            //to see all the available panes, uncomment this line;
+            //console.log(this.getPanes());
 
-       
-        overlay.draw = function () {
-            let projection = this.getProjection(),
-                padding = 10;
+            let layer = d3.select(this.getPanes().overlayMouseTarget).append("div")
+                .attr("class", "hurricane");
 
-            //Pick a Hurricane to Focus on
-            let hurricaneName = 'KATRINA';
-
-            // Constrain background hurricanes to the North Atlantic
-            data = data.filter(d => d.Basin === ' NA');
-
-            data.map(d => d.wind = d['Wind(WMO)']);
-            // sort the data so that the selected hurricane is on top
-            data = data.sort(d => d.Name === hurricaneName);
-
-            //Color Scale for Hurricane Winds from https://en.wikipedia.org/wiki/Template:Storm_colour
-            let colorScale = d3.scaleLinear()
-                .domain([35, 73, 95, 110, 130, 155, 200])
-                // each color matches to an interpolation point
-                .range(['#5ebaff', '#00faf4', "#ffffcc", "#ffe775", '#ffc140', '#ff8f20', '#ff6060', ]);
-
-            let windScale = d3.scaleLinear()
-                .domain([d3.min(data, d => d.wind), d3.max(data, d => d.wind)])
-                .range([2, 10]);
-
-         // Draw each marker as a separate SVG element.
-        // We could use a single SVG, but what size would it have?
-            let marker = layer.selectAll("svg")
-                .data(data);
-
-            let markerEnter = marker.enter().append("svg");
-
-            markerEnter.append("circle")
-            .attr("cx", padding)
-                .attr("cy", padding)
-                .style('opacity', .8);
-
-            marker = marker.merge(markerEnter);
-
-            marker
-                // .style('left',d=>{
-                //     d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
-                //     d = projection.fromLatLngToDivPixel(d);
-                //     return (d.x - padding) + "px";
-                // })
-                // .style('top',d=>{
-                //     d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
-                //     d = projection.fromLatLngToDivPixel(d);
-                //     return (d.y - padding) + "px";
-                // })
-                .each(transform)
-                .attr("class", "marker");
-
-            // Add a circle.
-            marker.select("circle")
-                .attr("r", d => windScale(d.wind))
-                .attr('fill', d => {
-                    return d.Name === hurricaneName ? colorScale(d.wind) : '#a3a5a8'
-                });
-
-            function transform(d) {
-                d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
-                d = projection.fromLatLngToDivPixel(d);
-                return d3.select(this)
-                    .style("left", (d.x - padding) + "px")
-                    .style("top", (d.y - padding) + "px");
+            overlay.onRemove = function () {
+                d3.select('.hurricane').remove();
             }
-        };
-    };
 
-    // Bind our overlay to the map…
-    overlay.setMap(map);
+            overlay.draw = function () {
+                let projection = this.getProjection(),
+                    padding = 10;
+
+                //Pick a Hurricane to Focus on
+                let hurricaneName = 'KATRINA';
+
+                // Constrain background hurricanes to the North Atlantic
+                data = data.filter(d => d.Basin === ' NA');
+
+                data.map(d => d.wind = d['Wind(WMO)']);
+                // sort the data so that the selected hurricane is on top
+                data = data.sort(d => d.Name === hurricaneName);
+
+                //Color Scale for Hurricane Winds from https://en.wikipedia.org/wiki/Template:Storm_colour
+                let colorScale = d3.scaleLinear()
+                    .domain([35, 73, 95, 110, 130, 155, 200])
+                    // each color matches to an interpolation point
+                    .range(['#5ebaff', '#00faf4', "#ffffcc", "#ffe775", '#ffc140', '#ff8f20', '#ff6060', ]);
+
+                let windScale = d3.scaleLinear()
+                    .domain([d3.min(data, d => d.wind), d3.max(data, d => d.wind)])
+                    .range([2, 10]);
+
+                // Draw each marker as a separate SVG element.
+                // We could use a single SVG, but what size would it have?
+                let marker = layer.selectAll("svg")
+                    .data(data, d => d.ISO_time);
+
+                let markerEnter = marker.enter().append("svg");
+
+                markerEnter.append("circle")
+                    .attr("cx", padding)
+                    .attr("cy", padding)
+                    .style('opacity', .8);
+
+                marker.exit().remove();
+
+                marker = marker.merge(markerEnter);
+
+
+                //two alternative ways of applying the transforms.
+                marker
+                    // .style('left',d=>{
+                    //     d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
+                    //     d = projection.fromLatLngToDivPixel(d);
+                    //     return (d.x - padding) + "px";
+                    // })
+                    // .style('top',d=>{
+                    //     d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
+                    //     d = projection.fromLatLngToDivPixel(d);
+                    //     return (d.y - padding) + "px";
+                    // })
+                    .each(transform)
+                    .attr("class", "marker")
+
+                // Add a circle.
+                marker.select("circle")
+                    .attr("r", d => windScale(d.wind))
+                    .attr('fill', d => {
+                        return d.Name === hurricaneName ? colorScale(d.wind) : '#a3a5a8'
+                    })
+                //.on('click',d=>console.log(d))
+
+                function transform(d) {
+                    d = new google.maps.LatLng(+d.Latitude, +d.Longitude);
+                    d = projection.fromLatLngToDivPixel(d);
+                    return d3.select(this)
+                        .style("left", (d.x - padding) + "px")
+                        .style("top", (d.y - padding) + "px");
+                }
+            };
+        };
+
+        // Bind our overlay to the map…
+        overlay.setMap(map);
     };
 
     googleMap();

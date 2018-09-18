@@ -21,6 +21,7 @@ We'll be taking about both street maps and data maps, giving examples of how to 
 ## Data Maps
 
 Let's start off talking about creating maps using purely D3. These maps are usually made with the intent of showing the distribution of data that has a meaningful geographic component. Examples include : 
+ * [Maps showing the Impact of Hurricane Florence](https://www.nytimes.com/interactive/2018/09/13/us/hurricane-florence-impact-damage-map.html),
  * [A Map of Netflix Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), 
  * [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future),
   * [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html), and last but not least, 
@@ -304,12 +305,13 @@ console.log(topojson.feature(topoJSON, topoJSON.objects.usStates))
 
 After converting topoJSON to geoJSON, remember that what you will want to feed into the .data() portion of your d3 code, is the geoJSON.features array. 
 
-`` 
+``` javascript
    let geoJSON = topojson.feature(topoJSON,topoJSON.objects.countries);
    
    ...
    .data(geoJSON.features)
-   ``
+   
+```
 
  
 ### Using Projections 
@@ -464,6 +466,8 @@ map.setMapTypeId('terrain');
 ### Styled Maps
 
 Other than these basic customizations, you can go the extra mile and really change the look and feel of your google map with [Styled Maps](https://developers.google.com/maps/documentation/javascript/styling). 
+
+A 'map styler' is provided [here](https://mapstyle.withgoogle.com/). 
 
 
 ![Alt Image Text](./images/styledMaps.png)
