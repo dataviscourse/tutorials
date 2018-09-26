@@ -14,37 +14,52 @@ Before we jump into the world of layouts, let's quickly cover an important aspec
 ``` javascript
 console.log('Hello'); // Prints Hello
 
- // Makes an async request for a resource from the server using d3.json
-d3.json('myData.json', function (error,data) {
-    //d3 functions that will process and plot your data 
-     console.log('Done Plotting!'); // Prints when the request finishes
-});
+// Creates an async request for a resource from the server using d3.json
+async function loadData(){ 
+    try{
+        let data = await d3.json('myData.json');
+        // This is where you insert d3 code to process and plot the data
+        console.log("Data Loaded!"); // Prints when the request finishes
+    }
+    catch(error){
+        console.error(error); // Logs error if encountered
+    }
+}
+loadData();
 
 console.log('World'); // Prints World
 ```
 The question is: What is the order in which the three statements above will print to the console? Hello , World, Done Plotting  or Hello, Done Plotting, World ?
 
 
-If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An asynchronous call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instantaneous, and javascript does not wait for it to return before continuing to run the rest of the script. Asynchronous functions are often related to doing I/O, e.g. downloading things, reading files, talking to databases, etc.
+If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An *asynchronous* call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instantaneous, and javascript does not wait for it to return before continuing to run the rest of the script. Asynchronous functions are often related to doing I/O, e.g. downloading things, reading files, talking to databases, etc.
 
-In practice, what this means is that you will not have guaranteed access to the data inside MyData.json outside of the callback function for d3.json. So if you have something like this: 
+In practice, this means that you will not have guaranteed access to the data inside MyData.json outside of the anynchronous function. So if you have something like this: 
 
 ``` javascript
- // Makes an async request for a resource from the server using d3.json
-d3.json('myData.json', function (error,data) {
-		//Data wrangling and cleanup. 
-        console.log('Done Cleaning!'); // Prints when the request finishes
-});
 
- //d3 functions that will process and plot your data 
+// Creates an async request for a resource from the server using d3.json
+async function loadData(){ 
+    try{
+        let data = await d3.json('myData.json');
+        //Data wrangling and cleanup. 
+        console.log("Done Cleaning!"); // Prints when the request finishes
+    }
+    catch(error){
+        console.error(error); // Logs error if encountered
+    }
+}
+loadData();
+
+//d3 functions that will process and plot your data 
 
 ```
 
-Your d3 functions will be called, before d3.json has returned with the data inside myData.json and you will either get an error or no visualization at all. 
+Your d3 functions will be called, before d3.json has returned with the data inside myData.json and you will either get an error or no visualization at all. In the above example, this conclusion is consistent with the fact that javascript variables are function scoped. We shouldn't expect to be able to access the `data` variable outside of `loadData()`. The `async`/`await` syntax shown in this example, however, is part of javascript ES6 and only available in d3 as of version 5. This is becuase, under the hood, d3 v5 uses *Promises* to handle asychronous callbacks.
 
 ### A Quick Introduction to Promises
 
-Promises are a pattern that help with asynchronous functions that returns a single result asynchronously. In the examples above, we saw a popular way of receiving this result, which is through a callback function. This function only evaluates once the asyncronous function returns a value. This pattern looks like this: 
+<!-- Promises are a pattern that help with asynchronous functions that returns a single result asynchronously. In the examples above, we saw a popular way of receiving this result, which is through a callback function. This function only evaluates once the asyncronous function returns a value. This pattern looks like this: 
 
 ``` javascript
 asyncFunction(arg1, arg2,
@@ -67,7 +82,6 @@ async1(function(){
     });
 });
 ```
-
 
 Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise, an object that serves as a placeholder and container for the final result. Callbacks registered via the Promise method then() are notified of the result. Here is how we would fix the above example of callback hell with promises: 
 
@@ -97,9 +111,9 @@ async1(function(){..})
     .catch(function(){
         // Solve your thrown errors here
     })
-```
+``` -->
 
-The asynchronous function itself should return a Promise Object. This Promise object has two methods, then and catch. The methods will later be called depending on the state (fulflled or rejected) of the Promise Object.
+Promises are a construct for designed for asynchronous functions that returns a single result asynchronously, which provides a better way of working with callbacks. A given asynchronous function returns a Promise object, which serves as a placeholder and container for the final result. Callback functions, which are registered via the Promise methods `then()` and `catch()`, are called when result returns depending on the state (fulfilled or rejected) of the Promise object.
 
 A promise can be:
 
@@ -118,7 +132,7 @@ asyncWithPromise() // Returns a promise object
     })
 ```
 
-promise.then() takes two arguments, a callback for a success case, and another for the failure case. Both are optional, so you can add a callback for the success or failure case only.
+Note that `promise.then()` takes two arguments, a callback for a success case, and another for the failure case. Both are optional, so you can add a callback for the success or failure case only.
 
 
 ``` javascript
@@ -129,12 +143,41 @@ promise.then(function(result) {
 });
 ```
 
+So what's the difference? Essentially, `promise.then(f1).catch(f2)` reduces to `promise.then(f1, null).then(null, f2)`. This means that if the success callback function `f1` throws an error, it is caught and handled by function `f2`. In the case of `promise.then(f1, f2)`, function `f2` only handles the failure case for the original promise and ignoring any errors thrown by the `f1` callback. Both have potential [advantages/disadvantages](https://stackoverflow.com/questions/24662289/when-is-thensuccess-fail-considered-an-antipattern-for-promises), depending on how you're chaining together asynchronous calls. This ability to chain asynchronous calls is one of the major advantages of promises.
 
+Where javascript's old asycnhronous callback syntax necessitated a design pattern of nested callbacks, affectionately known as "callback hell", Promises allow us to easily chain asychronous calls based on their respective successes and failures. 
 
-## Async/await
+``` javascript
+// Callback Hell
+async1(function(){
+    async2(function(){
+        async3(function(){
+            ....
+        });
+    });
+});
 
-ES6 introduced an even easier way of handling promises: `await`. The call to await will simply pause the execution of my method until the value from the promise is available.
+// Promise approach
+var task1 = async1();
+var task2 = task1.then(async2);
+var task3 = task2.then(async3);
 
+task3.catch(function(){
+    // Solve your thrown errors from task1, task2, task3 here
+})
+
+// Promise approach with chaining
+async1(function(){..})
+    .then(async2)
+    .then(async3)
+    .catch(function(){
+        // Solve your thrown errors here
+    })
+```
+
+### Async/await
+
+As our original example illustrated, ES6 introduces an even easier way of handling promises: `await`. The `await`operator will simply pause the execution of an asynchronous function until the value from the promise is available.
 
 ``` javascript 
 async function getFirstUser() {
@@ -143,7 +186,7 @@ async function getFirstUser() {
 }
 ```
 
-Now we can revert to the try/catch functionality to catch errors:
+This means that we can revert to the try/catch functionality to catch errors:
 
 ```  javascript
 async function getFirstUser() {
@@ -158,7 +201,7 @@ async function getFirstUser() {
 }
 ```
 
-So what happens if we type this: 
+So what happens if we type this?: 
 
 ``` javascript 
 let user = getFirstUser();
@@ -168,7 +211,7 @@ Because we didn't use the await syntax, `user` will refer to a promise object (r
 
 It’s important to remember: async functions don’t magically wait for themselves. You must await, or you’ll get a promise instead of the value you expect.
 
-And most importantly,  remember that async/await and promises are the same thing under the hood!
+And most importantly, remember that async/await and promises are the same thing under the hood!
 
 <!--
 Using promises has a few advantages:
