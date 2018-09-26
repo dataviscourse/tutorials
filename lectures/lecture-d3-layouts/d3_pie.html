@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D3 Pie</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
 </head>
 <body>
 <svg></svg>
@@ -107,20 +107,14 @@
         groups.append("path")
             .attr("d", arc)
             // While we're at it, let's set the color of the slice using our color scale
-            .style("fill", function (d) {
-                return color(d.data.os);
-            });
+            .style("fill", d => color(d.data.os));
 
         // Now let's add a label
         groups.append("text")
-            .text(function (d) {
-                return d.data.os;
-            })
+            .text(d => d.data.os)
             // We need to move the label to the middle of the slice. Our arc generator
             // is smart enough to know how to do this. Notice that arc.centroid gives us the center of the visible wedge. 
-            .attr("transform", function (d) {
-                return "translate(" + arc.centroid(d) + ")";
-            })
+            .attr("transform", d => "translate(" + arc.centroid(d) + ")")
             // Finally some extra text styling to make it look nice:
             .attr("dy", ".35em")
             .style("text-anchor", "middle")
