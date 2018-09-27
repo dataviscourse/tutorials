@@ -348,7 +348,6 @@ However, before we can compute a hierarchical layout, we need a root node. If ou
 Let's assume with have this data: 
 
 ``` javascript
-
 {
   "name": "Eve",
   "children": [
@@ -383,14 +382,45 @@ Let's assume with have this data:
   ]
 }
 ```
-
-
 We can now call d3.hierarchy on this data as such:
 
 ```javascript
 let root = d3.hierarchy(data[, children]) 
 ```
-The returned node root and each descendant has the following properties:
+
+If we are provided the data in a non-hierarchical format, as if loaded a CSV file:
+
+```javascript
+[
+  {"name": "Eve",   "parent": ""},
+  {"name": "Cain",  "parent": "Eve"},
+  {"name": "Seth",  "parent": "Eve"},
+  {"name": "Enos",  "parent": "Seth"},
+  {"name": "Noam",  "parent": "Seth"},
+  {"name": "Abel",  "parent": "Eve"},
+  {"name": "Awan",  "parent": "Eve"},
+  {"name": "Enoch", "parent": "Awan"},
+  {"name": "Azura", "parent": "Eve"}
+]
+```
+
+Then we need to wrangle this data into a hierarchy.
+
+This is where d3.stratify comes in. `d3.stratify()(data)` generates a new hierarchy from the specified tabular data: 
+
+```javascript
+let stratify = d3.stratify()
+    .id(d => d.name)
+    .parentId(d => d.parent);
+
+let root =  stratify(data);
+```
+
+Both d3.hierarchy and d3.stratify should return a root node that looks like: 
+
+![alt_text](./images/stratify_new.png)
+
+This returned root node and each descendant has the following properties:
 
 * node.data - the associated data, as specified to the constructor.
 * node.depth - zero for the root node, and increasing by one for each descendant generation.
@@ -400,19 +430,18 @@ The returned node root and each descendant has the following properties:
 * node.value - the summed value of the node and its descendants; optional, see node.sum and node.count.
 
 
-the node objects also have two functions that will prove useful in this context: 
+The node objects also have two functions that will prove useful in this context:
+
 * node.ancestors() - Returns the array of ancestors nodes, starting with this node, then followed by each parent up to the root.
 
 * node.descendants() - Returns the array of descendant nodes, starting with this node, then followed by each child in topological order.
 
 Once we have our root node, we can feed it into the tree layout. 
 
-tree(root) Lays out the specified root hierarchy, assigning the following properties on root and its descendants and assigns a x and y coordinate to each node. 
+`d3.tree(root)` lays out the specified root hierarchy, assigning the following properties on root and its descendants and assigns a x and y coordinate to each node. 
 
 * node.x - the x-coordinate of the node
 * node.y - the y-coordinate of the node
-
-
 
 {% include code.html id="d3_tree" file="d3_tree.html" code="" js="false" preview="true" %}
 
@@ -437,31 +466,11 @@ size,path
 86,d3/d3-array/descending.js
 ```
 
-Because our final layout is meant to represent hierarchical data, we must first wrangle this table into a hierarchy of some sort. 
+Because our final layout is meant to represent hierarchical data, we must first wrangle this table into a hierarchy using d3.stratify. Once we have our root, we can then use d3.treemap() to get our layout/positions: 
 
-Enter, d3.stratify(); 
+`d3.treemap()` - Creates a new treemap layout with default settings.
 
-d3.stratify()(data) generates a new hierarchy from the specified tabular data. Let's take a closer look at what this means: 
-
-``` javascript
-//construc a new stratify operator
-var root = d3.stratify()
-    .id(function(d) { return d.name; })
-    .parentId(function(d) { return d.parent; })
-
-//Add data to our stratify operator
-root(table)
-```
-
-Root now looks like this: 
-
- ![alt_text](./images/stratify.png)
- 
-Once we have our root, we can use d3.treemap() to get our layout/positions: 
-
-d3.treemap()- Creates a new treemap layout with default settings.
-
-treemap(root) - Lays out the specified root hierarchy, assigning the following properties on root and its descendants:
+`treemap(root)` - Lays out the specified root hierarchy, assigning the following properties on root and its descendants:
 
 * node.x0 - the left edge of the rectangle
 * node.y0 - the top edge of the rectangle
