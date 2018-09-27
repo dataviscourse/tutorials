@@ -519,7 +519,7 @@ The data is stored in [a json file](miserables.json). Here is a sample of this f
 The file contains a list of nodes, followed by a list of edges (links), a common format to store graph data. In the array of `nodes`, we have objects with the values `id` and `group`, the `links` array contain the edges that are defined via a `source` and `target`, which are the ids of the source and target nodes respectively).
 
 
-First we will used D3's [d3-request module](https://github.com/d3/d3-request), specifically the JSON method to load the data. Two things are important to note:
+First we will used D3's [d3-fetch module](https://github.com/d3/d3-fetch), specifically the JSON method to load the data. Two things are important to note:
 
  1. Once the  data is loaded it will be available in an object, just as we see it in the json file.
  2. The d3-request methods load **asynchronously**. That means that we'll not get a return value from the loading function right away, but rather pass a function that is executed when the data loading is complete. The benefit of the asynchronous function is, of course, that other processes can continue, e.g., a user interface wouldn't freeze up while a dataset is loaded.
@@ -549,7 +549,7 @@ In order to add forces, we use the .force syntax as such:
 
 ``` javascript 
 simulation 
-     .force("link", d3.forceLink().id(function(d) { return d.id; }))
+     .force("link", d3.forceLink().id(d => d.id))
      .force("charge", d3.forceManyBody())
      .force("center", d3.forceCenter(width / 2, height / 2));   
 ``` 
@@ -574,7 +574,7 @@ simulation
 The syntax for forceLink() is as follows: 
 
 ``` javascript 
-d3.forceLink().id(function(d) { return d.id;})
+d3.forceLink().id(d => d.id))
 ```
 If id is specified, sets the node id accessor to the specified function and returns this force.
  
@@ -594,7 +594,7 @@ You can set the strength of this force with d3.forceManyBody().strength([strengt
  
 ``` javascript 
 simulation      
-     .force("link", d3.forceLink().id(function(d) { return d.id; }))
+     .force("link", d3.forceLink().id(d => d.id))
      .force("center", d3.forceCenter(width / 2, height / 2));
 ```
 
@@ -606,7 +606,7 @@ The centering force translates nodes uniformly so that the mean position of all 
 
 ``` javascript
 simulation 
-     .force("link", d3.forceLink().id(function(d) { return d.id; }))
+     .force("link", d3.forceLink().id(d => d.id))
      .force("charge", d3.forceManyBody())
 ```
 ![alt_text](./images/no_center.gif)
