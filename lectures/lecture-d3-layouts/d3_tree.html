@@ -23,7 +23,7 @@
 <body>
 
 <!-- load the d3.js library -->	
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
 {
 let treeData =
@@ -64,7 +64,7 @@ let i = 0,
 let treemap = d3.tree().size([height, width]);
 
 // Assigns parent, children, height, depth
-root = d3.hierarchy(treeData, function(d) { return d.children; });
+root = d3.hierarchy(treeData, d => d.children);
 
 //We use x0 and y0 to keep track of the parent's position. We will use it to animate the children. 
 root.x0 = height / 2;
@@ -101,12 +101,12 @@ function update(source) {
 
   // Update the nodes...
   let node = svg.selectAll('g.node')
-      .data(nodes, function(d) {return d.id || (d.id = ++i); });
+      .data(nodes, d => d.id || (d.id = ++i));
 
   // Enter any new modes at the parent's previous position.
   let nodeEnter = node.enter().append('g')
       .attr('class', 'node')
-      .attr("transform", function(d) {
+      .attr("transform", d => {
         return "translate(" + source.y0 + "," + source.x0 + ")";
     })
     .on('click', click);
@@ -115,20 +115,14 @@ function update(source) {
   nodeEnter.append('circle')
       .attr('class', 'node')
       .attr('r', 1e-6)
-      .style("fill", function(d) {
-          return d._children ? "lightsteelblue" : "#fff";
-      });
+      .style("fill", d => d._children ? "lightsteelblue" : "#fff");
 
   // Add labels for the nodes
   nodeEnter.append('text')
       .attr("dy", ".35em")
-      .attr("x", function(d) {
-          return d.children || d._children ? -13 : 13;
-      })
-      .attr("text-anchor", function(d) {
-          return d.children || d._children ? "end" : "start";
-      })
-      .text(function(d) { return d.data.name; });
+      .attr("x", d => d.children || d._children ? -13 : 13)
+      .attr("text-anchor", d => d.children || d._children ? "end" : "start")
+      .text(d => d.data.name);
 
   // UPDATE
   let nodeUpdate = nodeEnter.merge(node);
@@ -136,25 +130,19 @@ function update(source) {
   // Transition to the proper position for the node
   nodeUpdate.transition()
     .duration(duration)
-    .attr("transform", function(d) { 
-        return "translate(" + d.y + "," + d.x + ")";
-     });
+    .attr("transform", d => "translate(" + d.y + "," + d.x + ")");
 
   // Update the node attributes and style
   nodeUpdate.select('circle.node')
     .attr('r', 10)
-    .style("fill", function(d) {
-        return d._children ? "lightsteelblue" : "#fff";
-    })
+    .style("fill", d => d._children ? "lightsteelblue" : "#fff")
     .attr('cursor', 'pointer');
 
 
   // Remove any exiting nodes
   let nodeExit = node.exit().transition()
       .duration(duration)
-      .attr("transform", function(d) {
-          return "translate(" + source.y + "," + source.x + ")";
-      })
+      .attr("transform", d => "translate(" + source.y + "," + source.x + ")")
       .remove();
 
   // On exit reduce the node circles size to 0
@@ -169,12 +157,12 @@ function update(source) {
 
   // Update the links...
   let link = svg.selectAll('path.link')
-      .data(links, function(d) { return d.id; });
+      .data(links, d => d.id);
 
   // Enter any new links at the parent's previous position.
   let linkEnter = link.enter().insert('path', "g")
       .attr("class", "link")
-      .attr('d', function(d){
+      .attr('d', d => {
         let o = {x: source.x0, y: source.y0}
         return diagonal(o, o)
       });
@@ -185,19 +173,19 @@ function update(source) {
   // Transition back to the parent element position
   linkUpdate.transition()
       .duration(duration)
-      .attr('d', function(d){ return diagonal(d, d.parent) });
+      .attr('d', d => diagonal(d, d.parent));
 
   // Remove any exiting links
   let linkExit = link.exit().transition()
       .duration(duration)
-      .attr('d', function(d) {
+      .attr('d', d => {
         let o = {x: source.x, y: source.y}
         return diagonal(o, o)
       })
       .remove();
 
   // Store the old positions for transition.
-  nodes.forEach(function(d){
+  nodes.forEach(d => {
     d.x0 = d.x;
     d.y0 = d.y;
   });
