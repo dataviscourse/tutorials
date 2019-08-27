@@ -25,7 +25,7 @@ In this rule, **`strong` is the element selector**, and each line inside the cur
 
 ### CSS Class Selectors
 
-CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with "important" text and a "footnote". Both are in a `<div>`, but they have different semantics, and we also want to display them differently. Class selectors are identified by a leading period `.`, e.g., `.menu`.
+CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with “important” text and a “footnote”. Both are in a `<div>`, but they have different semantics, and we also want to display them differently. Class selectors are identified by a leading period `.`, e.g., `.menu`.
 
 {% include code.html id="css_classes" file="css_classes.html" code="" %}
 
@@ -33,7 +33,7 @@ Note that we can also apply multiple classes to a single element, as you can see
 
 ### CSS ID Selectors
 
-ID selectors work similar to class selectors, but IDs may only be used once for an element in the DOM. ID selectors are identified by a leading `#`, e.g., `#header`. You can use IDs as "anchors" to refer to a site by appending ``#idname`` to the URL. For example, following [this link](#css-id-selectors) (`#css-id-selectors`) will scroll your browser to this section. 
+ID selectors work similar to class selectors, but IDs may only be used once for an element in the DOM. ID selectors are identified by a leading hashtag/number/pound sign `#`, e.g., `#header`. You can use IDs as "anchors" to refer to a site by appending ``#idname`` to the URL. For example, following [this link](#css-id-selectors) (`#css-id-selectors`) will scroll your browser to this section. 
 
 But you can also use IDs to apply custom styles in CSS:
 
@@ -55,7 +55,7 @@ The child selector matches every time an element is directly enclosed by a diffe
 
 ### Multiple Rules in CSS
 
-When more than one CSS rule matches, then different CSS declarations might conflict with one another. In that case, “the most specific declaration wins”. The rules for what counts as more specific are [really disgusting](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity), so if you find yourself debugging CSS code because the styles “don’t take”, the first thing you should try is to set completely different classes for the element, add all the declarations to this class. Then, with help from the Developer Tools, you can add classes back to your element to see which declarations might be winning the specificity race. In order to avoid this kind of trouble, it’s better to stick to simple declarations as much as possible.
+When more than one CSS rule matches, then different CSS declarations might conflict with one another. In that case, “the most specific declaration wins”. The rules for what counts as more specific are [really disgusting](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity), so if you find yourself debugging CSS code because the styles “don’t take”, the first thing you should try is to set completely different classes for the element and add all the declarations to this class. Then, with help from the Developer Tools, you can add classes back to your element to see which declarations might be winning the specificity race. In order to avoid this kind of trouble, it’s better to stick to simple declarations as much as possible.
 
 Try editing CSS directly in the inspector! 
 
@@ -80,4 +80,4 @@ Finally, you can place CSS declarations directly inside an element. You do this 
 
 {% include code.html id="css_inline" file="css_inline.html" code="" %}
 
-It’s a bad idea to do this in HTML that you write manually: you’re mixing content with presentation, and making it hard to reuse the declarations. But later on we will be writing code to generate elements in the DOM for us, and in that case, this will be a very common and good thing to do. In this latter situation, it’s a good thing to do because the reusability will be represented in our Javascript source code.
+It’s a bad idea to do this in HTML that you write manually: you’re mixing content with presentation, and making it hard to reuse the declarations. But later on we will be writing code to generate elements in the DOM for us, and in that case, this will be a very common and good thing to do, because in that case reusability will be achieved in our Javascript source code.
