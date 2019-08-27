@@ -37,11 +37,11 @@ You should already have git installed, if not see the [official documentation](h
  * All operations (history, commit, branches) require server connection.
  * The traditional model: CVS, SVN, etc. 
  * Pros: 
-   * Simple
+   * Simple for small projects.
  * Cons: 
-   * Complex for larger projects
+   * Complex for larger projects.
         * Who is allowed to write? 
-   * Difficult for community projects
+   * Difficult for community projects.
         * How do you apply changes that someone outside your team made? 
         
 
@@ -50,18 +50,18 @@ You should already have git installed, if not see the [official documentation](h
 
 ![Distribute Version Control](images/distributed.png)
 
- * Everybody has a full history of the repository locally
- * No dedicated server - every node is equal.
-   * In practice: often a server is used for one "official" copy of the code.
+ * Everybody has a full history of the repository locally.
+ * No dedicated server – every node is equal.
+   * In practice: often a server is used for one “official” copy of the code.
     This is a server by convention only, there is no technical difference.
  * Pros: 
-    * No access issues
-        * Make a copy and hack away
-        * Ask if partner wants to accept your changes
-    * Everything is local
+    * No access issues.
+        * Make a copy and hack away.
+        * Ask if partner wants to accept your changes.
+    * Everything is local.
         * Fast!
-        * No internet connection required
-        * Commit often model (once per feature) - don't sync all the time.
+        * No internet connection required.
+        * Commit often model (once per feature) – don't sync all the time.
  * Cons:
     * More complex principle.
     * Extra effort to distinguish between committing and pushing/pulling (synchronizing). 
@@ -81,11 +81,11 @@ You should already have git installed, if not see the [official documentation](h
  
 ### git
 
- * Created by Linus Torvalds, 2005
- * Meaning: British English slang roughly equivalent to "unpleasant person". 
+ * Created by Linus Torvalds in 2005.
+ * Meaning: British English slang roughly equivalent to “unpleasant person”. 
  * git – the stupid content tracker.
 
-*I'm an egotistical bastard, and I name all my projects after myself. First 'Linux', now 'git'. -- Linus Torvalds*
+*I'm an egotistical bastard, and I name all my projects after myself. First ‘Linux’, now ‘git’. -- Linus Torvalds*
 
 ### Why git?
 
@@ -100,7 +100,8 @@ You should already have git installed, if not see the [official documentation](h
 ### git model 
  
 Whiteboard sketch of git with a server. A git repository is essentially a large graph.
- ``
+
+
 ### git tutorial
 
 This is a quick intro to git, used in combination with GitHub. This is not a complete tutorial, but will use the most important git features. 
@@ -176,7 +177,7 @@ $ git add demo.txt
 
 **Let's look at what is going on with the repository**
 {% highlight bash linenos %}
-$git status
+$ git status
 On branch master
 
 No commits yet
@@ -249,7 +250,7 @@ $ git commit -a -m "Added a line to the demo file"
 Better. Now, let's look at what happened up to now
 
 {% highlight bash linenos %}
-$git log
+$ git log
 commit 64e1c31cff02e568cda9ede94fbc8eeeb9e337ee (HEAD -> master)
 Author: alexander.lex@gmail.com <alexander.lex@gmail.com>
 Date:   Tue Aug 28 10:25:11 2018 -0600
@@ -447,11 +448,13 @@ This creates a local copy of the (empty) GitHub repository. We will just start w
 # What's currently in the repository?
 $ ls
 LICENSE    README.md
+
 # Write something to demo.txt.
 $ echo "Hello world!" > demo.txt
-echo "Hello world" > demo.txt
+
 # Add demo.txt to the repository.
 $ git add demo.txt
+
 # Commit the file to the repository.
 $ git commit -a -m "added demo file" 
 [master 2e1918d] added demo file
@@ -474,7 +477,7 @@ To https://github.com/alexsb/demo.git
 {% endhighlight %}
 
 We have now committed a file locally and pushed it to the server, i.e., our local copy is in sync with the server copy. 
-Note that the `git push` command uses the origin defined in the config file. You can also push to other repositories!
+Note that the `git push` command uses the `origin` defined in the config file. You can also push to other repositories!
 
 Next, we will make changes at another place. We'll use the GitHub web interface to do that. 
 
@@ -502,8 +505,10 @@ Are you still spinning?
 
 * **GitHub Issues**   
  Github Issues are a great way to keep track of open tasks and problems. Issues can be references and closed from commits. 
+* **GitHub Projects**  
+Projects are similar to trello and allow you to organize a project with issues but also other, simple cards.
 * **Forking**   
- Forking is essentially making use of the distributed nature of git, while having the benefits of a server. When you fork a repository you make a clone of someone else's code that you are not allowed to read. The repository appears in your github account and you can start editing the code. If you think you improved the code, you can send a "pull request" to the original owner. The owner can then review your code and merge your modifications into his main repository. Forking is hence virtually the same as branching, with the exception that it resolves issues with write permissions.
+ Forking is essentially making use of the distributed nature of git, while having the benefits of a server. When you fork a repository you make a clone of someone else's code that you are not allowed to read. The repository appears in your github account and you can start editing the code. If you think you improved the code, you can send a “pull request” to the original owner. The owner can then review your code and merge your modifications into his main repository. Forking is hence virtually the same as branching, with the exception that it resolves issues with write permissions.
 
 ### GUI Clients
 
@@ -514,7 +519,7 @@ Are you still spinning?
   
 ### Getting updates to the homeworks
  
-The homeworks are hosted in a git repository. Every time we release a homework we will just update the repository. You can then pull from that repository to get the latest homework on your computer.
+The homeworks are hosted in a git repository on github. Every time we release a homework we will just update the repository. You can then pull from that repository to get the latest homework onto your computer.
 
 To get the homework repository, run the following:
 
@@ -527,14 +532,14 @@ Note that by using the `-o homework` option we're not using the default remote `
 
 Next, create a new repository on the Github. 
 
-Ensure your new repository is private and don't click the option to "Initialize the repository with a README".
+Ensure your new repository is private and don't click the option to “Initialize the repository with a README”.
 
-Run the two commands described on GitHub under the heading "Push an existing repository from the command line". For my repository these are: 
+Run the two commands described on GitHub under the heading “Push an existing repository from the command line”. For my repository these are: 
 
 {% highlight bash linenos %}
 # adding your own repository as a remote 'origin'
 $ git remote add origin https://github.com/alexsb/dataviscourse-hw.git
-# pushing the changes retreived from the central HW repo to our own repository
+# pushing the changes retrieved from the central HW repo to our own repository
 $ git push -u origin master
 {% endhighlight %}
 
