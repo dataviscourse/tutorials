@@ -17,11 +17,11 @@ The important thing about HTML is that the markup is represented by elements. An
 
 {% include code.html id="basic_element" code="<strong>This is an HTML element.</strong>"  file=""%}
 
-In this element, strong is the name of the tag; the open tag is &lt;strong&gt;, and the matching closing tag is &lt;/strong&gt;. The way you should interpret this is that the text “This is an HTML element” should be “strong”, i.e., typically this will be bold text.
+In this element, `strong` is the name of the tag; the open tag is `<strong>`, and the matching closing tag is `</strong>`. The way you should interpret this is that the text “This is an HTML element” should be “strong”, i.e., typically this will be bold text.
  
 HTML elements can and commonly do nest:
 
-{% include code.html id="nested_element" code="<strong>This is strong, and <u>this is underlined and strong.</u> Just strong again.</strong>"  file=""%}
+{% include code.html id="nested_element" code="<strong>This is strong and <u>this is underlined and strong.</u> Just strong again.</strong>"  file=""%}
 
 In addition to the names, opening tags can contain extra information about the element. These are called attributes:
 
@@ -29,7 +29,7 @@ In addition to the names, opening tags can contain extra information about the e
 
 In this case, we’re using the ``a`` element (which stood for “anchor”, but now is almost universally used as a “link”). The attribute  ``href`` means “HTML reference”, which actually makes sense for a change. The meaning given to each attribute changes from element to element. Note that you can use either single `'` or double `"` quotes. 
 
-We will use element attributes in pretty much every example from now on. The most important ones are ``id``, ``class``, and ``style``. The ``id`` attribute gives the attribute a unique identifier, which can then be used to access the element via Javascript (we’ll see how later). Think of it as making the element accessible via a global variable. This is as convenient as a global variable, and potentially just as confusing: needing lots of different element ids might be a sign that you could organize your code better. The class and style attributes will be explained in the CSS section below.
+We will use element attributes in pretty much every example from now on. The most important ones are ``id``, ``class``, and ``style``. The ``id`` attribute gives the attribute a unique identifier, which can then be used to access the element via Javascript (we’ll see how later). Think of it as making the element accessible via a global variable. This is as convenient as a global variable, and potentially just as confusing: needing lots of different element ids might be a sign that you could organize your code better. The class and style attributes will be explained in the CSS section.
 
 #### Self-closing elements
 Some elements rarely have internal content between their opening and closing tags, and therefore it becomes a bit of a pain to type the closing tags every time. In that case, you can use the following shorthand notation: ``<foo />`` is equivalent to ``<foo></foo>`` (you might have noticed that in the charset declaration above).
