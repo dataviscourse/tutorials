@@ -23,11 +23,15 @@ HTML elements can and commonly do nest:
 
 {% include code.html id="nested_element" code="<strong>This is strong and <u>this is underlined and strong.</u> Just strong again.</strong>"  file=""%}
 
+### Attributes
+
 In addition to the names, opening tags can contain extra information about the element. These are called attributes:
 
 {% include code.html id="attribute" code="<a href='http://www.cs.utah.edu'>A link to the School of Computing</a>"   file=""%}
 
 In this case, we’re using the ``a`` element (which stood for “anchor”, but now is almost universally used as a “link”). The attribute  ``href`` means “HTML reference”, which actually makes sense for a change. The meaning given to each attribute changes from element to element. Note that you can use either single `'` or double `"` quotes. 
+
+{% include code.html id="title" code="A <strong title='More information on hover!'>title attribute</strong> is useful to reveal more information when needed."   file=""%}
 
 We will use element attributes in pretty much every example from now on. The most important ones are ``id``, ``class``, and ``style``. The ``id`` attribute gives the attribute a unique identifier, which can then be used to access the element via Javascript (we’ll see how later). Think of it as making the element accessible via a global variable. This is as convenient as a global variable, and potentially just as confusing: needing lots of different element ids might be a sign that you could organize your code better. The class and style attributes will be explained in the CSS section.
 
