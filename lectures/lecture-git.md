@@ -519,8 +519,8 @@ The homeworks are hosted in a git repository. Every time we release a homework w
 To get the homework repository, run the following:
 
 {% highlight bash linenos %}
-$ git clone https://github.com/dataviscourse/2018-dataviscourse-homework -o homework
-$ cd 2018-dataviscourse-homework
+$ git clone https://github.com/dataviscourse/2019-dataviscourse-homework -o homework
+$ cd 2019-dataviscourse-homework
 {% endhighlight %}
 
 Note that by using the `-o homework` option we're not using the default remote `origin` but a user-defined remote called `homework`.

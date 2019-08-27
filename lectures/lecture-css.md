@@ -19,7 +19,7 @@ Let’s look at a very simple CSS rule:
 
 {% include code.html id="simple_css" file="simple_css.html" code="" %}
 
-In this rule, **`strong` is the element selector**, and each line inside the curly brackets is a **declaration**. Roughly, the way this goes is: for every DOM element with tag name strong, make its background color red, and its font size 300% of the base size. CSS rules are applied in order that they appear in the document, and if more than one rule matches the element, then they both apply. For instance, the example below is entirely equivalent to the above:
+In this rule, **`strong` is the element selector**, and each line inside the curly brackets is a **declaration**. Roughly, the way this goes is: for every DOM element with tag name strong, make its background color red, and its font size 150% of the base size. CSS rules are applied in order that they appear in the document, and if more than one rule matches the element, then they both apply. For instance, the example below is entirely equivalent to the above:
 
 {% include code.html id="simple_css2" file="simple_css2.html" code="" %}
 
@@ -58,6 +58,15 @@ The child selector matches every time an element is directly enclosed by a diffe
 When more than one CSS rule matches, then different CSS declarations might conflict with one another. In that case, “the most specific declaration wins”. The rules for what counts as more specific are [really disgusting](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity), so if you find yourself debugging CSS code because the styles “don’t take”, the first thing you should try is to set completely different classes for the element, add all the declarations to this class. Then, with help from the Developer Tools, you can add classes back to your element to see which declarations might be winning the specificity race. In order to avoid this kind of trouble, it’s better to stick to simple declarations as much as possible.
 
 Try editing CSS directly in the inspector! 
+
+### Pseudo Classes
+
+Pseudo classes are selectors for states that can be combined with other selectors. Typical examples are [`:hover`]() and [`:visited`]() which can be used like this: 
+
+ 
+ {% include code.html id="css_pseudo" file="css_pseudo.html" code="" %}
+
+
 
 ### Other ways of declaring CSS 
 
