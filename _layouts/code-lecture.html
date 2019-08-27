@@ -55,11 +55,11 @@ layout: default
 
         function updatePreview() {
 
-            if (renderPreview == "false" && js == "true") {
+            if (renderPreview === "false" && js === "true") {
                 // if we don't want to see a preview we just evaluate the javascript code
                 eval(editor.getValue());
             }
-            if (renderPreview != "false" && js != "true") {
+            if (renderPreview !== "false" && js !== "true") {
 
                 var previewFrame = document.getElementById('preview-' + id);
                 if (previewFrame) {
@@ -75,7 +75,8 @@ layout: default
                     preview.close();
                     var body = previewFrame.contentWindow.document.body;
                     if (body) {
-                        previewFrame.height = body.scrollHeight + "px";
+                        let boxHeight = body.scrollHeight + 40;
+                        previewFrame.height = boxHeight + "px";
                     }
                 }
             }

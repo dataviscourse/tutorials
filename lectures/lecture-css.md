@@ -19,13 +19,13 @@ Let’s look at a very simple CSS rule:
 
 {% include code.html id="simple_css" file="simple_css.html" code="" %}
 
-In this rule, **`strong` is the element selector**, and each line inside the curly brackets is a **declaration**. Roughly, the way this goes is: for every DOM element with tag name strong, make its background color red, and its font size 150% of the base size. CSS rules are applied in order that they appear in the document, and if more than one rule matches the element, then they both apply. For instance, the example below is entirely equivalent to the above:
+In this rule, **`strong` is the element selector**, and each line inside the curly brackets is a **declaration**. Roughly, the way this goes is: for every DOM element with tag name strong, make its background color brown, and its font size 150% of the base size. CSS rules are applied in order that they appear in the document, and if more than one rule matches the element, then they both apply. For instance, the example below is entirely equivalent to the above:
 
 {% include code.html id="simple_css2" file="simple_css2.html" code="" %}
 
 ### CSS Class Selectors
 
-CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with "important" text and a "footnote". Both are in a `<div>`, but they have different semantics, and we also want to display them differently. Class selectors are identified by a leading `.`, e.g., `.menu`.
+CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with "important" text and a "footnote". Both are in a `<div>`, but they have different semantics, and we also want to display them differently. Class selectors are identified by a leading period `.`, e.g., `.menu`.
 
 {% include code.html id="css_classes" file="css_classes.html" code="" %}
 
