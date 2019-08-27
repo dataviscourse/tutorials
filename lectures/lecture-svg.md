@@ -23,23 +23,38 @@ This is results in a blank canvas, which is kind of boring, but you should be ab
 
 ### Circle 
 
-[Circles](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle) have a x (`cx`) and y (`cy`)position, in addition to a radius (`r`). 
+[Circles](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle) have a x (`cx`) and y (`cy`) position specifying the center point, in addition to a radius (`r`). 
 
 Notice that coordinates in SVG are relative to the upper left corner. 
 
 {% include code.html id="svg_circle" file="svg_circle.html" code="" %}
 
-#### Presentation Attributes
+### Coordinate System
 
-As you might have noticed, some appearance aspects in SVG are controlled by attributes (position, size); others (color, weight) are controlled by [CSS properties](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/Presentation). This is a perennial source of confusion, and unfortunately there’s no good way around it. To add to the confusion, a subset of SVG attributes can also be specified via CSS: these are the [“presentation attributes”](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute). The following code has the same effect as the one above: 
+The [SVG Coordinate system](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Positions) originates from the top-left. 
+
+{% include code.html id="svg_coordinates" file="svg_coordinates.html" code="" %}
+
+Also, SVG dimensions are given in “user units”, which by default match to pixels. How the user units match to pixels can be changed, as the name “scalable” implies.
+
+
+### Presentation Attributes
+
+As you might have noticed, some appearance aspects in SVG are controlled by attributes (position, size); others (color, weight) are controlled by [CSS properties](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/Presentation). This is a perennial source of confusion, and unfortunately there’s no good way around it. 
+
+To add to the confusion, a subset of SVG attributes can also be specified via CSS: these are the [“presentation attributes”](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute). The following code has the same effect as the one above: 
  
 
 {% include code.html id="svg_circle_fill" file="svg_circle_fill.html" code="" %}
  
 It’s worth remembering this because CSS declarations for these attributes will override inline attribute definitions in the DOM. This is in turn inconsistent with the rule for the style attribute itself, which overrides CSS definitions (on behalf of whoever designed this standard: I am sorry). 
  
-Finally, SVG style attributes are not the same as HTML style attributes. For example, to color a `<div>`, we would use the `background-color` css attribute, but to color an SVG circle, we use the `fill` attribute. 
+Finally, **SVG style attributes are not the same as HTML style attributes**. For example, to color a `<div>`, we would use the `background-color` css attribute, but to color an SVG circle, we use the `fill` attribute.
 
+This inconsistency is propagted to things like the HTML `title` attribute, which doesn't work in SVG, but instead you have to use a [`title`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title) element:
+
+
+{% include code.html id="svg_title" file="svg_title.html" code="" %}
 
 
 ### Ellipse 
@@ -64,7 +79,7 @@ You can also specify [text](https://developer.mozilla.org/en-US/docs/Web/SVG/Ele
 
 ### Path 
 
-The SVG [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path) element is how you “escape” the basic SVG shapes. In case none of the predefined shapes are good enough for you, you can draw any arbitrary shape you want using the path element. We will not use it very often in class, but it’s important that you know it exists, because it helps you understand how much of D3 works under the hood.
+The SVG [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path) element is how you “escape” the basic SVG shapes. In case none of the predefined shapes are good enough for you, you can draw any arbitrary shape you want using the path element. We will usually not use it manually, but it’s important that you know it exists, because it helps you understand how much of D3 works under the hood.
 
 The path element is made up of a micro language. Here are some commands: 
 
@@ -85,19 +100,25 @@ The order in which elements are drawn is the order in which they appear in the e
 
 {% include code.html id="svg_order" file="svg_order.html" code="" %}
 
-### Grouping
+### Grouping and Transforming
 
-Grouping elements is a very powerful idea, and we will use it extensively when we get to use SVG for actual visualizations. It is powerful because it gives us abstraction, in the same way that a procedure groups a sequence of operations under a single name. In dynamic visualizations, this makes it possible for us to move a large number of elements by simply taking one branch of the DOM and placing it in a different subtree; without groups, we would have to remember over and over again which elements we cared about.
+[Grouping elements](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g) is a very powerful idea, and we will use it extensively when we get to use SVG for actual visualizations. It is powerful because it gives us abstraction, in the same way that a procedure groups a sequence of operations under a single name. In dynamic visualizations, this makes it possible for us to move a large number of elements by simply taking one branch of the DOM and placing it in a different subtree; without groups, we would have to remember over and over again which elements we cared about.
 
-In addition, SVG groups give us geometric transformations. Geometric transformations are amazingly useful when we want to change the positions of a large number of elements in the same way, or when we want to express the positions of the elements in a more convenient manner. For example, recall that SVG’s basic coordinate system increases the y coordinate in the downward direction. If we want to draw a scatterplot, for example, then we’d have to remember every time to subtract the y coordinate we want, from the height of the SVG element:
+Here's an example where we use a group to inherit presentation attributes:  
 
 {% include code.html id="svg_group" file="svg_group.html" code="" %}
 
-This is annoying and error-prone. Instead, we can encode that transformation directly, using SVG’s grouping node g, and its [transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute:
+
+In addition, SVG groups give us geometric transformations. Geometric transformations are amazingly useful when we want to change the positions of a large number of elements in the same way, or when we want to express the positions of the elements in a more convenient manner. For example, recall that SVG’s basic coordinate system increases the y coordinate in the downward direction. If we want to draw a scatterplot based on the example above, for example, then we’d have to remember every time to subtract the y coordinate we want, from the height of the SVG element.
+
+
+This is annoying and error-prone. Instead, we can encode that transformation directly, using SVG’s [transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) attribute:
 
 {% include code.html id="svg_group2" file="svg_group2.html" code="" %}
 
 The transform attribute is read right-to-left, and it’s saying: to get the outer y coordinate, multiply the inner y coordinate by -1, and then add 200. In other words, outer_y = 200 - inner_y, which is precisely the flipping we need. Now the y coordinates behave as we would expect them in a scatterplot: increasing y means going up.
+
+There are also more complex transformations for rotations or distortions. 
 
 The main problem with these transformations, is that they apply to everything:
 
