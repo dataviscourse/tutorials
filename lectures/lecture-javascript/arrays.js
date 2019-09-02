@@ -16,14 +16,15 @@ console.log("First element of second array: " + nested[1][0]);
 
 // extend arrays
 numArray.push(3);
+// push returns the new length
 let newLength = numArray.push(4);
 
-// remove last element from array
+// remove last element from array and return it
 let lastElement = numArray.pop();
 
 // find index of entry:
 let pos = numArray.indexOf(21);
-console.log("Index: ", pos)
+console.log("Index: ", pos);
 
 // sort an array
 numArray.sort();
@@ -38,3 +39,8 @@ function compareNumbers(a, b) {
 
 numArray.sort(compareNumbers);
 console.log("Sorted as numbers: ", numArray);
+
+// here is a shorthand version of this
+
+numArray.sort((a, b) => b-a);
+console.log("Reverse sorted:", numArray); 
