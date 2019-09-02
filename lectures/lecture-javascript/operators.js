@@ -3,15 +3,15 @@ let sum = 1 + 3;
 sum += 1;
 sum++;
 sum--;
-let division = sum/13;
+let divResult = sum / 13;
 
 // modulo
-let mod = division % 2;
+let mod = divResult % 2;
 
 // typeof operator
-typeof(division); // returns string "number"
-let type = typeof division; // assigns string number to letiable type
-console.log(type);
+typeof (divResult); // returns string "number"
+let typeResult = typeof (divResult); // assigns string number to letiable type
+console.log(typeResult);
 
 // String concatenation
 let compoundString = "two " + "words";
