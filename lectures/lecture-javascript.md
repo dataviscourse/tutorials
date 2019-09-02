@@ -81,11 +81,52 @@ Objects in JavaScript are also **dictionaries/hash maps/associative arrays (pick
 {% include code.html id="mobjects" file="objects.js" code="" js="true" preview="false" %}
 
 
+### JSON
+
+Very related to objects is [JSON](https://json.org), which stans for JavaScript Object Notation. JSON is a way to serialize javascript objects, so that they can be stored in files or sent via the internet and loaded at another. Here's a JSON example: 
+
+{% highlight JSON linenos %}
+{
+  "people": [
+    {
+      "name": "Alex",
+      "birthYear": 1981,
+      "nationality": "Austria",
+      "countries": [
+        "Austria",
+        "Canada",
+        "USA",
+        "France"
+      ]
+    },
+    {
+      "name": "Jen",
+      "birthYear": 1991,
+      "nationality": "USA",
+      "countries": [
+        "USA",
+        "Scotland"
+      ]
+    }
+  ]
+}
+{% endhighlight %}
+
+
+<!-- {% include code.html id="simpleJSON" file="simpleJSON.json" code="" preview="false" %} -->
+
+We can then read this file into JavaScript, and it is immediately available as an object. We're using the standard [XMLHttpRequest API](https://en.wikipedia.org/wiki/XMLHttpRequest) here, but libraries such as D3 or JQuery provide simplified wrappers around this.
+
+{% include code.html id="readJSON" file="readJSON.js" code="" js="true" preview="false" %}
+
+
 ### Control Structures
 
 JavaScript comes with standard conditional control structures – if and switch. 
 
 {% include code.html id="control_structures" file="control_structures.js" code="" js="true" preview="false" %}
+
+
 
 ### Loops
 

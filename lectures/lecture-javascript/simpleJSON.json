@@ -1,0 +1,24 @@
+{
+  "people": [
+    {
+      "name": "Alex",
+      "birthYear": 1981,
+      "nationality": "Austria",
+      "countries": [
+        "Austria",
+        "Canada",
+        "USA",
+        "France"
+      ]
+    },
+    {
+      "name": "Jen",
+      "birthYear": 1991,
+      "nationality": "USA",
+      "countries": [
+        "USA",
+        "Scotland"
+      ]
+    }
+  ]
+}
