@@ -24,10 +24,15 @@
         p = d3.selectAll("rect");
         p.attr("x", 0)
             // here we use a long-hand anonymous function
+            // also notice the usage of the parameters d and i
+            // the first argument (by convention named d) will
+            // contain the data bound to each element
+            // the second argument (by convention named i)
+            // contains the index of the element
             .attr("y", function (d, i) {
                 return i * 90 + 50
             })
-            // here is the shorhand with arrow notation
+            // here is the shorthand with arrow notation
             .attr("width", (d, i) => i * 150 + 100)
             .attr("height", 20);
         p.style("fill", "steelblue");

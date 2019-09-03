@@ -23,14 +23,14 @@
     execute = function () {
         let svg = d3.select("svg");
         let selection = svg.selectAll("rect")
-                .data([127, 61]);
+            .data([127, 61]);
 
         selection
-                .attr("x", 0)
-                .attr("y", (d, i) => i * 60 + 50)
-                .attr("width", d => d)
-                .attr("height", 20)
-                .style("fill", "steelblue");
+            .attr("x", 0)
+            .attr("y", (d, i) => i * 60 + 50)
+            .attr("width", d => d)
+            .attr("height", 20)
+            .style("fill", "steelblue");
         // here we call remove on the exit selection!
         selection.exit().remove();
 

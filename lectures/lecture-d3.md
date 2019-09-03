@@ -78,15 +78,15 @@ What happens if we have more data points than elements? Let's try it:
 
 {% include code.html id="d3_enter1" file="d3_enter1.html" code="" js="false" preview="true" %}
 
-There are still only three elements, it doesn't matter how many data points we have - we can't use more than there are elements to select. What to do? [`enter()`](https://github.com/d3/d3-selection/blob/master/README.md#selection_enter)! The enter selection holds placeholders for all the data elements that had no corresponding DOM element. We can use this selection to append new elements.
+There are still only three elements, it doesn't matter how many data points we have – we can't use more than there are elements to select. What to do? [`enter()`](https://github.com/d3/d3-selection/blob/master/README.md#selection_enter)! The enter selection holds placeholders for all the data elements that had no corresponding DOM element. We can use this selection to append new elements.
 
 {% include code.html id="d3_enter2" file="d3_enter2.html" code="" js="false" preview="true" %}
 
-Progress - we have one element for each data item, but it doesn't look good and it's not drawn based on data. To fix this, we can apply data-driven attributes to the enter selection as well:
+Progress – we have one element for each data item, but it doesn't look good and it's not drawn based on data. To fix this, we can apply data-driven attributes to the enter selection as well:
 
 {% include code.html id="d3_enter3" file="d3_enter3.html" code="" js="false" preview="true" %}
 
-Now, that works! But we're duplicating code. So instead we can do this shorter version:
+Now, that works! But we're duplicating code. So instead we can do this shorter version using [`merge()`](https://github.com/d3/d3-selection#selection_merge):
 
 {% include code.html id="d3_enter4" file="d3_enter4.html" code="" js="false" preview="true" %}
 
@@ -94,7 +94,7 @@ So what if we don't have initialized svg elements at all?
 
 {% include code.html id="d3_enter5" file="d3_enter5.html" code="" js="false" preview="true" %}
 
-That's great! D3 can also select things that aren't there. Sounds strange, but that is very practical. We rarely start with existing DOM elements but mostly want to create them completely in code.
+That's great! D3 can also select things that arn't there. Sounds strange, but that is very practical. We rarely start with existing DOM elements but mostly want to create them completely in code.
 
 Now let's explore what happens when we have fewer data items than DOM elements:
 
@@ -107,24 +107,26 @@ We have a similar problem as before. Here, the element that was not bound to dat
 Here is a an illustration showing the differences between the enter, update and exit selection:
 
 ![data_concept](../lecture-advanced-d3/images/data_concept.png)
+&nbsp; <br>
 
-We now have all the knowledge to select, bind data, react to changes in data. Next, we'll look at how we can make state changes look great.
 
-### D3 V5 - New way to handle selections and data
+### D3 V5 – A new way to handle selections and data
 
-The d3 selection API as seen above is hard to learn and confusing at times. D3 V5 introduces [`selection.join`](https://github.com/d3/d3-selection/blob/master/README.md#selection_join).
+The D3 selection API as seen above can be confusing at times. D3 V5 introduces [`selection.join`](https://github.com/d3/d3-selection/blob/master/README.md#selection_join).
 
 {% include code.html id="d3_selection_join" file="d3_selection_join.html" code="" js="false" preview="true" %}
 
-The `selection.join` statement appends new `rect` for each element of the data, similar to `enter-append` statement.
-If the selection already has previous elements, the join statement appends entering elements, removes exiting elements to match our data.
+The `selection.join` statement appends new `rect` elements for each data item, similar to `enter-append` statement.
+If the selection already has previous elements, the join statement appends entering elements and removes exiting elements to match our data.
 Entering and updating elements are also automagically merged!
 
-This is very concise than the previous update pattern and the API still allows you to control `enter`, `update` and `exit` selections as desired.
+This is a very concise and still allows you to control `enter`, `update` and `exit` selections as desired. Here we give the enter and the update selection separate colors:
 
 {% include code.html id="d3_selection_join_2" file="d3_selection_join_2.html" code="" js="false" preview="true" %}
 
 Again, you don't have to worry about merging `enter` and `update` selections, `join` does it for you!
+
+We now have all the knowledge to select, bind data, react to changes in data. Next, we'll look at how we can make state changes look great.
 
 ### Transitions
 
