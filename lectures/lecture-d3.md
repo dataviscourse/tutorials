@@ -1,49 +1,47 @@
 ---
 layout: code-lecture
-title:  "D3: Data Driven Documents the Basics"
+title: "D3: Data Driven Documents the Basics"
 permalink: /lectures/lecture-d3/
 nomenu: true
 ---
 
-*Material based on the [D3 Intro by Vadim Ogievetsky](http://vadim.ogievetsky.com/IntroD3/), Scott Murray's Interactive Data Analysis for the Web, and the [D3 website](http://d3js.org/).*
+_Material based on the [D3 Intro by Vadim Ogievetsky](http://vadim.ogievetsky.com/IntroD3/), Scott Murray's Interactive Data Analysis for the Web, and the [D3 website](http://d3js.org/)._
 
 ## D3: Data Driven Documents
 
-D3 is a javascript library for manipulating the DOM based on data. D3 was originally written by Mike Bostock, Vadim Ogievetsky, and Jeff Heer and published [as a paper](http://idl.cs.washington.edu/files/2011-D3-InfoVis.pdf) at InfoVis, the main information visualization conference; at this point it has a large number of contributors, yet Mike Bostock still is the core developer. It's also one of the overall most popular projects on GitHub! D3 certainly owes some of its popularity to riding the everything-on-the-web wave. Nevertheless, the way in which you can express relationships between data and visual elements is fundamentally superior than any other library available, open source or not! It is nothing short of a breakthrough in the way we use code to express visual encodings. 
+D3 is a javascript library for manipulating the DOM based on data. D3 was originally written by Mike Bostock, Vadim Ogievetsky, and Jeff Heer and published [as a paper](http://idl.cs.washington.edu/files/2011-D3-InfoVis.pdf) at InfoVis, the main information visualization conference; at this point it has a large number of contributors, yet Mike Bostock still is the core developer. It's also one of the overall most popular projects on GitHub! D3 certainly owes some of its popularity to riding the everything-on-the-web wave. Nevertheless, the way in which you can express relationships between data and visual elements is fundamentally superior than any other library available, open source or not! It is nothing short of a breakthrough in the way we use code to express visual encodings.
 
-D3 can be used to manipulate pure HTML, but most commonly it's used in combination with SVG (i.e., we will be producing SVG charts using D3). 
+D3 can be used to manipulate pure HTML, but most commonly it's used in combination with SVG (i.e., we will be producing SVG charts using D3).
 
 In addition to the introduction in Scott Murray's book (the mandatory reading) you should work with the [D3 API Reference](https://github.com/d3/d3/blob/master/API.md) to look up particulars of all the features of D3. And of course, you should be learning by examples. A great collection are [Mike Bostock's blocks](http://bl.ocks.org/mbostock) which contain simple examples, such as a [bar chart](http://bl.ocks.org/mbostock/2368837) to complex examples such as [this calendar view](http://bl.ocks.org/mbostock/4063318).
 
-You can download the library to run locally on your computer from the [D3 Website](http://d3js.org/), or you can link directly to the latest release with this snippet: 
+You can download the library to run locally on your computer from the [D3 Website](http://d3js.org/), or you can link directly to the latest release with this snippet:
 
 {% include code.html id="de_include" file="d3_include.html" code="" js="false" preview="false" %}
 
-You should also note that D3 underwent a major version change from D3 v3 to D3 v4. Unfortunately, many examples you'll find on the web will be using version 3. We'll be using D3 v5, which is a minor update from D3 v4, in this class. As such, you can't necessarily expect to just copy and paste example code from the web and have it work. Check out the [release notes](https://github.com/d3/d3/blob/master/CHANGES.md) to learn about the changes across the D3 versions. 
+You should also note that D3 underwent a major version change from D3 v3 to D3 v4. Unfortunately, many examples you'll find on the web will be using version 3. We'll be using D3 v5, which is a minor update from D3 v4, in this class. As such, you can't necessarily expect to just copy and paste example code from the web and have it work. Check out the [release notes](https://github.com/d3/d3/blob/master/CHANGES.md) to learn about the changes across the D3 versions.
 
 ### Selections
 
 [See API Reference](https://github.com/mbostock/d3/wiki/Selections)
 
-Here is a minimal D3 example taken from the D3 website: 
+Here is a minimal D3 example taken from the D3 website:
 
 {% include code.html id="d3_select" file="d3_select.html" code="" js="false" preview="true" %}
 
-You can see that we achieve a similar result to the DOM manipulation examples we had before. We select an existing element in the DOM, here the first `<p>` element, and apply a style.  However, you can also see differences: instead of having to use the API standard `document.getElementsByTagName` we use [`d3.select`](https://github.com/d3/d3-selection/blob/master/README.md); and instead of using `setAttribute("style", "color: steelblue;")` we use D3's [`style`](https://github.com/d3/d3-selection/blob/master/README.md#selection_style) method. 
+You can see that we achieve a similar result to the DOM manipulation examples we had before. We select an existing element in the DOM, here the first `<p>` element, and apply a style. However, you can also see differences: instead of having to use the API standard `document.getElementsByTagName` we use [`d3.select`](https://github.com/d3/d3-selection/blob/master/README.md); and instead of using `setAttribute("style", "color: steelblue;")` we use D3's [`style`](https://github.com/d3/d3-selection/blob/master/README.md#selection_style) method.
 
-`d3.select` selects the first element that matches a selector. **Selectors** can specify tags (`p` in our example above), classes, and IDs, all through the same interface: 
+`d3.select` selects the first element that matches a selector. **Selectors** can specify tags (`p` in our example above), classes, and IDs, all through the same interface:
 
 {% include code.html id="d3_selectors" file="d3_selectors.html" code="" js="false" preview="true" %}
 
 Notice, however, that as mentioned previously, only the first element that matches is selected. Of course, it is more practical to select all elements of a certain type, which we can achieve with `d3.selectAll`
 
-
 {% include code.html id="d3_selectall" file="d3_selectall.html" code="" js="false" preview="true" %}
 
-The last example illustrates the **declarative approach of D3**: we don't have to iterate over a list of elements and apply the style. Instead we select a set of elements through rules and declare properties. 
+The last example illustrates the **declarative approach of D3**: we don't have to iterate over a list of elements and apply the style. Instead we select a set of elements through rules and declare properties.
 
-Once you have a selection, you can bulk-modify it's content, not only in terms of style, but we can modify [arbitrary properties](https://github.com/mbostock/d3/wiki/Selections#property) using `selection.property(name[, value])`, the [textual content of the elements](https://github.com/mbostock/d3/wiki/Selections#text) with `selection.text([value])`, etc. We can also append elements: 
-
+Once you have a selection, you can bulk-modify it's content, not only in terms of style, but we can modify [arbitrary properties](https://github.com/mbostock/d3/wiki/Selections#property) using `selection.property(name[, value])`, the [textual content of the elements](https://github.com/mbostock/d3/wiki/Selections#text) with `selection.text([value])`, etc. We can also append elements:
 
 {% include code.html id="d3_append" file="d3_append.html" code="" js="false" preview="true" %}
 
@@ -55,11 +53,11 @@ button.text("Run!");
 button.on("click", execute);
 {% endhighlight %}
 
-Here we have three SVG rectangles and use selectAll to apply a new style to them. Notice two things: 
+Here we have three SVG rectangles and use selectAll to apply a new style to them. Notice two things:
 
- 1. the **method chaining** used to make this convenient to write,
- 2. the use of **anonymous functions** and the parameters d and i.
- 3. the comparison of explicit anonymous function and the **arrow function**.
+1.  the **method chaining** used to make this convenient to write,
+2.  the use of **anonymous functions** and the parameters d and i.
+3.  the comparison of explicit anonymous function and the **arrow function**.
 
 {% include code.html id="d3_selectallsvg" file="d3_selectallsvg.html" code="" js="false" preview="true" %}
 
@@ -69,15 +67,15 @@ THE key feature of D3 is mapping DOM elements with data. We can do this by calli
 
 {% include code.html id="d3_data" file="d3_data.html" code="" js="false" preview="true" %}
 
-D3 binds the data that is passed to a selection directly to the DOM elements. We can see this by logging and/or inspecting the selection. 
+D3 binds the data that is passed to a selection directly to the DOM elements. We can see this by logging and/or inspecting the selection.
 
-Here we've also used **data-driven styling for the first time**! By setting the width of the rectangle dynamically to the size of the data item we get a data driven bar chart! 
+Here we've also used **data-driven styling for the first time**! By setting the width of the rectangle dynamically to the size of the data item we get a data driven bar chart!
 
-What happens if we have more data points than elements? Let's try it: 
+What happens if we have more data points than elements? Let's try it:
 
 {% include code.html id="d3_enter1" file="d3_enter1.html" code="" js="false" preview="true" %}
 
-There are still only three elements, it doesn't matter how many data points we have - we can't use more than there are elements to select. What to do? [`enter()`](https://github.com/d3/d3-selection/blob/master/README.md#selection_enter)! The enter selection holds placeholders for all the data elements that had no corresponding DOM element. We can use this selection to append new elements. 
+There are still only three elements, it doesn't matter how many data points we have - we can't use more than there are elements to select. What to do? [`enter()`](https://github.com/d3/d3-selection/blob/master/README.md#selection_enter)! The enter selection holds placeholders for all the data elements that had no corresponding DOM element. We can use this selection to append new elements.
 
 {% include code.html id="d3_enter2" file="d3_enter2.html" code="" js="false" preview="true" %}
 
@@ -85,15 +83,15 @@ Progress - we have one element for each data item, but it doesn't look good and 
 
 {% include code.html id="d3_enter3" file="d3_enter3.html" code="" js="false" preview="true" %}
 
-Now, that works! But we're duplicating code. So instead we can do this shorter version: 
+Now, that works! But we're duplicating code. So instead we can do this shorter version:
 
 {% include code.html id="d3_enter4" file="d3_enter4.html" code="" js="false" preview="true" %}
 
-So what if we don't have initialized svg elements at all? 
+So what if we don't have initialized svg elements at all?
 
 {% include code.html id="d3_enter5" file="d3_enter5.html" code="" js="false" preview="true" %}
 
-That's great! D3 can also select things that aren't there. Sounds strange, but that is very practical. We rarely start with existing DOM elements but mostly want to create them completely in code. 
+That's great! D3 can also select things that aren't there. Sounds strange, but that is very practical. We rarely start with existing DOM elements but mostly want to create them completely in code.
 
 Now let's explore what happens when we have fewer data items than DOM elements:
 
@@ -103,24 +101,39 @@ We have a similar problem as before. Here, the element that was not bound to dat
 
 {% include code.html id="d3_exit2" file="d3_exit2.html" code="" js="false" preview="true" %}
 
-Here is a an illustration showing the differences between the enter, update and exit selection: 
+Here is a an illustration showing the differences between the enter, update and exit selection:
 
 ![data_concept](../lecture-advanced-d3/images/data_concept.png)
 
+We now have all the knowledge to select, bind data, react to changes in data. Next, we'll look at how we can make state changes look great.
 
-We now have all the knowledge to select, bind data, react to changes in data. Next, we'll look at how we can make state changes look great. 
+### D3 V5 - New way to handle selections and data
+
+The d3 selection API as seen above is hard to learn and confusing at times. D3 V5 introduces [`selection.join`](https://github.com/d3/d3-selection/blob/master/README.md#selection_join).
+
+{% include code.html id="d3_selection_join" file="d3_selection_join.html" code="" js="false" preview="true" %}
+
+The `selection.join` statement appends new `rect` for each element of the data, similar to `enter-append` statement.
+If the selection already has previous elements, the join statement appends entering elements, removes exiting elements to match our data.
+Entering and updating elements are also automagically merged!
+
+This is very concise than the previous update pattern and the API still allows you to control `enter`, `update` and `exit` selections as desired.
+
+{% include code.html id="d3_selection_join_2" file="d3_selection_join_2.html" code="" js="false" preview="true" %}
+
+Again, you don't have to worry about merging `enter` and `update` selections, `join` does it for you!
 
 ### Transitions
 
-One of the cool features of D3 is that transitions are baked in! 
+One of the cool features of D3 is that transitions are baked in!
 
 {% include code.html id="d3_transition1" file="d3_transition1.html" code="" js="false" preview="true" %}
 
-Cool, but we're missing the enter again: 
+Cool, but we're missing the enter again:
 
 {% include code.html id="d3_transition2" file="d3_transition2.html" code="" js="false" preview="true" %}
 
-Here, we've handled the enter and chained two transitions. 
+Here, we've handled the enter and chained two transitions.
 
 ### Drawing Lines
 
@@ -128,11 +141,10 @@ Here's one way to draw a line:
 
 {% include code.html id="d3_lines1" file="d3_lines1.html" code="" js="false" preview="true" %}
 
-But we already know that. There must be something better, and there is! 
+But we already know that. There must be something better, and there is!
 
 {% include code.html id="d3_lines2" file="d3_lines2.html" code="" js="false" preview="true" %}
 
 ## Exercise
 
 Here is an [exercise to practice your D3 skills](https://jsbin.com/yuzomev/edit?html,js,output).
-
