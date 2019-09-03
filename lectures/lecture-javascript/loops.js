@@ -26,21 +26,28 @@ console.log("Do while loop: " + output);
 let years = [1954, 1949, 1981, 1982];
 // Looping over an array with the built-in forEach function
 console.log("Foreach function")
-years.forEach(function(d){
+years.forEach(function (d) {
     console.log(d)
 });
 
 // Looping over an array with the new (ECMA Script 6) - this might not work in your browser yet!
 console.log("For of loop (newish)");
-for (let year of years){
+for (let year of years) {
     console.log(year)
 }
 
-// Side-note: don't use for-in - it loops through object enumreables,
-// not through array indices
+// Side-note: don't use for-in - it loops through object enumerables,
 // also, order isn't guaranteed!
 console.log("For in loop: not what you'd expect!");
-for (let year in years){
+for (let year in years) {
+    // you probably thought that you'll just get the year here, right?
     console.log(year);
+    // what you really get is the object keys
     console.log(years[year]);
+}
+
+// for-in for an object
+let object1 = {a: 1, b: 2, c: 3};
+for (let property in object1) {
+    console.log(property, object1[property]);
 }

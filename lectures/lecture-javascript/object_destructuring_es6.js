@@ -8,3 +8,13 @@ let {a, b, c} = foo();
 //let {a:a,b:b,c:c} = foo();
 
 console.log(a, b, c); // 1 2 3
+
+
+// This is very useful for destructing objects
+const person = {
+     name: "John Doe",
+     address: "SLC"
+};
+
+const {name, address} = person;
+console.log(name, address);
