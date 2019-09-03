@@ -6,14 +6,15 @@ let base = {
 
 let derived = {
     v1: 5,
-    v3: 3,
-    v4: 4
+    v3: 3
 };
 
+console.log("trying it before specifying inheritance");
 console.log("Base v1: " + base.v1);
 console.log("Derived v1: " + derived.v1);
 console.log("Derived v2: " + derived.v2);
 
+console.log("after setting the prototype");
 // this calls sets the prototype of derived to be the base
 Object.setPrototypeOf(derived, base);
 console.log("Derived v1: " + derived.v1 + " accessing the overridden v1 in derived");

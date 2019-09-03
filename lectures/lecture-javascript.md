@@ -130,7 +130,7 @@ JavaScript comes with standard conditional control structures – if and switch.
 
 ### Loops
 
-Loops are C-like: for, do-while, and while loops are available. To loop over arrays, use either a regular for loop, the [forEach function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) of arrays, or the new for-of statement.
+Loops are C-like: `for`, `do-while`, and `while` loops are available. To loop over arrays, use either a regular `for` loop, the [forEach function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) of arrays, or the new for-of statement.
 
 {% include code.html id="mloops" file="loops.js" code="" js="true" preview="false" %}
 
@@ -149,11 +149,13 @@ None of the calls above cause runtime errors. If you call a function with too ma
 There is an alternative way of defining functions:
 {% include code.html id="function_expression" file="function_expression.js" code="" js="true" preview="false" %}
 
-Pay attention to what’s happening here: this is assigning a value to a variable in the same way that `x = "hi"` assigns the string value "hi" to the variable x. But that value is a function! This is important. In JavaScript, **functions are values that can be stored in variables**. This is your first exposure to the idea that JavaScript is a “functional” language. In the same way that you can store function values in variables, you can pass them around as parameters, store them in arrays, object fields, and even use them as return values of other functions! This is a powerful idea that we will use a lot.
+Pay attention to what’s happening here: this is assigning a value to a variable in the same way that `x = "hi"` assigns the string value "hi" to the variable `x`. But that value is a function! This is important. In JavaScript, **functions are values that can be stored in variables**. This is your first exposure to the idea that JavaScript is a functional language. In the same way that you can store function values in variables, you can pass them around as parameters, store them in arrays, object fields, and even use them as return values of other functions! This is a powerful idea that we will use a lot.
 
-In particular, we will use a lot of anonymous functions, or "lambda abstractions" when working with D3. We've already used one example for sorting an array above. Here is another example: 
+In particular, we will use a lot of anonymous functions, or “lambda abstractions” when working with D3. We've already used one example for sorting an array above. Here is another example: 
 
 {% include code.html id="anonyfunction" file="anonfunction.js" code="" js="true" preview="false" %}
+
+Here, the `map()` function has a `callback` parameter, which expects a function that you can map to to the elements of the array.
 
 
 Since the use of these anonymous functions is ubiquitous, ES6 introduces a shorthand for them: **arrow functions**. Arrow functions are always anonymous function expressions. There is no arrow function declaration. Here is the example from above, and also some others:
@@ -166,7 +168,7 @@ Arrow functions are recommended for short expressions, you probably should use p
 
 JavaScript is a [prototype-based language](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain). That means that, under the hood, it does not use the concept of classes like in Java or C++. Instead, objects are created and their signature is defined. 
 
-ES6 introduces a `class` keyword and other related features which we will be using, but that doesn't mean that JavaScript supports proper classes - instead, JavaScript classes are just synthactic sugar to make creating consistent objects easier. 
+ES6 introduces a `class` keyword and other related features which we will be using, but that doesn't mean that JavaScript supports proper classes – instead, JavaScript classes are just syntactic sugar to make creating consistent objects easier. 
 
 Let's first look at the pre-ES6 way. If we create an object with slots that hold functions, this starts to look like methods from Java and Python. If we create a function that returns these objects, this starts to look like class constructors:
 
@@ -191,7 +193,7 @@ Here is an example:
 
 ### The special variable ``this``
 
-JavaScript has a special variable that is available at every scope called ``this``. When a function is called with a notation that resembles methods in typical object-oriented languages, say ``obj.method()``, then ``this`` is bound to the object holding the method (in this case obj). That way you can make changes to the local object:
+JavaScript has a special variable that is available at every scope called ``this``. When a function is called with a notation that resembles methods in typical object-oriented languages, say ``obj.method()``, then ``this`` is bound to the object holding the method (in this case `obj`). That way you can make changes to the local object:
 
 {% include code.html id="mthis" file="this.js" code="" js="true" preview="false" %}
 
@@ -271,7 +273,7 @@ ES6 has many more important features, most notably [modules](https://developer.m
 
 ## Versioning and Transpiling 
 
-JavaScript has undergone many versions, and is now standardized by the ECMA International. Significant changes were introduced with ECMAScript 6 (ES6)in 2015 (also called ECMAScript 2015). Since then, ECMAScript has transitioned to a more incremental update plan, so that ECMAScript 7, 8, and 9 are only minor updates. This tutorial uses ECMAScript 2018, but most of the features have been available since ES6.  
+JavaScript has undergone many versions, and is now standardized by the ECMA International. Significant changes were introduced with ECMAScript 6 (ES6) in 2015 (also called ECMAScript 2015). Since then, ECMAScript has transitioned to a more incremental update plan, so that ECMAScript 7, 8, and 9 are only minor updates. 
 
 Instead of relying on a particular version, you should check for the availability of features [across browsers](http://kangax.github.io/compat-table/es2016plus/).
 

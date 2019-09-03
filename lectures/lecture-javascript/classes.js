@@ -8,7 +8,7 @@ class Base {
 
     // a method
     multiply() {
-        return this.first * this.second
+        return this.first * this.second;
     }
 }
 

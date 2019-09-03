@@ -1,7 +1,7 @@
 // The familiar if
-if (1 === parseFloat("1")) {
+if (1 === parseInt("1")) {
     console.log("First if");
-    // note that you can use parseFloat or the
+    // note that you can use parseInt or the
     // unary + operator, the latter is usually better
 } else if (2 === +"3") {
     console.log("Else if");
@@ -23,7 +23,7 @@ if (1 === "1") {
 
 // The ternary if operator
 // CONDITION ? WHAT_HAPPENS_IF_CONDITION_TRUE : WHAT_HAPPENS_IF_CONDITION_FALSE
-4 % 2 === 0 ? console.log(true) : console.log(false);
+true === true ? console.log(true) : console.log(false);
 
 // Switch statements
 let i = "some case";
