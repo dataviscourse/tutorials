@@ -9,7 +9,7 @@ nomenu: true
 After we covered the basics of JavaScript before, it's now time to explore how javascript interacts with the DOM and thus makes all the interesting things in the browser happen. 
 Like we’ve seen before, the HTML we write is represented as a tree inside a web browser. What we are going to turn to now are the JavaScript APIs that web browsers provide to let you edit the DOM dynamically, so that we can build our visualizations with code instead of text editors.
 
-While we will manipulate the DOM mainly through libraries (we will use [D3](http://d3js.org/), but [JQuery](https://jquery.com/) is the most popular DOM manipulation library) you can also manipulate the DOM directly through the standard DOM API through the `document` object. Check out the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/API/document) on the document object.
+While we will manipulate the DOM mainly through libraries (we will use [D3](http://d3js.org/), but other libraries such as [JQuery](https://jquery.com/) or [React](https://reactjs.org/) are also popular for non-vis DOM manipulation) you can also manipulate the DOM directly through the standard DOM API through the `document` object. Check out the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/API/document) on the document object.
 
 Here are the very first steps:
 
