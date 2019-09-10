@@ -15,9 +15,9 @@ Here are the very first steps:
 
 {% include code.html id="dom_manipulation" file="dom_manipulation.html" code="" js="false" preview="true" %}
 
-`document` is a global javascript object that contains the DOM. If you log the document object you will see exactly the same as in the DOM view in the web inspector. It is this object that we are manipulating dynamically and that the browser then renders. The document object contains functions, like the [`getElementByID()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) method we're using here to retreive a specific element, or the [`createElement()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement), which creates a new HTML element, or the [`createTextNode()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode) functions used to create new text content. We've also used the [`appendChild()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) method (which is defined on a [`node`](https://developer.mozilla.org/en-US/docs/Web/API/Node)) that appends the passed element to the end of the list of the node. 
+`document` is a global javascript object that contains the DOM. If you log the document object you will see exactly the same as in the DOM view in the web inspector. It is this object that we are manipulating dynamically and that the browser then renders. The document object contains methods, like the [`getElementByID()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) method we're using here to retreive a specific element, or the [`createElement()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement), which creates a new HTML element, or the [`createTextNode()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode) methods used to create new text content. We've also used the [`appendChild()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) method (which is defined on a [`node`](https://developer.mozilla.org/en-US/docs/Web/API/Node)) that appends the passed element to the end of the list of the node. 
 
-Now we can make use of the features we learned about before to make more complicated programs that write websites: 
+Now we can make use of the features we learned about before to make more complicated programs that create websites: 
 
 {% include code.html id="dom_manipulation2" file="dom_manipulation2.html" code="" js="false" preview="true" %}
 
@@ -40,7 +40,7 @@ While we've worked with regular HTML elements here, the possibilities demonstrat
 
 ## JavaScript Events
 
-Up to this point we have only dealt with documents that are independent from user interaction. For data visualization, however, interaction is critical. Here we will introduce a couple of elementary concepts of how you can define and listen to events in JavaScript. We will be using DOM event handlers, as always, take a look at the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Event_handlers). [Here is a list](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers) of all event handlers. 
+Up to this point we have only dealt with documents that are independent from user interaction. For data visualization, however, interaction is critical. Here we will introduce a couple of elementary concepts of how you can define and listen to events in JavaScript. We will be using DOM event handlers. As always, take a look at the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Event_handlers). [Here is a list](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers) of all event handlers. 
 
 Here is the most simple example possible for events, using two different methods:
 
@@ -62,7 +62,7 @@ And finally, we can of course listen to events that are triggered by interacting
 
 {% include code.html id="event_svg" file="event_svg.html" code="" js="false" preview="true" %}
 
-So far so good - you can now write interactive code! If you know how to use these events you should be able to deal with all the interaction that you will encounter in the course of this class!
+So far so good – you can now write interactive code! If you know how to use these events you should be able to deal with all the interaction that you will encounter in the course of this class!
 
 ## Running a web server
 

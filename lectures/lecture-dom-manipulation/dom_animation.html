@@ -21,15 +21,16 @@
     function numberText(v) {
         let node = divWithText(String(Math.floor(v)));
         // here we add a new update function to the node.
-        // It takes the previous v and adds amount to it.
+        // It takes the previous v and adds 'amount' to it.
         node.update = function (amount) {
             v += amount;
             node.textContent = String(Math.floor(v));
             let x = v % 800;
             let y = v % 50;
-            node.setAttribute("style", "position:absolute; left: " + x + "px; " +
-                    "top: " + y % 50 + "px; " +
-                    "color: hsl(" + x % 255 + ", 100%, 50%)");
+            node.setAttribute("style", "position:absolute; " +
+                "left: " + x + "px; " +
+                "top: " + y % 50 + "px; " +
+                "color: hsl(" + x % 255 + ", 100%, 50%)");
         };
         node.update(0);
         return node;

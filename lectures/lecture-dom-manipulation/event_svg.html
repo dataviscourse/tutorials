@@ -19,7 +19,7 @@
     document.getElementById("myBar").onclick = function (event) {
         let colors = ["DarkOrchid", "Teal", "Tomato", "SteelBlue"];
         let rect = event.target;
-        let currentWidth = parseFloat(rect.getAttribute("width"));
+        let currentWidth = +rect.getAttribute("width");
         rect.setAttribute("width", (currentWidth + 10).toString());
         rect.setAttribute("style", "fill: " + colors[rect.__data__ % 4]);
         rect.__data__++;

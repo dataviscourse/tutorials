@@ -19,7 +19,9 @@
     // Styling the text by setting the position and color.
     function textAt(text, x, y) {
         let node = divWithText(text);
-        node.setAttribute("style", "position:absolute; left: " + x + "px; top: " + y % 50 + "px; " +
+        node.setAttribute("style", "position:absolute; " +
+            "left: " + x + "px; " +
+            "top: " + y % 50 + "px; " +
             "color: hsl(" + x % 255 + ", 100%, 50%)");
         return node;
     }
