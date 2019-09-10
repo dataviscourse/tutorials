@@ -49,7 +49,6 @@ is the index of the current element, in the order of how they occur in the DOM.
 The following figure illustrates the differences between the enter, update and exit selection: 
 
 ![data_concept](images/data_concept.png)
-<br> 
 
 Typically, we want to be able to create visualizations from scratch, i.e., we don't want to select existing elements but add new ones. We can do this by appending elements to the `enter` selection:
 
@@ -98,7 +97,7 @@ The latter is the better approach, as we only have to define the common aspects 
 
 This doesn't work as we would hope. The update isn't handled correctly. When we look at the selection we can see why: the data in the `g` element is updated correctly, but not the data in the `rect` or the `text`; these are only handled upon *enter* not upon *update*. 
 
-We can fix this by separating the update from the enter and by explicitly selecting the lower-level elements (the rectangle and the text). The selection propagates the data to the actual elements:  <br /><br /><br /><br /><br />
+We can fix this by separating the update from the enter and by explicitly selecting the lower-level elements (the rectangle and the text). The selection propagates the data to the actual elements: 
 
 {% include code.html id="d3_groups" file="d3_groups.html" code="" js="false" preview="true" %}
 

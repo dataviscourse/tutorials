@@ -75,7 +75,7 @@
 
     xScale = d3.scaleLinear()
         .domain([0, max])
-        .range([0, width-textWidth])
+        .range([0, width - textWidth])
         .nice();
 
     animationDuration = 2000;
@@ -95,7 +95,7 @@
 
     svg.append("g")
         .classed("axis", true)
-        .attr("transform", "translate(" + textWidth + "," + height + ")")
+        .attr("transform", `translate(${textWidth},${height})`)
         .call(xAxis);
 
     execute = function () {
@@ -122,8 +122,9 @@
         // we package each data item into a g
             .append("g")
             .classed("barGroup", true)
-            .attr("transform", d => "translate(" + 0 + "," + yScale(d.product) + ")");
+            .attr("transform", d => `translate(0, ${yScale(d.product)})`);
 
+        // entering with transparent text and rects of width 0
         barGroupsEnter.append("text")
             .attr("opacity", 0);
         barGroupsEnter.append("rect")
@@ -164,7 +165,7 @@
 
         barGroups.transition().duration(animationDuration)
             .attr("transform", function (d) {
-                return "translate(" + 0 + "," + yScale(d.product) + ")";
+                return `translate(0, ${yScale(d.product)})`;
             });
     };
 
@@ -172,9 +173,9 @@
     // https://github.com/d3/d3-selection#handling-events
     d3.select("#sort-select").on("change", function () {
         // d3.event is set to the current event within an event listener
-        let active = d3.event.srcElement.value;
+        let active = d3.event.target.value;
         // sorting the array based on product, type, or weight
-        data = data.sort(function compare(a, b) {
+        data = data.sort(function (a, b) {
             switch (active) {
                 case "product":
                 // fall through to type

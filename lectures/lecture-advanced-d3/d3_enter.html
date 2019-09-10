@@ -17,8 +17,6 @@
 </svg>
 </body>
 <script>
-
-    // here is a different way of creating an element
     execute = function () {
         let selection = d3.select("svg").selectAll("rect");
         let data = selection.data([127, 61, 256]);
@@ -43,7 +41,7 @@
 
         // finally, we can see the rectangles assigned to the selection
         console.log("With assigned rectangles");
-        console.log(svg.selectAll("rect"));
+        console.log(d3.selectAll("rect"));
     }
 </script>
 <script src="run.js" charset="utf-8"></script>

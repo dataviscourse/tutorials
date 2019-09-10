@@ -38,8 +38,7 @@
 
         svg.selectAll("rect")
             .data(data)
-            .enter()
-            .append("rect")
+            .join("rect")
             .attr("x", d => xScale(Math.min(0, d)))
             .attr("y", (d, i) => i * spacing)
             .attr("width", d => Math.abs(xScale(d) - xScale(0)))
@@ -47,7 +46,7 @@
             .style("fill", function (d) {
                 return colorScale(d);
             });
-        // add the axis to the svg, wrapped inside a g
+        // add the axis to the svg, wrapped inside a g element
         svg.append("g").call(xAxis);
     }
 </script>

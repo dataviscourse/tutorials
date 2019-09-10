@@ -22,8 +22,7 @@
         let svg = d3.select("svg");
         svg.selectAll("rect")
             .data(data)
-            .enter()
-            .append("rect")
+            .join("rect")
             .attr("x", 0)
             .attr("y", (d, i) => i * 90 + 50)
             .attr("width", function (d) {

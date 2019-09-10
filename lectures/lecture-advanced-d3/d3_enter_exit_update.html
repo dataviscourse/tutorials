@@ -19,6 +19,7 @@
 </body>
 <script>
     execute = function (myData) {
+        // switch between different datasets on every execution
         myData = !myData ? [127, 61, 256, 71, 15, 23] : myData;
 
         let svg = d3.select("svg");

@@ -26,15 +26,14 @@
 
         // here we define a color scale
         let colorScale = d3.scaleLinear()
-        // notice the three interpolation points
+            // notice the three interpolation points
             .domain([d3.min(data), 0, d3.max(data)])
             // each color matches to an interpolation point
             .range(["darkred", "lightgray", "steelblue"]);
 
         svg.selectAll("rect")
             .data(data)
-            .enter()
-            .append("rect")
+            .join("rect")
             .attr("x", function (d) {
                 // start at d if d is negative, else start at 0
                 // this goes through the scale function

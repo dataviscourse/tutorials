@@ -20,15 +20,15 @@
 </svg>
 </body>
 <script>
-    var execute = function () {
-        var svg = d3.select("svg");
-        var selection = svg.selectAll("rect");
+    execute = function () {
+        let svg = d3.select("svg");
+        let selection = svg.selectAll("rect");
         // The selection contains the three rectangles.
         console.log("Selection");
         console.log(selection);
 
         // with the .data method we bind the data to the selection
-        var data = selection.data([127, 61, 256]);
+        let data = selection.data([127, 61, 256]);
         // here we have an array of length 3, the object has enter and exit functions
         // the data is stored in the __data__ variable
         console.log("Data");
@@ -36,14 +36,10 @@
 
         // now we do something with the selection
         data.attr("x", 0)
-                .attr("y", function (d, i) {
-                    return i * 90 + 50
-                })
-                .attr("width", function (d) {
-                    return d;
-                })
-                .attr("height", 20)
-                .style("fill", "steelblue");
+            .attr("y", (d, i) => i * 90 + 50)
+            .attr("width", d => d)
+            .attr("height", 20)
+            .style("fill", "steelblue");
     }
 </script>
 <script src="run.js" charset="utf-8"></script>

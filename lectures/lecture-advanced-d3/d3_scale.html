@@ -16,30 +16,29 @@
 
         // here we define the scale
         let xScale = d3
-                // the linear scale
-                .scaleLinear()
-                // the domain defines the value range of the input dataset
-                .domain([0, d3.max(data)])
-                // we can try a log scale
-                //.scaleLog()
-                // log is undefined for 0
-                //.domain([0.001, d3.max(data)])
-                // the range defines to which range you want to map the input dataset.
-                .range([0, 700]);
+        // the linear scale
+            .scaleLinear()
+            // the domain defines the value range of the input dataset
+            .domain([0, d3.max(data)])
+            // we can try a log scale
+            //.scaleLog()
+            // log is undefined for 0
+            //.domain([0.001, d3.max(data)])
+            // the range defines to which range you want to map the input dataset.
+            .range([0, 700]);
 
         let svg = d3.select("svg");
         svg.selectAll("rect")
-                .data(data)
-                .enter()
-                .append("rect")
-                .attr("x", 0)
-                .attr("y", (d, i) => i * 90 + 50)
-                .attr("width", function (d) {
-                    // here we call the scale function.
-                    return xScale(d);
-                })
-                .attr("height", 20)
-                .style("fill", "steelblue")
+            .data(data)
+            .join("rect")
+            .attr("x", 0)
+            .attr("y", (d, i) => i * 90 + 50)
+            .attr("width", function (d) {
+                // here we call the scale function.
+                return xScale(d);
+            })
+            .attr("height", 20)
+            .style("fill", "steelblue")
     }
 </script>
 <script src="run.js" charset="utf-8"></script>

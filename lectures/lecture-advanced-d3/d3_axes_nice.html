@@ -62,8 +62,7 @@
 
         svg.selectAll(".bar")
             .data(data)
-            .enter()
-            .append("rect")
+            .join("rect")
             .classed("bar", true)
             // new: we add the padding via a tranform/translate
             .attr("transform", "translate(" + padding + "," + padding + ")")
@@ -74,7 +73,7 @@
             .style("fill", d => color(d));
 
         svg.append("g")
-        // css class for the axis
+            // css class for the axis
             .classed("axis", true)
             // moving the axis to the right place
             .attr("transform", "translate(" + padding + "," + (height + padding) + ")")

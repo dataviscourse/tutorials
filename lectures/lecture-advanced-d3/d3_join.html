@@ -25,7 +25,8 @@
         // the data join
         let bars = svg.selectAll(".bars")
             .data(myData);
-        // using the selection join syntax
+        // using the selection join syntax. The 'rect' specifies
+        // which elements to create for enter.
         bars.join("rect")
             .classed("bars", true)
             .attr("x", 0)
