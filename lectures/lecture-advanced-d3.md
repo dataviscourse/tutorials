@@ -10,9 +10,9 @@ nomenu: true
 ## Selections and Data
 
 First, let's go over how selections and data mapping works again. We talked about the selection methods `select()` and  `selectAll()` that take CSS selectors. That means that we can select on
-  * **elements** - `select("svg")`, 
-  * **classes** - `selectAll(".className")`,
-  * **IDs** - `selectAll("#cancelButton")`, 
+  * **elements** – `select("svg")`, 
+  * **classes** – `selectAll(".className")`,
+  * **IDs** – `selectAll("#cancelButton")`, 
   * but also arbitrary complex selection expression such as parent child relationships - `selectAll("p > span")`. 
   
 Here is a simple example:
@@ -49,7 +49,7 @@ is the index of the current element, in the order of how they occur in the DOM.
 The following figure illustrates the differences between the enter, update and exit selection: 
 
 ![data_concept](images/data_concept.png)
-
+<br> 
 
 Typically, we want to be able to create visualizations from scratch, i.e., we don't want to select existing elements but add new ones. We can do this by appending elements to the `enter` selection:
 
@@ -67,6 +67,11 @@ However, the things that we apply to the enter selection, **do not apply to elem
 
 Here is an example that handles enter and update correctly:
 {% include code.html id="d3_enter_exit_update" file="d3_enter_exit_update.html" code="" js="false" preview="true" %}
+
+
+Here is the example using the new [`selection.join()`](https://observablehq.com/@d3/selection-join) syntax. 
+
+{% include code.html id="d3_join" file="d3_join.html" code="" js="false" preview="true" %}
 
 What happens here is that we define what to do when we add something (we add a rectangle and set its class), what happens when we remove something (we just remove it), and when we update something (we apply the new data elements). Notice the call to the `merge()` function, which merges the enter selection with the update selection, so that we can later set attributes on all the DOM elements at the same time. 
 

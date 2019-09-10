@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3: Enter, Exit, Update</title>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <style>
+        rect {
+            fill: lightgray;
+            stroke: darkgray;
+            stroke-width: 2px
+        }
+    </style>
+</head>
+<body>
+<svg height="300" width="800">
+</svg>
+<button id="next">Next Dataset!</button>
+</body>
+<script>
+    execute = function (myData) {
+        myData = !myData ? [127, 61, 256, 71, 15, 23] : myData;
+
+        let svg = d3.select("svg");
+        // the data join
+        let bars = svg.selectAll(".bars")
+            .data(myData);
+        // using the selection join syntax
+        bars.join("rect")
+            .classed("bars", true)
+            .attr("x", 0)
+            .attr("y", (d, i) => i * 30 + 50)
+            .attr("width", d => d)
+            .attr("height", 20)
+            .style("fill", "steelblue")
+            .attr("opacity", 1);
+    };
+    // a button setting another dataset
+    d3.select("#next").on("click", function () {
+        execute([500, 100, 120]);
+    });
+</script>
+<script src="run.js" charset="utf-8"></script>
+</html>
