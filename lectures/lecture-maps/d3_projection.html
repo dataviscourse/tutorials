@@ -5,23 +5,32 @@
     <meta charset="utf-8">
     <title>D3 Projections</title>
     <script src="https://d3js.org/d3.v5.js"></script>
+    <style> text{font-family: Verdana, Geneva, Tahoma, sans-serif}</style>
 </head>
 
 <body>
+    <svg width="800" height="600">
+    </svg>
     <script type="text/javascript">
         {
             let d = {
                 'lon': -83.903347,
                 'lat': 38.769315
             };
+            let svg = d3.select("svg");
+            let width = parseInt(svg.attr("width"));
+            let height = parseInt(svg.attr("height"));
             // In order to convert lat / lon (spherical!) coordinates to fit in the 2D
             // coordinate system of our screen, we need to create a projection function:
             let projection = d3.geoAlbersUsa(); // a USA-specific projection (that deals with Hawaii / Alaska)
-
+            // a USA-specific projection (that deals with Hawaii / Alaska)
+            projection.translate([width / 2, height / 2]); // this centers the map in our SVG element
+              
             let pos = projection([d.lon, d.lat]);
             console.log("Original positions:");
             console.log(d);
             console.log("Projected positions: " + pos);
+            svg.append('text').text('X').datum(pos).attr('x', d=> d[0]).attr('y', d=> d[1]).attr('fill', 'purple');
         }
     </script>
 </body>
