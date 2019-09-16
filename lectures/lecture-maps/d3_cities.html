@@ -48,8 +48,7 @@
 
             d3.select("#cityLayer").selectAll("circle")
                 .data(data)
-                .enter()
-                .append("circle")
+                .join("circle")
                 .attr("cx", function (d) {
                     return projection([d.lon, d.lat])[0];
                 })
