@@ -402,9 +402,9 @@ California,1.7979
 ***
 
 Now that we've seen how to create data maps purely with D3, let's take a look at street maps. These are used when the spatial context of your data is very import. That is, you care about the ability to navigate to a specific geographic location. You also get out of the box features such as zooming and panning. Examples of visualizations that use street maps include: 
-* [Reprojected Distruction](http://hanshack.com/aleppo/#berlin),
-* [White Collar Crime](https://whitecollar.thenewinquiry.com/#dr5rukp),
-* [Where the Pies Are](http://www.nytimes.com/interactive/2009/07/07/dining/20090708-pizza-map.html).
+* [Reprojected Distruction](http://hanshack.com/aleppo/#berlin)
+* [White Collar Crime](https://whitecollar.thenewinquiry.com/#dr5rukp)
+* [Where the Pies Are](http://www.nytimes.com/interactive/2009/07/07/dining/20090708-pizza-map.html)
 
  The most common street map used is the [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial). 
 
