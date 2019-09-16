@@ -38,8 +38,7 @@
             // Bind data and create one path per GeoJSON feature
             d3.select("#mapLayer").selectAll("path")
                 .data(json.features)
-                .enter()
-                .append("path")
+                .join("path")
                 // here we use the familiar d attribute again to define the path
                 .attr("d", path);
 
