@@ -67,6 +67,7 @@
             });
 
             // Now we add the data values to the geometry for every state
+            
             json.features.forEach(function (feature) {
                 feature.properties.value = dataLookup[feature.properties.name];
             });
