@@ -189,11 +189,6 @@
                 let projection = this.getProjection(),
                     padding = 10;
 
-                let colorScale = d3.scaleLinear()
-                    .domain([35, 73, 95, 110, 130, 155, 200])
-                    // each color matches to an interpolation point
-                    .range(['#5ebaff', '#00faf4', "#ffffcc", "#ffe775", '#ffc140', '#ff8f20', '#ff6060', ]);
-
                 let circleScale = d3.scaleLinear()
                     .domain([d3.min(usDataSample, d=> d.duration), d3.max(usDataSample, d=> d.duration)])
                     .range([2, 7]).clamp(true);
