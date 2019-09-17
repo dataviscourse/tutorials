@@ -26,7 +26,7 @@ Let's start off talking about creating maps using purely D3. These maps are usua
  * [How Far Do You Live From Mom](https://www.nytimes.com/interactive/2015/12/24/upshot/24up-family.html)
 * [Maps Showing the Impact of Hurricane Florence](https://www.nytimes.com/interactive/2018/09/13/us/hurricane-florence-impact-damage-map.html),
  * [A Map of Netflix Queues by Region](http://www.nytimes.com/interactive/2010/01/10/nyregion/20100110-netflix-map.html), 
-  * [Cities Replaced By Famous People](https://pudding.cool/2019/05/people-map),
+ * [Reprojected Distruction](http://hanshack.com/aleppo/#berlin)
  * [What Music Americans Like to Listen To](https://www.nytimes.com/interactive/2017/08/07/upshot/music-fandom-maps.html?mcubz=1&_r=0#future),
   * [Every Possible way of Making an Election Map](https://www.nytimes.com/interactive/2016/11/01/upshot/many-ways-to-map-election-results.html), and last but not least, 
   * [Bars vs Grocery Stores](https://flowingdata.com/2014/05/29/bars-versus-grocery-stores-around-the-world/). 
@@ -403,7 +403,8 @@ California,1.7979
 ***
 
 Now that we've seen how to create data maps purely with D3, let's take a look at street maps. These are used when the spatial context of your data is very import. That is, you care about the ability to navigate to a specific geographic location. You also get out of the box features such as zooming and panning. Examples of visualizations that use street maps include: 
-* [Reprojected Distruction](http://hanshack.com/aleppo/#berlin)
+
+* [Cities Replaced By Famous People](https://pudding.cool/2019/05/people-map),
 * [White Collar Crime](https://whitecollar.thenewinquiry.com/#dr5rukp)
 * [Where the Pies Are](http://www.nytimes.com/interactive/2009/07/07/dining/20090708-pizza-map.html)
 

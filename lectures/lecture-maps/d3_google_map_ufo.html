@@ -27,8 +27,9 @@
 <script src="//d3js.org/d3.v5.js"></script>
 <script>
     async function googleMap() {
-        // Create the Google Map…
-        let map = new google.maps.Map(d3.select("#map").node(), {
+
+        //Our options to pass to our new google map object
+        let options = {
             zoom: 4,
             center: {
                 lat: 41.4925,
@@ -63,7 +64,10 @@
                     {"featureType": "water","elementType": "labels.text","stylers": [{"visibility": "off"}]},
                     {"featureType": "water","elementType": "labels.text.fill","stylers": [{"color": "#3d3d3d"}]}
                     ]
-        });
+        }
+    
+        // Create the Google Map…
+        let map = new google.maps.Map(d3.select("#map").node(), options);
 
         // we downloaded ufo data from here: https://www.kaggle.com/NUFORC/ufo-sightings 
         //Thanks Kaggle!
@@ -73,7 +77,8 @@
 
         //Filter the data to only see US sightings. Take a sample of 200.
         let usDataSample = data.filter(d=> d.country === 'us').slice(0, 200);
-
+        
+        //Create the overlay that we will draw on
         let overlay = new google.maps.OverlayView();
 
         // Add the container when the overlay is added to the map.
@@ -105,11 +110,9 @@
 
                 let markerEnter = marker.enter().append("svg");
 
+                // add the circle
                 markerEnter.append("circle")
-                    .attr("cx", padding)
-                    .attr("cy", padding)
-                    .style('opacity', .8);
-                
+                    
                 marker.exit().remove();
 
                 marker = marker.merge(markerEnter);
@@ -118,9 +121,12 @@
                     .each(transform)
                     .attr("class", "marker");
 
-                // Add a circle.
+                // style the circle
                 marker.select("circle")
                     .attr("r", d=> circleScale(d.duration))
+                    .attr("cx", padding)
+                    .attr("cy", padding)
+                    .style('opacity', .8)
                     .attr('fill', d => {
                         return d.shape === 'fireball' ? '#FB7E01' : '#01FB86';
                     })
