@@ -403,7 +403,7 @@ California,1.7979
 
 Now that we've seen how to create data maps purely with D3, let's take a look at street maps. These are used when the spatial context of your data is very import. That is, you care about the ability to navigate to a specific geographic location. You also get out of the box features such as zooming and panning. Examples of visualizations that use street maps include: 
 
-* [Cities Replaced By Famous People](https://pudding.cool/2019/05/people-map),
+* [Cities Replaced By Famous People](https://pudding.cool/2019/05/people-map)
 * [White Collar Crime](https://whitecollar.thenewinquiry.com/#dr5rukp)
 * [Where the Pies Are](http://www.nytimes.com/interactive/2009/07/07/dining/20090708-pizza-map.html)
 
@@ -459,10 +459,10 @@ Zoom Level  | Level of Detail
 
 The following map types are available in the API:
 
-1. `roadmap` displays the default road map view. This is the default map type.
+1. `roadmap` displays the default road map view. This is the default map type
 2. `satellite` displays Google Earth satellite images
 3. `hybrid` displays a mixture of normal and satellite views
-4. `terrain` displays a physical map based on terrain information.
+4. `terrain` displays a physical map based on terrain information
 
 You can also set the mapTypeID programatically (say as a result of a user action) with : 
 
