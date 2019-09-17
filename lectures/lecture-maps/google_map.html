@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Simple Map</title>
-  <meta name="viewport" content="initial-scale=1.0">
-  <meta charset="utf-8">
-  <style>
-    /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-    #map {
-      height: 100%;
-    }
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+           * element that contains the map. */
+        #map {
+            height: 100%;
+        }
 
-    /* Optional: Makes the sample page fill the window. */
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
-
 <body>
-  <div id="map"></div>
-  <script>
-    {
+<div id="map"></div>
+<script>
+{
+    function initMap() {
 
-      function initMap() {
-        
         // The first parameter of this function is the element that you want to render the map to.
         // We here use the native DOM API.
         // if using d3 instead of the native DOM API, the call should be: d3.select("#map").node().
@@ -36,20 +33,18 @@
         let mapContainer = document.getElementById('map');
         //The second parameter we want to use is the zoom and center(lat and lng) options for the map
         let options = {
-          center: {lat: 46.872146, lng: -113.9940}, // Missoula, MT
-          zoom: 10,
-          // mapTypeId: 'terrain' //This is optional and changes the type of google map shown.
-        }
+            center: {lat: 46.872146, lng: -113.9940}, // Missoula, MT
+            zoom: 10,
+            // mapTypeId: 'terrain' //This is optional and changes the type of google map shown.
+        };
         //Create a new google map object
         let map = new google.maps.Map(mapContainer, options);
-      }
     }
-  </script>
-  <!-- The script tag below including d3 is only necessary if using d3.select() in the map constructor above -->
-  <!-- <script src="//d3js.org/d3.v5.js"></script> -->
-  <!-- Here this calls the initMap function -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeuqYAoD2lUBNikOZng7QsNOXhZ9-mH5o&callback=initMap"></script>
-
+}
+</script>
+<!-- The script tag below including d3 is only necessary if using d3.select() in the map constructor above -->
+<!-- <script src="//d3js.org/d3.v5.js"></script> -->
+<!-- Here this calls the initMap function -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeuqYAoD2lUBNikOZng7QsNOXhZ9-mH5o&callback=initMap"></script>
 </body>
-
 </html>

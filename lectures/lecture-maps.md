@@ -53,7 +53,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
   
   1. **Point** - a single position.
 
-``` javascript
+```json
 {
   "type": "Point",
   "coordinates": [
@@ -65,7 +65,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 2. **MultiPoint** - an array of positions.
 
-``` javascript
+```json
 {
   "type": "MultiPoint",
   "coordinates": [
@@ -83,7 +83,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 3. **LineString** - an array of positions forming a continuous line.
 
-``` javascript
+```json
 {
   "type": "LineString",
   "coordinates": [
@@ -113,7 +113,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 4. **MultiLineString** - an array of arrays of positions forming several lines.
 
-``` javascript
+```json
 {
   "type": "MultiLineString",
   "coordinates": [
@@ -147,7 +147,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 5. **Polygon** - an array of arrays of positions forming a polygon (possibly with holes).
 
-``` javascript
+```json
 {
   "type": "Polygon",
   "coordinates": [...]
@@ -156,7 +156,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 6. **MultiPolygon** - a multidimensional array of positions forming multiple polygons.
 
-``` javascript
+```json
 {
   "type": "MultiPolygon",
   "coordinates": [
@@ -175,7 +175,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 7. **GeometryCollection** - an array of geometry objects.
 
-``` javascript
+```json
 {
   "type": "GeometryCollection",
   "geometries": [
@@ -196,7 +196,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 8. **Feature** - a feature containing one of the above geometry objects.
 
-``` javascript
+```json
 {
   "type": "Feature",
   "geometry": {
@@ -218,7 +218,7 @@ The [GeoJSON format](http://geojson.org/) describes the contained geography as a
 
 9. **FeatureCollection** - an array of feature objects.
 
-``` javascript
+```json
 {
   "type": "FeatureCollection",
   "features": [
@@ -280,7 +280,7 @@ If we open a topoJSON file in an editor, this is an example of what we would see
 
 Because D3 only handles data in the GeoJSON format, there is a d3 library that does the job of converting TopoJSON to GeoJSON. 
 
-``` html
+```html
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 ```
 
@@ -299,29 +299,27 @@ A geometry collection of geometry collections is mapped to a feature collection 
 
 The usage is as follows:
 
-``` javascript
-topojson.feature(topology, object-to-be-converted)
+```javascript
+topojson.feature(topology, object-to-be-converted);
 
 console.log(topojson.feature(topoJSON, topoJSON.objects.usStates))
-
 ```
 ![Alt Image Text](./images/topo2geo.png)
 
 After converting topoJSON to geoJSON, remember that what you will want to feed into the .data() portion of your d3 code, is the geoJSON.features array. 
 
-``` javascript
-   let geoJSON = topojson.feature(topoJSON,topoJSON.objects.countries);
+```javascript
+let geoJSON = topojson.feature(topoJSON,topoJSON.objects.countries);
    
-   ...
-   .data(geoJSON.features)
-   
+...
+.data(geoJSON.features) 
 ```
 
 ### Using Projections 
 
 Let's take a closer look at a GeoJSON file that contains data for the US States. Here is a [data file containing US states](us-states.json).
 
-``` javascript
+```json
 {
    "type":  "FeatureCollection",
    "features":
@@ -340,9 +338,9 @@ You can see that the coordinates are within the geometry object, and that the pr
 
 You might be able to tell that the coordinates above use latitude and longitude - which are spherical coordinates! Mapping these onto a 2D surface like your screen in a sensible way requires a projection. There are many projections, with various advantages and disadvantages - we'll talk about them in class.
   
- Here is an example of how to use projections to transform lat/lon values into screen coordinate pixel values: 
+Here is an example of how to use projections to transform lat/lon values into screen coordinate pixel values: 
  
- {% include code.html id="d3_projection" file="d3_projection.html" code="" js="false" preview="false" %}
+{% include code.html id="d3_projection" file="d3_projection.html" code="" js="false" preview="false" %}
 
  
  D3 supports a long list of projections, including: 
@@ -373,7 +371,7 @@ Here is a simple example of rendering the US states:
 
 Now that we have the base map, we can draw marks on top of maps, in this case the size of the [50 largest cities]({{site.baseurl}}/lectures/lecture-maps/us-cities.csv) in the US. Here are the first couple of lines of this file: 
 
-``` csv
+```csv
 rank,place,population,lat,lon
 1,New York city,8175133,40.71455,-74.007124
 2,Los Angeles city,3792621,34.05349,-118.245323
@@ -385,7 +383,7 @@ rank,place,population,lat,lon
 
 Here is an example for a choropleth map, coloring [each state by its agricultural output]({{site.baseurl}}/lectures/lecture-maps/us-ag-productivity-2004.csv). Here are the first couple of lines of this file: 
 
-``` csv
+```csv
 state,value
 Alabama,1.1791
 Arkansas,1.3705
@@ -427,16 +425,16 @@ Let's see this in action:
 
 ###  The Map Object
 
-``` javascript
+```javascript
 map = new google.maps.Map(document.getElementById("map"), {...});
 ```
 
 The map object defines a single map on the page. You must create a new object for each new instance of a map that you want on the page.  The parameters for the map constructor are as follows: 
 
-``` Map(mapDiv:Node, opts?:MapOptions )	```
+```Map(mapDiv:Node, opts?:MapOptions )```
 where mapDiv is the DIV element where you want the map to live and MapOptions are the parameters that are used for creating this map. Of these parameters, only two are required: **center, and zoom**. 
 
-``` javascript
+```javascript
 map = new google.maps.Map(document.getElementById('map'), {
   center: {lat: -34.397, lng: 150.644},
   zoom: 8,
@@ -467,7 +465,7 @@ The following map types are available in the API:
 
 You can also set the mapTypeID programatically (say as a result of a user action) with : 
 
-``` javascript
+```javascript
 map.setMapTypeId('terrain');
 ```
 

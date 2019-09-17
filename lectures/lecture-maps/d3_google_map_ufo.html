@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 <style>
     html,
     body,
@@ -10,7 +10,8 @@
         margin: 0;
         padding: 0;
     }
-    .ufo{
+
+    .ufo {
         position: absolute;
     }
 
@@ -20,14 +21,12 @@
         font: 10px sans-serif;
         position: absolute;
     }
-
 </style>
 <div id="map"></div>
 <script src="//maps.google.com/maps/api/js?key=AIzaSyDeuqYAoD2lUBNikOZng7QsNOXhZ9-mH5o"></script>
 <script src="//d3js.org/d3.v5.js"></script>
 <script>
     async function googleMap() {
-
         //Our options to pass to our new google map object
         let options = {
             zoom: 4,
@@ -38,46 +37,58 @@
             mapTypeId: 'roadmap',
             //Style made in the google API style wizard to give the map a UFO feel
             //You can customize your map styles and and them into a styles array in the options opbject
-            styles: [{"elementType": "geometry","stylers": [{"color": "#212121"}]},
-                    {"elementType": "labels.icon","stylers": [{"visibility": "off"}]},
-                    {"elementType": "labels.text.fill","stylers": [{"color": "#757575"}]},
-                    {"elementType": "labels.text.stroke","stylers": [{"color": "#212121"}]},
-                    {"featureType": "administrative","elementType": "geometry","stylers": [{"color": "#757575"}]},
-                    {"featureType": "administrative.country","elementType": "labels.text.fill","stylers": [{"color": "#9e9e9e"}]},
-                    {"featureType": "administrative.land_parcel","stylers": [{"visibility": "off"}]},
-                    {"featureType": "administrative.locality","elementType": "labels.text.fill","stylers": [{"color": "#bdbdbd"}]},
-                    {"featureType": "administrative.neighborhood","stylers": [{"visibility": "off"}]},
-                    {"featureType": "poi","elementType": "labels.text","stylers": [{"visibility": "off"}]},
-                    {"featureType": "poi","elementType": "labels.text.fill","stylers": [{"color": "#757575"}]},
-                    {"featureType": "poi.park","elementType": "geometry","stylers": [{"color": "#181818"}]},
-                    {"featureType": "poi.park","elementType": "labels.text.fill","stylers": [{"color": "#616161"}]},
-                    {"featureType": "poi.park","elementType": "labels.text.stroke","stylers": [{"color": "#1b1b1b"}]},
-                    {"featureType": "road","elementType": "geometry.fill","stylers": [{"color": "#2c2c2c"}]},
-                    {"featureType": "road","elementType": "labels","stylers": [{"visibility": "off"}]},
-                    {"featureType": "road","elementType": "labels.text.fill","stylers": [{"color": "#8a8a8a"}]},
-                    {"featureType": "road.arterial","elementType": "geometry","stylers": [{"color": "#373737"}]},
-                    {"featureType": "road.highway","elementType": "geometry","stylers": [{"color": "#3c3c3c"}]},
-                    {"featureType": "road.highway.controlled_access","elementType": "geometry","stylers": [{"color": "#4e4e4e"}]},
-                    {"featureType": "road.local","elementType": "labels.text.fill","stylers": [{"color": "#616161"}]},
-                    {"featureType": "transit","elementType": "labels.text.fill","stylers": [{"color": "#757575"}]},
-                    {"featureType": "water","elementType": "geometry","stylers": [{"color": "#000000"}]},
-                    {"featureType": "water","elementType": "labels.text","stylers": [{"visibility": "off"}]},
-                    {"featureType": "water","elementType": "labels.text.fill","stylers": [{"color": "#3d3d3d"}]}
-                    ]
-        }
-    
+            styles: [{"elementType": "geometry", "stylers": [{"color": "#212121"}]},
+                {"elementType": "labels.icon", "stylers": [{"visibility": "off"}]},
+                {"elementType": "labels.text.fill", "stylers": [{"color": "#757575"}]},
+                {"elementType": "labels.text.stroke", "stylers": [{"color": "#212121"}]},
+                {"featureType": "administrative", "elementType": "geometry", "stylers": [{"color": "#757575"}]},
+                {
+                    "featureType": "administrative.country",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"color": "#9e9e9e"}]
+                },
+                {"featureType": "administrative.land_parcel", "stylers": [{"visibility": "off"}]},
+                {
+                    "featureType": "administrative.locality",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"color": "#bdbdbd"}]
+                },
+                {"featureType": "administrative.neighborhood", "stylers": [{"visibility": "off"}]},
+                {"featureType": "poi", "elementType": "labels.text", "stylers": [{"visibility": "off"}]},
+                {"featureType": "poi", "elementType": "labels.text.fill", "stylers": [{"color": "#757575"}]},
+                {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"color": "#181818"}]},
+                {"featureType": "poi.park", "elementType": "labels.text.fill", "stylers": [{"color": "#616161"}]},
+                {"featureType": "poi.park", "elementType": "labels.text.stroke", "stylers": [{"color": "#1b1b1b"}]},
+                {"featureType": "road", "elementType": "geometry.fill", "stylers": [{"color": "#2c2c2c"}]},
+                {"featureType": "road", "elementType": "labels", "stylers": [{"visibility": "off"}]},
+                {"featureType": "road", "elementType": "labels.text.fill", "stylers": [{"color": "#8a8a8a"}]},
+                {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"color": "#373737"}]},
+                {"featureType": "road.highway", "elementType": "geometry", "stylers": [{"color": "#3c3c3c"}]},
+                {
+                    "featureType": "road.highway.controlled_access",
+                    "elementType": "geometry",
+                    "stylers": [{"color": "#4e4e4e"}]
+                },
+                {"featureType": "road.local", "elementType": "labels.text.fill", "stylers": [{"color": "#616161"}]},
+                {"featureType": "transit", "elementType": "labels.text.fill", "stylers": [{"color": "#757575"}]},
+                {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#000000"}]},
+                {"featureType": "water", "elementType": "labels.text", "stylers": [{"visibility": "off"}]},
+                {"featureType": "water", "elementType": "labels.text.fill", "stylers": [{"color": "#3d3d3d"}]}
+            ]
+        };
+
         // Create the Google Map…
         let map = new google.maps.Map(d3.select("#map").node(), options);
 
         // we downloaded ufo data from here: https://www.kaggle.com/NUFORC/ufo-sightings 
         //Thanks Kaggle!
-      
+
         // Load the ufo sighting data. When the data comes back, create an overlay.
         let data = await d3.csv("ufo-sightings.csv");
 
         //Filter the data to only see US sightings. Take a sample of 200.
-        let usDataSample = data.filter(d=> d.country === 'us').slice(0, 200);
-        
+        let usDataSample = data.filter(d => d.country === 'us').slice(0, 200);
+
         //Create the overlay that we will draw on
         let overlay = new google.maps.OverlayView();
 
@@ -86,13 +97,13 @@
 
             //to see all the available panes;
             console.log(this.getPanes());
-        
+
             let layer = d3.select(this.getPanes().overlayMouseTarget).append("div")
                 .attr("class", "ufo");
 
             overlay.onRemove = function () {
                 d3.select('.ufo').remove();
-            }
+            };
 
             overlay.draw = function () {
 
@@ -100,7 +111,8 @@
                     padding = 10;
 
                 let circleScale = d3.scaleLinear()
-                    .domain([d3.min(usDataSample, d=> d.duration), d3.max(usDataSample, d=> d.duration)])
+                    .domain([d3.min(usDataSample, d => d.duration),
+                        d3.max(usDataSample, d => d.duration)])
                     .range([2, 7]).clamp(true);
 
                 // Draw each marker as a separate SVG element.
@@ -111,8 +123,8 @@
                 let markerEnter = marker.enter().append("svg");
 
                 // add the circle
-                markerEnter.append("circle")
-                    
+                markerEnter.append("circle");
+
                 marker.exit().remove();
 
                 marker = marker.merge(markerEnter);
@@ -123,16 +135,17 @@
 
                 // style the circle
                 marker.select("circle")
-                    .attr("r", d=> circleScale(d.duration))
+                    .attr("r", d => circleScale(d.duration))
                     .attr("cx", padding)
                     .attr("cy", padding)
                     .style('opacity', .8)
                     .attr('fill', d => {
                         return d.shape === 'fireball' ? '#FB7E01' : '#01FB86';
                     })
-                .on('click',d=>console.log(d));
+                    .on('click', d => console.log(d));
 
-                //transforms the markers to the right lat / lng using the projection from google maps
+                //transforms the markers to the right
+                // lat / lng using the projection from google maps
                 function transform(d) {
                     d = new google.maps.LatLng(+d.latitude, +d.longitude);
                     d = projection.fromLatLngToDivPixel(d);
@@ -142,10 +155,8 @@
                 }
             };
         };
-
         // Bind our overlay to the map…
         overlay.setMap(map);
-    };
-
+    }
     googleMap();
 </script>
