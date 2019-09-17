@@ -358,8 +358,8 @@ Here is an example of how to use projections to transform lat/lon values into sc
 * d3.geoMercator - the spherical Mercator projection.
 
 You can look at the projections in more detail:
-*[Here is a showreel of all the projections supported by D3](http://bl.ocks.org/mbostock/3711652).
-*[Here is an observable comparing overlap of d3 projections](https://observablehq.com/@d3/projection-comparison)
+* [Here is a showreel of all the projections supported by D3](http://bl.ocks.org/mbostock/3711652)
+* [Here is an observable comparing overlap of d3 projections](https://observablehq.com/@d3/projection-comparison)
 
 Once projected to screen coordinates, the polygons can be easily converted into an SVG path with [`d3.geoPath()`](https://github.com/d3/d3-geo/blob/master/README.md#geoPath). The `geoPath()` function is an SVG path generator that takes in any GeoJSON feature or geometry object, and returns a formatted SVG path. 
  
