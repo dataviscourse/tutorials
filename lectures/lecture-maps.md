@@ -510,20 +510,23 @@ When dealing with javascript objects (such as json data) we often want to extrac
 We can use d3.entries() which returns an array containing the property keys and values of the specified object (an associative array). Each entry is an object with a key and value attribute, such as {key: "foo", value: 42}. The order of the returned array is undefined.
 -->
 
-Let's step through an example of the steps above as we look at Hurricane Wind Data in 2005! 
+Let's step through an example of the steps above as we look at Recorded UFO Sightings from 1965 - 2013. 
 
-We've retrieved the hurricane data from [this NOAA website](ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r09/wmo/csv/year/Year.2005.ibtracs_wmo.v03r09.csv). Here is what the data looks like: 
+We've retrieved the sighting data from [kaggle](https://www.kaggle.com/NUFORC/ufo-sightings). Here is what the data looks like: 
 
 ```
-Serial_Num,Year,Num,Basin,Sub_basin,Name,ISO_time,Nature,Latitude,Longitude,Wind(WMO),Pres(WMO),Center,Wind(WMO) Percentile,Pres(WMO) Percentile,Track_type
-2004243S03088,2005,01, SI, WA,PHOEBE,2004-09-01 00:00:00, NR, -5.30,  90.00, 35.0, 1000.0,bom,  33.664,  16.735,main
-2004243S03088,2005,01, SI, WA,PHOEBE,2004-09-01 06:00:00, NR, -5.50,  90.40, 35.0,  998.0,bom,  33.664,  25.747,main
-2004243S03088,2005,01, SI, WA,PHOEBE,2004-09-01 12:00:00, NR, -6.20,  90.50, 35.0,  998.0,bom,  33.664,  25.747,main
-2004243S03088,2005,01, SI, WA,PHOEBE,2004-09-01 18:00:00, NR, -7.10,  90.80, 35.0,  995.0,bom,  33.664,  36.698,main
+datetime,city,state,country,shape,duration,duration (hours/min),comments,date posted,latitude,longitude
+10/7/1965 10:00,reseda,ca,us,disk,180,3 minutes,"Formation of disks decending behind trees w/multiple witnesses",9/24/2012,34.2011111,-118.5355556
+10/7/1967 22:00,lantana,fl,us,other,180,3minutes,"UFO report and theory of motion.",11/28/2007,26.5863889,-80.0522222
+10/7/1971 01:00,kitchener (canada),on,ca,disk,2700,45 min,"A very bright &#44 horizontal elliptical disk aprox. the length of a yardstick held at arms length&#44 hovered one hundred feet  away.",7/13/2005,43.45,-80.5
+10/7/1973 21:00,beruit (lebanon),,,unknown,900,15 minutes,"Iwas serving aboard the U.S.S. Mount Whitney&#44 during the October War between Israel&#44 Egypt&#44 and Seria. I was a radarman&#44 and I reported",4/16/2005,33.888629,35.495479
+10/7/1974 19:50,yakima,wa,us,cone,2400,40 minutes,"Huge search light beam from 4 miles high in the sky illuminating a one mile diameter circle on the ground.",5/12/2009,46.6022222,-120.5047222
+10/7/1982 23:00,new haven,ct,us,triangle,600,10 minutes,"I&#44 and another individual&#44 observed a triangular-shaped&#44 multi-colored&#44 silent object slowly traverse the night sky of New Haven&#44 Conn.",5/11/2005,41.3080556,-72.9286111
+10/7/1984 19:00,chigwell essex (uk/england),,,other,15,15 seconds,"High Altitude RED fast moving (later violently manouvering) oval/ bean shaped object Essex UK",10/27/2004,51.626281,0.080647
+10/7/1987 22:00,liverpool (uk/england),,gb,light,10,10 seconds,"Orange&#44 gliding ball of light shone into my bedroom window.",6/12/2008,53.416667,-3
 ```
 
 
 {% include code.html id="d3_google_map_ufo" file="d3_google_map_ufo.html" code="" js="false" preview="true" %}
 
 
-We can see what we could do with this approach in this example of a Hurricane Exploration tool by NOAA: [https://coast.noaa.gov/hurricanes/](https://coast.noaa.gov/hurricanes/).
