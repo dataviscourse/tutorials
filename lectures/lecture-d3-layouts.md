@@ -437,9 +437,19 @@ Let's check out a complete example:
 
 The layout uses a "cooling" factor that stops the iteration cycle.
 
-And to wrap up [a cool example using custom made forces!](http://slides.com/vasturiano/unconf2017#/8)
+And to wrap up d3 layouts [a cool example using custom made forces!](http://slides.com/vasturiano/unconf2017#/8)
 
+### Cytoscape.js
 
+[Cytoscape.js](http://js.cytoscape.org/) is an open-source graph theory (a.k.a. network) library written in JS. You can use Cytoscape.js for graph analysis and visualisation.
+
+Cytoscape.js allows you to easily display and manipulate rich, interactive graphs. Because Cytoscape.js allows the user to interact with the graph and the library allows the client to hook into user events, Cytoscape.js is easily integrated into your app, especially since Cytoscape.js supports both desktop browsers, like Chrome, and mobile browsers, like on the iPad. Cytoscape.js includes all the gestures you would expect out-of-the-box, including pinch-to-zoom, box selection, panning, et cetera.
+
+Cytoscape.js also has graph analysis in mind: The library contains many useful functions in graph theory. You can use Cytoscape.js headlessly on Node.js to do graph analysis in the terminal or on a web server.
+
+A complete example is given below:
+
+{% include code.html id="cytoscape_demo" file="cytoscape_demo.html" code="" js="false" preview="true" %}
 
 ### Other Layouts
 

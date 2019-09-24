@@ -1,0 +1,78 @@
+<!DOCTYPE>
+
+<html>
+
+	<head>
+		<title>cytoscape.js demo</title>
+		<meta charset="utf-8"/>
+		<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+		<script src="https://unpkg.com/cytoscape-cose-bilkent@4.0.0/cytoscape-cose-bilkent.js"></script>
+		<style>
+			#cy {
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				z-index: 999;
+			}
+		</style>
+		<script>
+			document.addEventListener('DOMContentLoaded', function(){
+				var cy = window.cy = cytoscape({
+					container: document.getElementById('cy'),
+
+					style: [
+						{
+							selector: 'node',
+							style: {
+								'content': function(node) {return node.data('name') || node.id();}
+							}
+						}, {
+							selector: 'edge',
+							style: {
+								'curve-style': 'bezier',
+								'target-arrow-shape': 'triangle'
+							}
+						}
+					],
+
+					elements: {
+						nodes: [
+							{ data: { id: 'j', name: 'Jerry' } },
+							{ data: { id: 'e', name: 'Elaine' } },
+							{ data: { id: 'k', name: 'Kramer' } },
+							{ data: { id: 'g', name: 'George' } }
+						],
+						edges: [
+							{ data: { source: 'j', target: 'e' } },
+							{ data: { source: 'j', target: 'k' } },
+							{ data: { source: 'j', target: 'g' } },
+							{ data: { source: 'e', target: 'j' } },
+							{ data: { source: 'e', target: 'k' } },
+							{ data: { source: 'k', target: 'j' } },
+							{ data: { source: 'k', target: 'e' } },
+							{ data: { source: 'k', target: 'g' } },
+							{ data: { source: 'g', target: 'j' } }
+						]
+					}
+				});
+
+
+			});
+			fetch('cy_sample_graph.json').then(
+				function(response) {
+					response.json().then(data => {
+						//cy.add(data);
+						cy.layout({name: 'cose-bilkent'}).run();
+					})
+			});
+		</script>
+	</head>
+
+	<body>
+		<h1>cytoscape demo</h1>
+		<div id="cy"></div>
+	</body>
+
+</html>
