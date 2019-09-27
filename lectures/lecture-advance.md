@@ -23,6 +23,6 @@ nomenu: true
 
 ### Linked Views
 
-{% include code.html id="d3_selectall" file="d3_selectall.html" code="" js="false" preview="true" %}
+{% include code.html id="d3_axes" file="d3_axes.html" code="" js="false" preview="true" %}
 
 ## Browser based visualization with Front End Frameworks like (ReactJS, AngularJS, VueJS
