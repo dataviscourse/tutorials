@@ -63,6 +63,20 @@ Let us take a look at a working code example:
 
 {% include code.html id="brush_basic" file="brush_basic.html" code="" js="false" preview="true" %}
 
+Right now the brushes don't do anything exciting but just draw rectangles on the screen. We need to attach events to brush to do something meaningful with them.
+
+### D3 Brush events
+
+`d3` exposes three brush events:
+
+- `start`: This is triggered at the start of brush gesture, e.g `mousedown` and `touchstart`
+- `brush`: This is triggered when the brush moves or resizes
+- `end`: This is triggered at the end of brush gesture, e.g. `mouseup` and `touchend`
+
+Let us look at a working example on a scatterplot. We will use the `iris` dataset.
+
+{% include code.html id="brush_event" file="brush_event.html" code="" js="false" preview="true" %}
+
 ## d3.Group & d3.Groups
 
 ## Linked Views
