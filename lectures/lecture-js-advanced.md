@@ -1,15 +1,13 @@
 ---
 layout: code-lecture
-title: "Advanced JS and D3"
-permalink: /lectures/lecture-advance/
+title: "Advanced JavaScript"
+permalink: /lectures/lecture-js-advance/
 nomenu: true
 ---
 
-## Advanced JavaScript
+## Destructuring
 
-### Destructuring
-
-#### List
+### List
 
 The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
 
@@ -26,15 +24,15 @@ Destructuring assignment supports nesting and use of spread operators. Here we s
 
 {% include code.html id="advanced_destructuring" file="advanced_destructuring.js" code="" js="true" preview="false" %}
 
-#### Objects
+### Objects
 
 Destructuring on objects lets you bind variables to different properties of an object. You specify the property being bound, followed by the variable you are binding its value to.
 
 {% include code.html id="destructuring_objects" file="destructuring_objects.js" code="" js="true" preview="false" %}
 
-### Promises
+## Promises
 
-#### A Quick Introduction to Promises
+### A Quick Introduction to Promises
 
 Promises are a construct for designed for asynchronous functions that returns a single result asynchronously, which provides a better way of working with callbacks. A given asynchronous function returns a Promise object, which serves as a placeholder and container for the final result. Callback functions, which are registered via the Promise methods `then()` and `catch()`, are called when result returns depending on the state (fulfilled or rejected) of the Promise object.
 
@@ -100,7 +98,7 @@ async1(function(){..})
     })
 ```
 
-#### Async/await
+### Async/await
 
 As our original example illustrated, ES6 introduces an even easier way of handling promises: `await`. The `await`operator will simply pause the execution of an asynchronous function until the value from the promise is available.
 
@@ -138,7 +136,7 @@ It’s important to remember: async functions don’t magically wait for themsel
 
 And most importantly, remember that async/await and promises are the same thing under the hood!
 
-### Asynchronous Data Loading
+## Asynchronous Data Loading
 
 Let's quickly cover an important aspect related to data loading. The code snippet below loads in a file called myData.json, and when all the plotting is finished, prints 'Done Plotting' to the console.
 
@@ -186,9 +184,9 @@ Your d3 functions will be called, before d3.json has returned with the data insi
 
 {% include code.html id="async_data_loading" file="async_data_loading.html" code="" js="false" preview="true" %}
 
-### Debugging
+## Debugging
 
-#### IDE
+### IDE
 
 You can use IDE to debug your JavaScript files. Some recommended IDE's are:
 
@@ -202,7 +200,7 @@ There are other's you can use like `Netbeans`, `VIM`, etc. Debugging with IDE is
     <img src="./images/vs_code_debug.gif" width="800px" style="padding-bottom: 21px"/>
 </div>
 
-#### Console
+### Console
 
 Debugging using IDE is very powerful and speeds up the process of hunting for bugs, but it might not always be possible (e.g if you working over a remote SSH connection). The simplest way to debug almost any programming language is printing to console. In our technical lectures we use `console.log()` frequently to quickly view the results of our operations.
 
@@ -233,13 +231,3 @@ JavaScript console is implemented fully by almost all modern web browsers. Below
 - `console.table`
   The best feature of console when you want to log a list of objects and go through them without individually opening each one to look at the values is `console.table`! It's also used in an example above.
   {% include code.html id="console_table" file="console_table.html" code="" js="false" preview="true" %}
-
-## Advance D3
-
-### Brushes
-
-### Drag
-
-### Linked Views
-
-## Browser based visualization with Front End Frameworks like (ReactJS, AngularJS, VueJS
