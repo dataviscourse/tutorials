@@ -188,6 +188,43 @@ Your d3 functions will be called, before d3.json has returned with the data insi
 
 ### Debugging
 
+#### IDE
+
+You can use IDE to debug your JavaScript files. Some recommended IDE's are:
+
+- [Visual Studio Code](https://code.visualstudio.com/) - Free, open source version available.
+- [Webstorm](https://www.jetbrains.com/webstorm/) - Not free, but education/community version available with student email.
+- [Atom](https://atom.io/) - Free, maintained by github! Tends to be slow for larger projects.
+
+There are other's you can use like `Netbeans`, `VIM`, etc. Debugging with IDE is specific to which one you use and you should refer to documentation for details. Here's example of how `VS Code` debugging looks like:
+
+<div text-align="center">
+    <img src="./images/vs_code_debug.gif" width="800px" style="padding-bottom: 21px"/>
+</div>
+
+#### Console
+
+Debugging using IDE is very powerful and speeds up the process of hunting for bugs, but it might not always be possible (e.g if you working over a remote SSH connection). The simplest way to debug almost any programming language is printing to console. In our technical lectures we use `console.log()` frequently to quickly view the results of our operations.
+
+JavaScript console is implemented fully by almost all modern web browsers. Below are examples of different `console` functions to debug JavaScript code.
+
+- `console.log`
+  Simplest way to debug code is to print something to the console using `log` function. There are variants of the functions like `info`, `warn` and `error`. These functions tag the output of `log` with a type denoting type of message. These types can be used to filter the output of console, let us see some examples.
+  {% include code.html id="console_log" file="console_log.js" code="" js="true" preview="false" %}
+- `console.trace`
+  If you look at output of `error` from above example, it adds a trace of function calls which lead to the error. We don't have to rely on `error` to do this. We can also use a `console.trace` to do similar things without tagging something as a error.
+  {% include code.html id="console_trace" file="console_trace.js" code="" js="true" preview="false" %}
+- `console.time` and `console.timeEnd`
+  You can log time using a pair of `time` and `timeEnd` to debug some performace issue of timing dependant bug.
+  {% include code.html id="console_time" file="console_time.js" code="" js="true" preview="false" %}
+- `console.memory`
+  You can use `memory` object to see the current heap size and memory usage of your application. Just go to the console and type `console.memory` to see details like `heapLimit`, `totalHeapSize` and `usedHeapSize`. _As of now it only works in Google Chrome. Firefox does not have support for this._
+- `console.profile`
+  You can use `console.profile` and `console.profileEnd` to trigger recording of performance and memory profile of browser actions. This can be analysed in browser's profile/performance tabs.
+- `console.count`
+  In a case of recurring function or code, you can use `console.count()` to keep count of how many times your code is read.
+  {% include code.html id="console_count" file="console_count.js" code="" js="true" preview="false" %}
+
 ## Advance D3
 
 ### Brushes
