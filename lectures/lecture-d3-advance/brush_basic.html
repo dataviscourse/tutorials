@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Promises</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+      .border-box {
+        stroke: black;
+        fill: none;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+  </body>
+  <script>
+    {
+      const height = 200;
+      const width = 200;
+      const padding = 15;
+
+      svg = d3.select("svg");
+      svg.attr("width", 700 + 2 * padding).attr("height", height + 2 * padding);
+
+      const baseGroup = svg
+        .append("g")
+        .attr("transform", `translate(${padding}, ${padding})`);
+
+      const xBrushGroup = baseGroup
+        .append("g")
+        .attr("transform", `translate(0, ${height / 2 - 25})`);
+      const yBrushGroup = baseGroup
+        .append("g")
+        .attr("transform", `translate(${1.5 * height + padding - 25}, 0)`);
+      const twoDimensionalBrushGroup = baseGroup
+        .append("g")
+        .attr("transform", `translate(${2 * height + padding}, 0)`);
+
+      xBrushGroup
+        .append("rect")
+        .classed("border-box", true)
+        .attr("height", 50)
+        .attr("width", height);
+
+      yBrushGroup
+        .append("rect")
+        .classed("border-box", true)
+        .attr("height", height)
+        .attr("width", 50);
+
+      twoDimensionalBrushGroup
+        .append("rect")
+        .classed("border-box", true)
+        .attr("height", height)
+        .attr("width", height);
+
+      function execute() {
+        const xBrush = d3.brushX().extent([[0, 0], [width, 50]]);
+        const yBrush = d3.brushY().extent([[0, 0], [50, height]]);
+        const brush = d3.brush().extent([[0, 0], [width, height]]);
+
+        xBrushGroup.call(xBrush);
+        yBrushGroup.call(yBrush);
+        twoDimensionalBrushGroup.call(brush);
+      }
+    }
+  </script>
+  <script src="run.js" charset="utf-8"></script>
+</html>
+
+<!-- 
+d3.csv(
+        "https://raw.githubusercontent.com/dataviscourse/2019-dataviscourse-homework/master/hw3/data/anscombe_I.csv"
+      ).then(data => {
+        const height = 300;
+        const width = 300;
+        const padding = 25;
+
+        const xScale = d3
+          .scaleLinear()
+          .domain([0, 10])
+          .range([0, width]);
+        const yScale = d3
+          .scaleLinear()
+          .domain([0, 10])
+          .range([height, 0]);
+
+        svg = d3.select("svg");
+        svg
+          .attr("width", width + 2 * padding)
+          .attr("height", height + 2 * padding);
+
+        const baseGroup = svg
+          .append("g")
+          .attr("transform", `translate(${padding}, ${padding})`);
+        baseGroup
+          .append("rect")
+          .classed("border-box", true)
+          .attr("width", width)
+          .attr("height", height);
+
+        baseGroup
+          .append("g")
+          .classed("x-axis", true)
+          .attr("transform", `translate(0, ${height})`)
+          .call(d3.axisBottom(xScale));
+
+        baseGroup
+          .append("g")
+          .classed("y-axis", true)
+          .call(d3.axisLeft(yScale));
+
+        function execute() {}
+      }); -->
