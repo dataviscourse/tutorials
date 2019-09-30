@@ -34,6 +34,158 @@ Destructuring on objects lets you bind variables to different properties of an o
 
 ### Promises
 
+#### A Quick Introduction to Promises
+
+Promises are a construct for designed for asynchronous functions that returns a single result asynchronously, which provides a better way of working with callbacks. A given asynchronous function returns a Promise object, which serves as a placeholder and container for the final result. Callback functions, which are registered via the Promise methods `then()` and `catch()`, are called when result returns depending on the state (fulfilled or rejected) of the Promise object.
+
+A promise can be:
+
+- fulfilled - The action relating to the promise succeeded
+- rejected - The action relating to the promise failed
+- pending - Hasn't fulfilled or rejected yet
+- settled - Has fulfilled or rejected
+
+```javascript
+asyncWithPromise() // Returns a promise object
+    .then(function(){ // if object's state is fulfilled, go here
+        ...
+    })
+    .catch(function(){ // if object's state is rejected, go here
+        ...
+    })
+```
+
+Note that `promise.then()` takes two arguments, a callback for a success case, and another for the failure case. Both are optional, so you can add a callback for the success or failure case only.
+
+```javascript
+promise.then(
+  function(result) {
+    console.log(result); // "Stuff worked!"
+  },
+  function(err) {
+    console.log(err); // Error: "It broke"
+  }
+);
+```
+
+So what's the difference? Essentially, `promise.then(f1).catch(f2)` reduces to `promise.then(f1, null).then(null, f2)`. This means that if the success callback function `f1` throws an error, it is caught and handled by function `f2`. In the case of `promise.then(f1, f2)`, function `f2` only handles the failure case for the original promise and ignoring any errors thrown by the `f1` callback. Both have potential [advantages/disadvantages](https://stackoverflow.com/questions/24662289/when-is-thensuccess-fail-considered-an-antipattern-for-promises), depending on how you're chaining together asynchronous calls. This ability to chain asynchronous calls is one of the major advantages of promises.
+
+Where javascript's old asycnhronous callback syntax necessitated a design pattern of nested callbacks, affectionately known as "callback hell", Promises allow us to easily chain asychronous calls based on their respective successes and failures.
+
+```javascript
+// Callback Hell
+async1(function(){
+    async2(function(){
+        async3(function(){
+            ....
+        });
+    });
+});
+
+// Promise approach
+var task1 = async1();
+var task2 = task1.then(async2);
+var task3 = task2.then(async3);
+
+task3.catch(function(){
+    // Solve your thrown errors from task1, task2, task3 here
+})
+
+// Promise approach with chaining
+async1(function(){..})
+    .then(async2)
+    .then(async3)
+    .catch(function(){
+        // Solve your thrown errors here
+    })
+```
+
+#### Async/await
+
+As our original example illustrated, ES6 introduces an even easier way of handling promises: `await`. The `await`operator will simply pause the execution of an asynchronous function until the value from the promise is available.
+
+```javascript
+async function getFirstUser() {
+  let users = await getUsers();
+  return users[0].name;
+}
+```
+
+This means that we can revert to the try/catch functionality to catch errors:
+
+```javascript
+async function getFirstUser() {
+  try {
+    let users = await getUsers();
+    return users[0].name;
+  } catch (err) {
+    return {
+      name: "default user"
+    };
+  }
+}
+```
+
+So what happens if we type this?:
+
+```javascript
+let user = getFirstUser();
+```
+
+Because we didn't use the await syntax, `user` will refer to a promise object (rather than the resolved value).
+
+It’s important to remember: async functions don’t magically wait for themselves. You must await, or you’ll get a promise instead of the value you expect.
+
+And most importantly, remember that async/await and promises are the same thing under the hood!
+
+### Asynchronous Data Loading
+
+Let's quickly cover an important aspect related to data loading. The code snippet below loads in a file called myData.json, and when all the plotting is finished, prints 'Done Plotting' to the console.
+
+```javascript
+console.log("Hello"); // Prints Hello
+
+// Creates an async request for a resource from the server using d3.json
+async function loadData() {
+  try {
+    let data = await d3.json("myData.json");
+    // This is where you insert d3 code to process and plot the data
+    console.log("Data Loaded!"); // Prints when the request finishes
+  } catch (error) {
+    console.error(error); // Logs error if encountered
+  }
+}
+loadData();
+
+console.log("World"); // Prints World
+```
+
+The question is: What is the order in which the three statements above will print to the console? Hello , World, Done Plotting or Hello, Done Plotting, World ?
+
+If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An _asynchronous_ call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instantaneous, and javascript does not wait for it to return before continuing to run the rest of the script. Asynchronous functions are often related to doing I/O, e.g. downloading things, reading files, talking to databases, etc.
+
+In practice, this means that you will not have guaranteed access to the data inside MyData.json outside of the anynchronous function. So if you have something like this:
+
+```javascript
+// Creates an async request for a resource from the server using d3.json
+async function loadData() {
+  try {
+    let data = await d3.json("myData.json");
+    //Data wrangling and cleanup.
+    console.log("Done Cleaning!"); // Prints when the request finishes
+  } catch (error) {
+    console.error(error); // Logs error if encountered
+  }
+}
+loadData();
+
+//d3 functions that will process and plot your data
+```
+
+Your d3 functions will be called, before d3.json has returned with the data inside myData.json and you will either get an error or no visualization at all. In the above example, this conclusion is consistent with the fact that javascript variables are function scoped. We shouldn't expect to be able to access the `data` variable outside of `loadData()`. The `async`/`await` syntax shown in this example, however, is part of javascript ES6 and only available in d3 as of version 5. This is becuase, under the hood, d3 v5 uses _Promises_ to handle asychronous callbacks.
+
+{% include code.html id="async_data_loading" file="async_data_loading.html" code="" js="false" preview="true" %}
+
 ### Debugging
 
 ## Advance D3
