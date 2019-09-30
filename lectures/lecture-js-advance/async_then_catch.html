@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Promises</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <script>
+      {
+        data = d3.json(
+          "https://raw.githubusercontent.com/dataviscourse/2019-dataviscourse-homework/master/hw3/data/anscombe_I.csv"
+        );
+        data
+          .then(d => {
+            console.log("Should print data", d);
+          })
+          .catch(err => {
+            console.log("Error thrown");
+            console.log(err);
+          });
+      }
+    </script>
+  </body>
+</html>

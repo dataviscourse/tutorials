@@ -29,6 +29,7 @@ Destructuring assignment supports nesting and use of spread operators. Here we s
 Destructuring on objects lets you bind variables to different properties of an object. You specify the property being bound, followed by the variable you are binding its value to.
 
 {% include code.html id="destructuring_objects" file="destructuring_objects.js" code="" js="true" preview="false" %}
+{% include code.html id="using_destructuring_fn" file="using_destructuring_fn.js" code="" js="true" preview="false" %}
 
 ## Promises
 
@@ -182,7 +183,21 @@ loadData();
 
 Your d3 functions will be called, before d3.json has returned with the data inside myData.json and you will either get an error or no visualization at all. In the above example, this conclusion is consistent with the fact that javascript variables are function scoped. We shouldn't expect to be able to access the `data` variable outside of `loadData()`. The `async`/`await` syntax shown in this example, however, is part of javascript ES6 and only available in d3 as of version 5. This is becuase, under the hood, d3 v5 uses _Promises_ to handle asychronous callbacks.
 
-{% include code.html id="async_data_loading" file="async_data_loading.html" code="" js="false" preview="true" %}
+#### Handling async functions using `then`
+
+{% include code.html id="async_then" file="async_then.html" code="" js="false" preview="true" %}
+
+#### Handling error in async functions
+
+{% include code.html id="async_then_catch" file="async_then_catch.html" code="" js="false" preview="true" %}
+
+#### Reading data using `await`
+
+{% include code.html id="async_await" file="async_await.html" code="" js="false" preview="true" %}
+
+#### Passing callbacks to async functions
+
+{% include code.html id="async_with_callback" file="async_with_callback.html" code="" js="false" preview="true" %}
 
 ## Debugging
 
