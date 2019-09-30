@@ -224,6 +224,15 @@ JavaScript console is implemented fully by almost all modern web browsers. Below
 - `console.count`
   In a case of recurring function or code, you can use `console.count()` to keep count of how many times your code is read.
   {% include code.html id="console_count" file="console_count.js" code="" js="true" preview="false" %}
+- `console.assert`
+  You can use `console.assert(condition, msg)` to log something when the condition is falsy. This is useful to do conditional logging without using `if-else` blocks in your code
+  {% include code.html id="console_assert" file="console_assert.js" code="" js="true" preview="false" %}
+- `console.group`
+  After writing so many logs, you might want to organize them. A small and useful tool for that is the console.group() & console.groupEnd(). Using console group, your console logs are grouped together, while each grouping creates another level in the hierarchy. Calling groupEnd reduces one. You can also label these groups.
+  {% include code.html id="console_group" file="console_group.js" code="" js="true" preview="false" %}
+- `console.table`
+  The best feature of console when you want to log a list of objects and go through them without individually opening each one to look at the values is `console.table`! It's also used in an example above.
+  {% include code.html id="console_table" file="console_table.html" code="" js="false" preview="true" %}
 
 ## Advance D3
 
