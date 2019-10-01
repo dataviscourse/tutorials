@@ -108,4 +108,41 @@ You can also nest on multiple keys, this just returns a nested Map:
 
 ## Linked Views
 
-## Browser based visualization with Front End Frameworks like (ReactJS, AngularJS, VueJS
+Designing a complex visualization is always a challenge. There are multiple questions like: how do we structure our code-base?, how do views communicate with each other?
+
+Object Oriented approach is usually a really easy and beginner friendly way to design your multi-view visualization with interactions between them.
+
+{% include code.html id="linked_view" file="linked_view.html" code="" js="false" preview="true" %}
+
+Let us take a look at indvidual classes and compare how the code is structured.
+
+### Scatterplot With Brush
+
+{% include code.html id="scatterplotWithBrush" file="scatterplotWithBrush.js" code="" js="true" preview="false" %}
+
+### Regular Controlled Scatterplot
+
+{% include code.html id="scatterplot" file="scatterplot.js" code="" js="true" preview="false" %}
+
+## Using D3 with other front end libraries
+
+If you are working on a large project where data visualization is a part, there is a good chance that you are using some front end framework like `React`:
+
+Most of the frameworks above have dedicated data visualization libraries written for them, here are some links:
+
+- [Victory](https://formidable.com/open-source/victory/?r=m7) developed and maintained by Formidable Labs
+- [React-vis](https://uber.github.io/react-vis/?r=m7) developed and maintained by Uber
+
+You can find more such libraries for any other framework you use.
+
+The other approach is to use D3 in conjuction with your library. There are multiple approaches to this, we will just discuss those on a higher level:
+
+- Make React call D3 render functions
+  - Pros: Easy to setup
+  - Cons: Both try to control DOM and may need to serious performance issues because both libraries do not respect each others renders
+- Allow D3 and React to control their own setup by creating D3 visualization as blackbox components
+  - Pros: Quite performant if setup correctly.
+  - Cons: Tricky to setup correctly and needs a bit of underlying knowledge about how both React and D3 handle DOM updates, else causes same problems as above approach.
+- Allow React to control DOM and use D3 to do calculations like scale and layouts
+  - Pros: Super performant (ofcourse if you use React properly)
+  - Cons: Almost no documentation on using React and D3 in this way.
