@@ -1,7 +1,7 @@
 ---
 layout: code-lecture
-title: "Advanced D3"
-permalink: /lectures/lecture-d3-advance/
+title: "More Advanced D3"
+permalink: /lectures/lecture-more-advanced-d3/
 nomenu: true
 ---
 
@@ -95,7 +95,6 @@ Let us look at a code snippet:
 
 This returns a Map object where key is each unique value you grouped on and the value is an array of all objects belonging to the key.
 
-{% include code.html id="d3_group" file="d3_group.html" code="" js="false" preview="true" %}
 
 `d3.groups` does something similar:
 
