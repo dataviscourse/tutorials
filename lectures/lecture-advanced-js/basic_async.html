@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Async Await</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <p>No content rendered. Look at the console.</p>
+    <script>
+      {
+        console.log("Start loading data");
+        let anscombe = d3.csv("anscombe_I.csv");
+        console.log("Done loading data");
+        console.log(anscombe);
+      }
+    </script>
+  </body>
+</html>

@@ -187,6 +187,10 @@ loadData();
 
 Your d3 functions will be called, before `d3.json` has returned with the data inside `myData.json` and you will either get an error or no visualization at all. In the above example, this conclusion is consistent with the fact that javascript variables are function scoped. We shouldn't expect to be able to access the `data` variable outside of `loadData()`. The `async`/`await` syntax shown in this example, however, is part of javascript ES6 and only available in d3 as of version 5. This is because, under the hood, d3 v5 uses _Promises_ to handle asynchronous callbacks.
 
+#### Reading data without any `async` construct
+
+{% include code.html id="basic_async" file="basic_async.html" code="" js="false" preview="true" %}
+
 #### Reading data using `await`
 
 {% include code.html id="async_await" file="async_await.html" code="" js="false" preview="true" %}
