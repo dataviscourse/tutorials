@@ -83,7 +83,7 @@ We will cover two d3 functions which might help you out. `d3.groups` and `d3.gro
 
 As its name suggests, `d3.group` groups values by key. It returns a map from key to the corresponding array of values from the input.
 
-You need to include following snippet to import `d3-array` package:
+You need to include the following snippet to import the `d3-array` package:
 
 ```html
 <script src="https://d3js.org/d3-array.v2.min.js"></script>
@@ -93,24 +93,24 @@ Let us look at a code snippet:
 
 {% include code.html id="d3_group" file="d3_group.html" code="" js="false" preview="true" %}
 
-This returns a Map object where key is each unique value you grouped on and the value is an array of all objects belonging to the key.
+This returns a map object where key is each unique value you grouped on and the value is an array of all objects belonging to the key.
 
 
 `d3.groups` does something similar:
 
 {% include code.html id="d3_groups" file="d3_groups.html" code="" js="false" preview="true" %}
 
-`d3.groups` just returns the same thing in nested list format. This is pretty useful for binding with `d3` without having to use `d3.entries`.
+`d3.groups` just returns the same thing in a nested list format. This is pretty useful for binding with `d3` without having to use `d3.entries`.
 
-You can also nest on multiple keys, this just returns a nested Map:
+You can also nest on multiple keys, this just returns a nested map:
 
 {% include code.html id="d3_groups_nested" file="d3_groups_nested.html" code="" js="false" preview="true" %}
 
 ## Linked Views
 
-Designing a complex visualization is always a challenge. There are multiple questions like: how do we structure our code-base?, how do views communicate with each other?
+Designing a complex visualization is always a challenge. There are multiple questions like: How do we structure our code-base? How do views communicate with each other?
 
-Object Oriented approach is usually a really easy and beginner friendly way to design your multi-view visualization with interactions between them.
+An object oriented approach is usually a really easy and beginner friendly way to design your multi-view visualization with interactions between them. We've split the following example up into three files. We first show the file that glues everything together, followed by the `ScatterPlotWithBrush` and `ScatterPlot` class.
 
 {% include code.html id="linked_view" file="linked_view.html" code="" js="false" preview="true" %}
 
@@ -130,19 +130,19 @@ If you are working on a large project where data visualization is a part, there 
 
 Most of the frameworks above have dedicated data visualization libraries written for them, here are some links:
 
-- [Victory](https://formidable.com/open-source/victory/?r=m7) developed and maintained by Formidable Labs
-- [React-vis](https://uber.github.io/react-vis/?r=m7) developed and maintained by Uber
+- [Victory](https://formidable.com/open-source/victory/?r=m7) developed and maintained by Formidable Labs.
+- [React-vis](https://uber.github.io/react-vis/?r=m7) developed and maintained by Uber.
 
 You can find more such libraries for any other framework you use.
 
 The other approach is to use D3 in conjunction with your library. There are multiple approaches to this, we will just discuss those on a higher level:
 
 - Make React call D3 render functions
-  - Pros: Easy to setup
-  - Cons: Both try to control DOM and may need to serious performance issues because both libraries do not respect each others renders
+  - Pros: Easy to setup.
+  - Cons: Both try to control DOM and may lead to serious performance issues because both libraries do not respect each others renders.
 - Allow D3 and React to control their own setup by creating D3 visualization as black-box components
-  - Pros: Quite performant if setup correctly.
+  - Pros: Quite fast if setup correctly.
   - Cons: Tricky to setup correctly and needs a bit of underlying knowledge about how both React and D3 handle DOM updates, else causes same problems as above approach.
 - Allow React to control DOM and use D3 to do calculations like scale and layouts
-  - Pros: Super performant (of course if you use React properly)
+  - Pros: Super fast (of course if you use React properly).
   - Cons: Almost no documentation on using React and D3 in this way.

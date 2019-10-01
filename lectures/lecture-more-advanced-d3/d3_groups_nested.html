@@ -1,42 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<head>
+    <meta charset="UTF-8"/>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
-    <style>
-      .border-box {
-        stroke: black;
-        fill: none;
-      }
-      .regular {
-        fill: #c886e5;
-        opacity: 0.7;
-      }
-      .highlight {
-        fill: #ff0000;
-      }
-    </style>
-  </head>
-  <body>
-    <svg></svg>
-  </body>
-  <script>
+</head>
+<body>
+<p>Not supposed to render anything. Look at the console output.</p>
+</body>
+<script>
     {
-      const data = [
-        { name: "jim", amount: "34.0", date: "11/12/2015" },
-        { name: "carl", amount: "120.11", date: "11/12/2015" },
-        { name: "stacy", amount: "12.01", date: "01/04/2016" },
-        { name: "stacy", amount: "34.05", date: "01/04/2016" }
-      ];
+        const data = [
+            {name: "jim", amount: "34.0", date: "11/12/2015"},
+            {name: "carl", amount: "120.11", date: "11/12/2015"},
+            {name: "stacy", amount: "12.01", date: "01/04/2016"},
+            {name: "stacy", amount: "34.05", date: "01/04/2016"}
+        ];
 
-      const nestedGroup = d3.group(data, d => d.name, d => d.date);
-      console.log(nestedGroup);
+        const nestedGroup = d3.group(data, d => d.name, d => d.date);
+        console.log(nestedGroup);
 
-      const nestedGroups = d3.groups(data, d => d.name, d => d.date);
-      console.log(nestedGroups);
+        const nestedGroups = d3.groups(data, d => d.name, d => d.date);
+        console.log(nestedGroups);
     }
-  </script>
+</script>
 </html>

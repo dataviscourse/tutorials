@@ -1,101 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Linked View</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <style>
-      .border {
-        fill: none;
-      }
-
-      .regular {
-        fill: blue;
-      }
-
-      .highlight {
-        fill: red;
-      }
-    </style>
-  </head>
-  <body>
-    <svg></svg>
-  </body>
-  <script src="scatterplot.js"></script>
-  <script src="scatterplotWithBrush.js"></script>
-  <script>
-    {
-      console.clear();
-      // Standard Iris dataset
-      d3.csv(
-        "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/639388c2cbc2120a14dcf466e85730eb8be498bb/iris.csv"
-      ).then(data => {
-        const svgHeight = 300;
-        const svgWidth = 700;
-
-        const padding = 20;
-        const plotHeight = 300 - 2 * padding;
-        const plotWidth = 300 - 2 * padding;
-
-        const svg = d3
-          .select("svg")
-          .attr("height", svgHeight)
-          .attr("width", svgWidth);
-
-        const plot1 = svg
-          .append("g")
-          .classed("plot1", true)
-          .attr("transform", `translate(${padding}, ${padding})`);
-
-        const plot2 = svg
-          .append("g")
-          .classed("plot2", true)
-          .attr(
-            "transform",
-            `translate(${padding + plotWidth + 50}, ${padding})`
-          );
-
-        plot1
-          .append("rect")
-          .classed("border", true)
-          .attr("height", plotHeight)
-          .attr("width", plotWidth);
-
-        plot2
-          .append("rect")
-          .classed("border", true)
-          .attr("height", plotHeight)
-          .attr("width", plotWidth);
-
-        console.table(data);
-
-        const controlledScatterplot = new ScatterPlot(
-          plotHeight,
-          plotWidth,
-          plot2,
-          data,
-          "petal_length",
-          "petal_width"
-        );
-
-        function updateOtherPlots(selectedPoints) {
-          controlledScatterplot.update(selectedPoints);
+        .border {
+            fill: none;
         }
 
-        const brushScatterplot = new ScatterPlotWithBrush(
-          plotHeight,
-          plotWidth,
-          plot1,
-          data,
-          "sepal_length",
-          "sepal_width",
-          updateOtherPlots
-        );
+        .regular {
+            fill: #5ea3df;
+        }
 
-        console.log(scatterplot1, scatterplot2);
-      });
+        .highlight {
+            fill: #f54a19;
+        }
+    </style>
+</head>
+<body>
+<svg width="700" height="300"></svg>
+</body>
+<script src="scatterplot.js"></script>
+<script src="scatterplotWithBrush.js"></script>
+<script>
+    {
+        console.clear();
+        // Standard Iris dataset
+        d3.csv(
+            "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/639388c2cbc2120a14dcf466e85730eb8be498bb/iris.csv"
+        ).then(data => {
+            const svgHeight = 300;
+            const svgWidth = 700;
+
+            const padding = 20;
+            const plotHeight = 300 - 2 * padding;
+            const plotWidth = 300 - 2 * padding;
+
+            const svg = d3
+                .select("svg")
+                .attr("height", svgHeight)
+                .attr("width", svgWidth);
+
+            const plot1 = svg
+                .append("g")
+                .classed("plot1", true)
+                .attr("transform", `translate(${padding}, ${padding})`);
+
+            const plot2 = svg
+                .append("g")
+                .classed("plot2", true)
+                .attr(
+                    "transform",
+                    `translate(${padding + plotWidth + 50}, ${padding})`
+                );
+
+            plot1
+                .append("rect")
+                .classed("border", true)
+                .attr("height", plotHeight)
+                .attr("width", plotWidth);
+
+            plot2
+                .append("rect")
+                .classed("border", true)
+                .attr("height", plotHeight)
+                .attr("width", plotWidth);
+
+            console.table(data);
+
+            const controlledScatterplot = new ScatterPlot(
+                plotHeight,
+                plotWidth,
+                plot2,
+                data,
+                "petal_length",
+                "petal_width"
+            );
+
+            function updateOtherPlots(selectedPoints) {
+                controlledScatterplot.update(selectedPoints);
+            }
+
+            const brushScatterplot = new ScatterPlotWithBrush(
+                plotHeight,
+                plotWidth,
+                plot1,
+                data,
+                "sepal_length",
+                "sepal_width",
+                updateOtherPlots
+            );
+            console.log(scatterplot1, scatterplot2);
+        });
     }
-  </script>
+</script>
 </html>
