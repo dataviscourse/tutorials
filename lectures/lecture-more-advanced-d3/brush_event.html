@@ -1,157 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Promises</title>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Brushes with Events</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <style>
-      .border-box {
-        stroke: black;
-        fill: none;
-      }
-      .regular {
-        fill: #c886e5;
-        opacity: 0.7;
-      }
-      .highlight {
-        fill: #ff0000;
-      }
+        .border-box {
+            stroke: black;
+            fill: none;
+        }
+        .regular {
+            fill: #c886e5;
+            opacity: 0.7;
+        }
+        .highlight {
+            fill: #ff0000;
+        }
     </style>
-  </head>
-  <body>
-    <svg height="400" width="400"></svg>
-  </body>
-  <script>
+</head>
+<body>
+<svg height="400" width="400"></svg>
+</body>
+<script>
     {
-      d3.csv(
-        "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/639388c2cbc2120a14dcf466e85730eb8be498bb/iris.csv"
-      ).then(data => {
-        const height = 300;
-        const width = 300;
-        const padding = 25;
+        d3.csv(
+            "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/639388c2cbc2120a14dcf466e85730eb8be498bb/iris.csv"
+        ).then(data => {
+            const height = 300;
+            const width = 300;
+            const padding = 25;
 
-        svg = d3.select("svg");
-        svg
-          .attr("width", width + 2 * padding)
-          .attr("height", height + 2 * padding);
+            const svg = d3.select("svg");
+            svg
+                .attr("width", width + 2 * padding)
+                .attr("height", height + 2 * padding);
 
-        const plot = svg
-          .append("g")
-          .attr("transform", `translate(${padding}, ${padding})`);
+            const plot = svg
+                .append("g")
+                .attr("transform", `translate(${padding}, ${padding})`);
 
-        const yColumn = "sepal_width";
-        const xColumn = "sepal_length";
+            const yColumn = "sepal_width";
+            const xColumn = "sepal_length";
 
-        const dataset = data.map(d => ({
-          x: parseFloat(d[xColumn]),
-          y: parseFloat(d[yColumn])
-        }));
+            const dataset = data.map(d => ({
+                x: parseFloat(d[xColumn]),
+                y: parseFloat(d[yColumn])
+            }));
 
-        const [minX, maxX] = [
-          d3.min(dataset.map(d => d.x)),
-          d3.max(dataset.map(d => d.x))
-        ];
-        const [minY, maxY] = [
-          d3.min(dataset.map(d => d.y)),
-          d3.max(dataset.map(d => d.y))
-        ];
+            const [minX, maxX] = [
+                d3.min(dataset.map(d => d.x)),
+                d3.max(dataset.map(d => d.x))
+            ];
+            const [minY, maxY] = [
+                d3.min(dataset.map(d => d.y)),
+                d3.max(dataset.map(d => d.y))
+            ];
 
-        const xScale = d3
-          .scaleLinear()
-          .domain([minX, maxX])
-          .range([0, width]);
-        const yScale = d3
-          .scaleLinear()
-          .domain([minY, maxY])
-          .range([height, 0]);
+            const xScale = d3
+                .scaleLinear()
+                .domain([minX, maxX])
+                .range([0, width]);
+            const yScale = d3
+                .scaleLinear()
+                .domain([minY, maxY])
+                .range([height, 0]);
 
-        plot
-          .append("g")
-          .attr("transform", `translate(0, ${height})`)
-          .call(d3.axisBottom(xScale));
-        plot.append("g").call(d3.axisLeft(yScale));
+            plot
+                .append("g")
+                .attr("transform", `translate(0, ${height})`)
+                .call(d3.axisBottom(xScale));
+            plot.append("g").call(d3.axisLeft(yScale));
 
-        const marksGroup = plot.append("g");
-        const marks = marksGroup
-          .selectAll(".regular")
-          .data(dataset)
-          .join("circle")
-          .classed("regular", true)
-          .attr("cx", d => xScale(d.x))
-          .attr("cy", d => yScale(d.y))
-          .attr("r", 3);
+            const marksGroup = plot.append("g");
+            const marks = marksGroup
+                .selectAll(".regular")
+                .data(dataset)
+                .join("circle")
+                .classed("regular", true)
+                .attr("cx", d => xScale(d.x))
+                .attr("cy", d => yScale(d.y))
+                .attr("r", 3);
 
-        const brushGroup = plot.append("g").classed("brush", true);
+            const brushGroup = plot.append("g").classed("brush", true);
 
-        const brush = d3
-          .brush()
-          .extent([[-10, -10], [width + 10, height + 10]])
-          .on("start", () => {
-            console.log("Brushing started");
-          })
-          .on("end", function() {
-            console.log("Brushing completed");
-            const selection = d3.brushSelection(this);
-            const selectedIndices = [];
-            if (selection) {
-              const [[left, top], [right, bottom]] = selection;
-              dataset.forEach((d, i) => {
-                if (
-                  d.x >= xScale.invert(left) &&
-                  d.x <= xScale.invert(right) &&
-                  d.y <= yScale.invert(top) &&
-                  d.y >= yScale.invert(bottom)
-                ) {
-                  selectedIndices.push(i);
-                }
-              });
-            }
-
-            marks.classed("highlight", false);
-
-            if (selectedIndices.length > 0) {
-              marks
-                .filter((_, i) => {
-                  return selectedIndices.includes(i);
+            const brush = d3
+                .brush()
+                .extent([[-10, -10], [width + 10, height + 10]])
+                .on("start", () => {
+                    console.log("Brushing started");
                 })
-                .classed("highlight", true);
-            }
-          })
-          .on("brush", function() {
-            console.log("Brushing");
-            const selection = d3.brushSelection(this);
-            const selectedIndices = [];
-            if (selection) {
-              const [[left, top], [right, bottom]] = selection;
-              dataset.forEach((d, i) => {
-                if (
-                  d.x >= xScale.invert(left) &&
-                  d.x <= xScale.invert(right) &&
-                  d.y <= yScale.invert(top) &&
-                  d.y >= yScale.invert(bottom)
-                ) {
-                  selectedIndices.push(i);
-                }
-              });
-            }
+                .on("end", function () {
+                    console.log("Brushing completed");
+                    const selection = d3.brushSelection(this);
+                    const selectedIndices = [];
+                    if (selection) {
+                        const [[left, top], [right, bottom]] = selection;
+                        dataset.forEach((d, i) => {
+                            if (
+                                d.x >= xScale.invert(left) &&
+                                d.x <= xScale.invert(right) &&
+                                d.y <= yScale.invert(top) &&
+                                d.y >= yScale.invert(bottom)
+                            ) {
+                                selectedIndices.push(i);
+                            }
+                        });
+                    }
 
-            marks.classed("highlight", false);
+                    marks.classed("highlight", false);
 
-            if (selectedIndices.length > 0) {
-              marks
-                .filter((_, i) => {
-                  return selectedIndices.includes(i);
+                    if (selectedIndices.length > 0) {
+                        marks
+                            .filter((_, i) => {
+                                return selectedIndices.includes(i);
+                            })
+                            .classed("highlight", true);
+                    }
                 })
-                .classed("highlight", true);
-            }
-          });
-        brushGroup.call(brush);
-      });
+                .on("brush", function () {
+                    console.log("Brushing");
+                    const selection = d3.brushSelection(this);
+                    const selectedIndices = [];
+                    if (selection) {
+                        const [[left, top], [right, bottom]] = selection;
+                        dataset.forEach((d, i) => {
+                            if (
+                                d.x >= xScale.invert(left) &&
+                                d.x <= xScale.invert(right) &&
+                                d.y <= yScale.invert(top) &&
+                                d.y >= yScale.invert(bottom)
+                            ) {
+                                selectedIndices.push(i);
+                            }
+                        });
+                    }
 
-      function execute() {}
+                    marks.classed("highlight", false);
+
+                    if (selectedIndices.length > 0) {
+                        marks
+                            .filter((_, i) => {
+                                return selectedIndices.includes(i);
+                            })
+                            .classed("highlight", true);
+                    }
+                });
+            brushGroup.call(brush);
+        });
     }
-  </script>
-  <script src="run.js" charset="utf-8"></script>
+</script>
 </html>
