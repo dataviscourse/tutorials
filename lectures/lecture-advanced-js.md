@@ -29,6 +29,7 @@ Destructuring assignment supports nesting and use of spread operators. Here we s
 Destructuring on objects lets you bind variables to different properties of an object. You specify the property being bound, followed by the variable you are binding its value to.
 
 {% include code.html id="destructuring_objects" file="destructuring_objects.js" code="" js="true" preview="false" %}
+{% include code.html id="destructuring_objects2" file="destructuring_objects2.js" code="" js="true" preview="false" %}
 
 You can also use this for return values of a function:
 
