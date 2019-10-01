@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Async Then</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <p>No content rendered. Look at the console.</p>
+    <script>
+      {
+        let anscombe = d3.csv("anscombe_I.csv");
+        let iris = d3.csv("iris.csv");
+
+        Promise.all([anscombe, iris]).then(datasets => {
+          console.log(datasets);
+        });
+      }
+    </script>
+  </body>
+</html>

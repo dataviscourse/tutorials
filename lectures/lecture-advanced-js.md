@@ -207,6 +207,14 @@ Your d3 functions will be called, before `d3.json` has returned with the data in
 
 {% include code.html id="async_then_catch" file="async_then_catch.html" code="" js="false" preview="true" %}
 
+#### Writing your own Promises
+
+{% include code.html id="custom_promises" file="custom_promises.js" code="" js="true" preview="false" %}
+
+#### Handling multiple promises
+
+{% include code.html id="multiple_promises" file="multiple_promises.html" code="" js="false" preview="true" %}
+
 ## Debugging
 
 ### IDE
