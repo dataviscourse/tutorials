@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Promises</title>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Async Then</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-  </head>
-  <body>
-    <script>
-      {
+</head>
+<body>
+<p>No content rendered. Look at the console.</p>
+<script>
+    {
         console.log("Start loading");
         let data = d3.csv(
-          "anscombe_I.csv"
+            "anscombe_I.csv"
         );
         console.log("Finished loading");
         console.log(data);
 
         data.then(d => {
-          console.log("Actual data:");
-          console.log(d);
-          console.log(data);
+            console.log("Actual data:");
+            console.log(d);
+            console.log(data);
         });
-      }
-    </script>
-  </body>
+    }
+</script>
+</body>
 </html>
