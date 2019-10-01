@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <style>
+      .border-box {
+        stroke: black;
+        fill: none;
+      }
+      .regular {
+        fill: #c886e5;
+        opacity: 0.7;
+      }
+      .highlight {
+        fill: #ff0000;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+  </body>
+  <script>
+    {
+      d3.csv(
+        "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/639388c2cbc2120a14dcf466e85730eb8be498bb/iris.csv"
+      ).then(data => {
+        const groupedData = d3.group(data, d => d.species);
+        console.log(groupedData);
+      });
+    }
+  </script>
+</html>

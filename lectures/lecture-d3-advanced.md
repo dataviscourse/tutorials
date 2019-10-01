@@ -77,7 +77,35 @@ Let us look at a working example on a scatterplot. We will use the `iris` datase
 
 {% include code.html id="brush_event" file="brush_event.html" code="" js="false" preview="true" %}
 
-## d3.Group & d3.Groups
+## D3 Groups
+
+We will cover two d3 functions which might help you out. `d3.groups` and `d3.group`.
+
+As its name suggests, `d3.group` groups values by key. It returns a map from key to the corresponding array of values from the input.
+
+You need to include following snippet to import `d3-array` package:
+
+```html
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+```
+
+Let us look at a code snippet:
+
+{% include code.html id="d3_group" file="d3_group.html" code="" js="false" preview="true" %}
+
+This returns a Map object where key is each unique value you grouped on and the value is an array of all objects belonging to the key.
+
+{% include code.html id="d3_group" file="d3_group.html" code="" js="false" preview="true" %}
+
+`d3.groups` does something similar:
+
+{% include code.html id="d3_groups" file="d3_groups.html" code="" js="false" preview="true" %}
+
+`d3.groups` just returns the same thing in nested list format. This is pretty useful for binding with `d3` without having to use `d3.entries`.
+
+You can also nest on multiple keys, this just returns a nested Map:
+
+{% include code.html id="d3_groups_nested" file="d3_groups_nested.html" code="" js="false" preview="true" %}
 
 ## Linked Views
 
