@@ -114,7 +114,7 @@ Object Oriented approach is usually a really easy and beginner friendly way to d
 
 {% include code.html id="linked_view" file="linked_view.html" code="" js="false" preview="true" %}
 
-Let us take a look at indvidual classes and compare how the code is structured.
+Let us take a look at individual classes and compare how the code is structured.
 
 ### Scatterplot With Brush
 
@@ -135,14 +135,14 @@ Most of the frameworks above have dedicated data visualization libraries written
 
 You can find more such libraries for any other framework you use.
 
-The other approach is to use D3 in conjuction with your library. There are multiple approaches to this, we will just discuss those on a higher level:
+The other approach is to use D3 in conjunction with your library. There are multiple approaches to this, we will just discuss those on a higher level:
 
 - Make React call D3 render functions
   - Pros: Easy to setup
   - Cons: Both try to control DOM and may need to serious performance issues because both libraries do not respect each others renders
-- Allow D3 and React to control their own setup by creating D3 visualization as blackbox components
+- Allow D3 and React to control their own setup by creating D3 visualization as black-box components
   - Pros: Quite performant if setup correctly.
   - Cons: Tricky to setup correctly and needs a bit of underlying knowledge about how both React and D3 handle DOM updates, else causes same problems as above approach.
 - Allow React to control DOM and use D3 to do calculations like scale and layouts
-  - Pros: Super performant (ofcourse if you use React properly)
+  - Pros: Super performant (of course if you use React properly)
   - Cons: Almost no documentation on using React and D3 in this way.

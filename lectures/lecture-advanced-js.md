@@ -186,14 +186,6 @@ loadData();
 
 Your d3 functions will be called, before `d3.json` has returned with the data inside `myData.json` and you will either get an error or no visualization at all. In the above example, this conclusion is consistent with the fact that javascript variables are function scoped. We shouldn't expect to be able to access the `data` variable outside of `loadData()`. The `async`/`await` syntax shown in this example, however, is part of javascript ES6 and only available in d3 as of version 5. This is because, under the hood, d3 v5 uses _Promises_ to handle asynchronous callbacks.
 
-#### Handling async functions using `then`
-
-{% include code.html id="async_then" file="async_then.html" code="" js="false" preview="true" %}
-
-#### Handling error in async functions
-
-{% include code.html id="async_then_catch" file="async_then_catch.html" code="" js="false" preview="true" %}
-
 #### Reading data using `await`
 
 {% include code.html id="async_await" file="async_await.html" code="" js="false" preview="true" %}
@@ -201,6 +193,14 @@ Your d3 functions will be called, before `d3.json` has returned with the data in
 #### Passing callbacks to async functions
 
 {% include code.html id="async_with_callback" file="async_with_callback.html" code="" js="false" preview="true" %}
+
+#### Handling async functions using `then`
+
+{% include code.html id="async_then" file="async_then.html" code="" js="false" preview="true" %}
+
+#### Handling error in async functions
+
+{% include code.html id="async_then_catch" file="async_then_catch.html" code="" js="false" preview="true" %}
 
 ## Debugging
 
@@ -231,17 +231,17 @@ JavaScript console is implemented fully by almost all modern web browsers. Below
   If you look at output of `error` from above example, it adds a trace of function calls which lead to the error. We don't have to rely on `error` to do this. We can also use a `console.trace` to do similar things without tagging something as a error.
   {% include code.html id="console_trace" file="console_trace.js" code="" js="true" preview="false" %}
 - `console.time` and `console.timeEnd`
-  You can log time using a pair of `time` and `timeEnd` to debug some performace issue of timing dependant bug.
+  You can log time using a pair of `time` and `timeEnd` to debug some performance issue of timing dependent bug.
   {% include code.html id="console_time" file="console_time.js" code="" js="true" preview="false" %}
 - `console.memory`
   You can use `memory` object to see the current heap size and memory usage of your application. Just go to the console and type `console.memory` to see details like `heapLimit`, `totalHeapSize` and `usedHeapSize`. _As of now it only works in Google Chrome. Firefox does not have support for this._
 - `console.profile`
-  You can use `console.profile` and `console.profileEnd` to trigger recording of performance and memory profile of browser actions. This can be analysed in browser's profile/performance tabs.
+  You can use `console.profile` and `console.profileEnd` to trigger recording of performance and memory profile of browser actions. This can be analyzed in browser's profile/performance tabs.
 - `console.count`
   In a case of recurring function or code, you can use `console.count()` to keep count of how many times your code is read.
   {% include code.html id="console_count" file="console_count.js" code="" js="true" preview="false" %}
 - `console.assert`
-  You can use `console.assert(condition, msg)` to log something when the condition is falsy. This is useful to do conditional logging without using `if-else` blocks in your code
+  You can use `console.assert(condition, msg)` to log something when the condition is falsey. This is useful to do conditional logging without using `if-else` blocks in your code
   {% include code.html id="console_assert" file="console_assert.js" code="" js="true" preview="false" %}
 - `console.group`
   After writing so many logs, you might want to organize them. A small and useful tool for that is the console.group() & console.groupEnd(). Using console group, your console logs are grouped together, while each grouping creates another level in the hierarchy. Calling groupEnd reduces one. You can also label these groups.
