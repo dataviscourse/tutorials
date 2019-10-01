@@ -1,7 +1,7 @@
 ---
 layout: code-lecture
 title: "Advanced JavaScript"
-permalink: /lectures/lecture-js-advance/
+permalink: /lectures/lecture-advanced-js/
 nomenu: true
 ---
 
