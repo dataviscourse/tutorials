@@ -15,7 +15,7 @@ console.log("Members:", members);
 
 // Let us add some info about their albums to make the object slightly complicated.
 const lz_album = {
-  name: "Led Zepelin (Album)",
+  name: "Led Zeppelin (Album)",
   release: 1969,
   length: {
     min: 44,
@@ -35,8 +35,10 @@ const presence = {
 lz["albums"] = [lz_album, presence];
 console.log(lz);
 
-// Let us now destructure out name of the band, name of a album, it's release year and length in one liner!
-// Remember we have the same key `name` in both the band object as well as album object.
+// Let us now destructure out name of the band, name of the album,
+// its release year and length in a one-liner!
+// Remember we have the same key `name` in both the band object
+// as well as album object.
 const {
   name: bandName,
   albums: [
@@ -54,10 +56,12 @@ const {
 } = lz;
 
 console.log(
-  `${bandName} released ${lz_album_name} in ${lz_release} and it's ${lz_min} minutes and ${lz_sec} seconds`
+  `${bandName} released ${lz_album_name} in ${lz_release} 
+  and it's ${lz_min} minutes and ${lz_sec} seconds`
 );
 console.log(
-  `${bandName} released ${pr_album_name} in ${pr_release} and it's ${pr_min} minutes and ${pr_sec} seconds`
+  `${bandName} released ${pr_album_name} in ${pr_release} 
+  and it's ${pr_min} minutes and ${pr_sec} seconds`
 );
 
 // You can have default values for variables declared during destructuring

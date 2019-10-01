@@ -1,7 +1,8 @@
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 console.log(arr);
 
-// We can destructure only first few variable of the array and seperate the rest out in a different array.
+// We can destructure only first few variable of the array and
+// separate the rest out in a different array.
 const [var1, var2, var3, ...remainingVars] = arr;
 console.log(var1, var2, var3, remainingVars);
 

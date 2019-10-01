@@ -1,7 +1,7 @@
 ---
 layout: code-lecture
 title: "Advanced JavaScript"
-permalink: /lectures/lecture-js-advance/
+permalink: /lectures/lecture-advanced-js/
 nomenu: true
 ---
 
@@ -29,6 +29,9 @@ Destructuring assignment supports nesting and use of spread operators. Here we s
 Destructuring on objects lets you bind variables to different properties of an object. You specify the property being bound, followed by the variable you are binding its value to.
 
 {% include code.html id="destructuring_objects" file="destructuring_objects.js" code="" js="true" preview="false" %}
+
+You can also use this for return values of a function:
+
 {% include code.html id="using_destructuring_fn" file="using_destructuring_fn.js" code="" js="true" preview="false" %}
 
 ## Promises
@@ -69,7 +72,7 @@ promise.then(
 
 So what's the difference? Essentially, `promise.then(f1).catch(f2)` reduces to `promise.then(f1, null).then(null, f2)`. This means that if the success callback function `f1` throws an error, it is caught and handled by function `f2`. In the case of `promise.then(f1, f2)`, function `f2` only handles the failure case for the original promise and ignoring any errors thrown by the `f1` callback. Both have potential [advantages/disadvantages](https://stackoverflow.com/questions/24662289/when-is-thensuccess-fail-considered-an-antipattern-for-promises), depending on how you're chaining together asynchronous calls. This ability to chain asynchronous calls is one of the major advantages of promises.
 
-Where javascript's old asycnhronous callback syntax necessitated a design pattern of nested callbacks, affectionately known as "callback hell", Promises allow us to easily chain asychronous calls based on their respective successes and failures.
+Where javascript's old asynchronous callback syntax necessitated a design pattern of nested callbacks, affectionately known as “callback hell”, promises allow us to easily chain asynchronous calls based on their respective successes and failures.
 
 ```javascript
 // Callback Hell
@@ -139,7 +142,7 @@ And most importantly, remember that async/await and promises are the same thing 
 
 ## Asynchronous Data Loading
 
-Let's quickly cover an important aspect related to data loading. The code snippet below loads in a file called myData.json, and when all the plotting is finished, prints 'Done Plotting' to the console.
+Let's quickly cover an important aspect related to data loading. The code snippet below loads in a file called myData.json, and when all the plotting is finished, prints ”Done Plotting“ to the console.
 
 ```javascript
 console.log("Hello"); // Prints Hello
@@ -159,11 +162,11 @@ loadData();
 console.log("World"); // Prints World
 ```
 
-The question is: What is the order in which the three statements above will print to the console? Hello , World, Done Plotting or Hello, Done Plotting, World ?
+The question is: What is the order in which the three statements above will print to the console? “Hello, World, Done Plotting” or “Hello, Done Plotting, World”?
 
-If you answered the first, Hello, World, Done Plotting, you are correct. The reason for this is because the call to d3.json is asynchronous. An _asynchronous_ call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instantaneous, and javascript does not wait for it to return before continuing to run the rest of the script. Asynchronous functions are often related to doing I/O, e.g. downloading things, reading files, talking to databases, etc.
+If you answered “Hello, World, Done Plotting”, you are correct. The reason for this is because the call to `d3.json` is asynchronous. An _asynchronous_ call is defined as one in which the script is not blocked while waiting for the called code to finish. This means that the asynchronous call is not instantaneous, and javascript does not wait for it to return before continuing to run the rest of the script. Asynchronous functions are often related to doing I/O, e.g. downloading things, reading files, talking to databases, etc.
 
-In practice, this means that you will not have guaranteed access to the data inside MyData.json outside of the anynchronous function. So if you have something like this:
+In practice, this means that you will not have guaranteed access to the data inside `MyData.json` outside of the asynchronous function. So if you have something like this:
 
 ```javascript
 // Creates an async request for a resource from the server using d3.json
@@ -181,7 +184,7 @@ loadData();
 //d3 functions that will process and plot your data
 ```
 
-Your d3 functions will be called, before d3.json has returned with the data inside myData.json and you will either get an error or no visualization at all. In the above example, this conclusion is consistent with the fact that javascript variables are function scoped. We shouldn't expect to be able to access the `data` variable outside of `loadData()`. The `async`/`await` syntax shown in this example, however, is part of javascript ES6 and only available in d3 as of version 5. This is becuase, under the hood, d3 v5 uses _Promises_ to handle asychronous callbacks.
+Your d3 functions will be called, before `d3.json` has returned with the data inside `myData.json` and you will either get an error or no visualization at all. In the above example, this conclusion is consistent with the fact that javascript variables are function scoped. We shouldn't expect to be able to access the `data` variable outside of `loadData()`. The `async`/`await` syntax shown in this example, however, is part of javascript ES6 and only available in d3 as of version 5. This is because, under the hood, d3 v5 uses _Promises_ to handle asynchronous callbacks.
 
 #### Handling async functions using `then`
 
@@ -205,11 +208,11 @@ Your d3 functions will be called, before d3.json has returned with the data insi
 
 You can use IDE to debug your JavaScript files. Some recommended IDE's are:
 
-- [Visual Studio Code](https://code.visualstudio.com/) - Free, open source version available.
-- [Webstorm](https://www.jetbrains.com/webstorm/) - Not free, but education/community version available with student email.
-- [Atom](https://atom.io/) - Free, maintained by github! Tends to be slow for larger projects.
+- [Visual Studio Code](https://code.visualstudio.com/) – Free, open source version available.
+- [Webstorm](https://www.jetbrains.com/webstorm/) or it's big brother PyCharm – Not free, but education/community version available with student email.
+- [Atom](https://atom.io/) – Free, maintained by github! Tends to be slow for larger projects.
 
-There are other's you can use like `Netbeans`, `VIM`, etc. Debugging with IDE is specific to which one you use and you should refer to documentation for details. Here's example of how `VS Code` debugging looks like:
+There are others you can use like `Netbeans`, `VIM`, etc. Debugging with IDEs is specific to which one you use and you should refer to its documentation for details. Here's example of how `VS Code` debugging looks like:
 
 <div text-align="center">
     <img src="./images/vs_code_debug.gif" width="800px" style="padding-bottom: 21px"/>
@@ -217,12 +220,12 @@ There are other's you can use like `Netbeans`, `VIM`, etc. Debugging with IDE is
 
 ### Console
 
-Debugging using IDE is very powerful and speeds up the process of hunting for bugs, but it might not always be possible (e.g if you working over a remote SSH connection). The simplest way to debug almost any programming language is printing to console. In our technical lectures we use `console.log()` frequently to quickly view the results of our operations.
+Debugging using an IDE is very powerful and speeds up the process of hunting for bugs, but it might not always be possible (e.g if you working over a remote SSH connection). The simplest way to debug almost any programming language is printing to console. In our technical lectures we use `console.log()` frequently to quickly view the results of our operations.
 
 JavaScript console is implemented fully by almost all modern web browsers. Below are examples of different `console` functions to debug JavaScript code.
 
 - `console.log`
-  Simplest way to debug code is to print something to the console using `log` function. There are variants of the functions like `info`, `warn` and `error`. These functions tag the output of `log` with a type denoting type of message. These types can be used to filter the output of console, let us see some examples.
+  The simplest way to debug code is to print something to the console using `log` function. There are variants of the functions like `info`, `warn` and `error`. These functions tag the output of `log` with a type denoting type of message. These types can be used to filter the output of console. Let us see some examples.
   {% include code.html id="console_log" file="console_log.js" code="" js="true" preview="false" %}
 - `console.trace`
   If you look at output of `error` from above example, it adds a trace of function calls which lead to the error. We don't have to rely on `error` to do this. We can also use a `console.trace` to do similar things without tagging something as a error.
