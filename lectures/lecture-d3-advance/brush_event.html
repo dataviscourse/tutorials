@@ -11,12 +11,12 @@
         stroke: black;
         fill: none;
       }
-      circle {
-        fill: red;
+      .regular {
+        fill: #c886e5;
         opacity: 0.7;
       }
-      .highilight {
-        fill: goldenrod;
+      .highlight {
+        fill: #ff0000;
       }
     </style>
   </head>
@@ -45,8 +45,8 @@
         const xColumn = "sepal_length";
 
         const dataset = data.map(d => ({
-          x: d[xColumn],
-          y: d[yColumn]
+          x: parseFloat(d[xColumn]),
+          y: parseFloat(d[yColumn])
         }));
 
         const [minX, maxX] = [
@@ -73,11 +73,12 @@
           .call(d3.axisBottom(xScale));
         plot.append("g").call(d3.axisLeft(yScale));
 
-        const marks = plot.append("g");
-        marks
-          .selectAll("circle")
+        const marksGroup = plot.append("g");
+        const marks = marksGroup
+          .selectAll(".regular")
           .data(dataset)
           .join("circle")
+          .classed("regular", true)
           .attr("cx", d => xScale(d.x))
           .attr("cy", d => yScale(d.y))
           .attr("r", 3);
@@ -90,11 +91,61 @@
           .on("start", () => {
             console.log("Brushing started");
           })
-          .on("end", () => {
+          .on("end", function() {
             console.log("Brushing completed");
+            const selection = d3.brushSelection(this);
+            const selectedIndices = [];
+            if (selection) {
+              const [[left, top], [right, bottom]] = selection;
+              dataset.forEach((d, i) => {
+                if (
+                  d.x >= xScale.invert(left) &&
+                  d.x <= xScale.invert(right) &&
+                  d.y <= yScale.invert(top) &&
+                  d.y >= yScale.invert(bottom)
+                ) {
+                  selectedIndices.push(i);
+                }
+              });
+            }
+
+            marks.classed("highlight", false);
+
+            if (selectedIndices.length > 0) {
+              marks
+                .filter((_, i) => {
+                  return selectedIndices.includes(i);
+                })
+                .classed("highlight", true);
+            }
           })
           .on("brush", function() {
-            console.log(d3.brushSelection(this));
+            console.log("Brushing");
+            const selection = d3.brushSelection(this);
+            const selectedIndices = [];
+            if (selection) {
+              const [[left, top], [right, bottom]] = selection;
+              dataset.forEach((d, i) => {
+                if (
+                  d.x >= xScale.invert(left) &&
+                  d.x <= xScale.invert(right) &&
+                  d.y <= yScale.invert(top) &&
+                  d.y >= yScale.invert(bottom)
+                ) {
+                  selectedIndices.push(i);
+                }
+              });
+            }
+
+            marks.classed("highlight", false);
+
+            if (selectedIndices.length > 0) {
+              marks
+                .filter((_, i) => {
+                  return selectedIndices.includes(i);
+                })
+                .classed("highlight", true);
+            }
           });
         brushGroup.call(brush);
       });
