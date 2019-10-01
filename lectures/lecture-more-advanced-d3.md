@@ -7,11 +7,11 @@ nomenu: true
 
 ## Brushes
 
-One of the most important interactions you can add to your visualization is brushing. Brushing interaction allows one to select an area in a visualization. This can lead to selection of few points in the same view or across multiple linked visualization.
+One of the most important interactions you can add to your visualization is brushing. Brushing interaction allows one to select a subset of data in a visualization. This is designed to allow users to highlight data points in the same view or across multiple linked views, which in turn makes it possible to see relationships between points in these multiple views. Brushing is also used to select discrete elements, such as dots in a scatterplot or files on a desktop. It can also be used to zoom-in to a region of interest, highlight a region of interest, or any possible task you can think of for doing with selections.
 
-More technically brushing is the interactive specification of an one- or two-dimensional selected region using a pointing gesture, such as by clicking and dragging the mouse. Brushing is often used to select discrete elements, such as dots in a scatterplot or files on a desktop. It can also be used to zoom-in to a region of interest, highlight a region of interest, or any possible task you can think of for doing with selections.
+More technically, brushing in D3 is the interactive specification of an one or two-dimensional selected region using a pointing gesture, such as by clicking and dragging the mouse. 
 
-The simplest possible brush is rectangular brush. Here's an example of a brush would look in a visualization.
+The simplest possible brush is rectangular brush. Here's an example:
 
 <div text-align="center">
     <img src="./images/one_d_brush.jpg" width="800px" style="padding-bottom: 21px"/>
@@ -19,8 +19,8 @@ The simplest possible brush is rectangular brush. Here's an example of a brush w
 
 ### Brushing with d3
 
-The source code for `d3` brush implementation is location here: [d3 Brushes](https://github.com/d3/d3-brush)
-There is a gallery for different possible brush implementation using d3 at this [link](https://observablehq.com/collection/@d3/d3-brush). _All the examples at this link are observable notebooks_
+The source code and documentation for `d3` brush implementation is location [here](https://github.com/d3/d3-brush).
+There is a gallery for different possible brush implementation using d3 at this [link](https://observablehq.com/collection/@d3/d3-brush).
 
 `d3` allows us to create 3 different types of brushes:
 
