@@ -13,7 +13,6 @@ We will be using a version control tool called git to track changes to our code.
 
 You should already have git installed, if not see the [official documentation](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on how to install git on your operating system. 
 
-
 ### Why version Control?
  
  * **Keep copies of multiple states of files**   
@@ -83,7 +82,6 @@ You should already have git installed, if not see the [official documentation](h
 
  * Created by Linus Torvalds in 2005.
  * Meaning: British English slang roughly equivalent to “unpleasant person”. 
- * git – the stupid content tracker.
 
 *I'm an egotistical bastard, and I name all my projects after myself. First ‘Linux’, now ‘git’. -- Linus Torvalds*
 
@@ -96,6 +94,8 @@ You should already have git installed, if not see the [official documentation](h
  * Free
  * Safe against corruptions
  * GitHub!
+
+Downside: complexity, especially the advanced features...
  
 ### git model 
  
@@ -106,6 +106,8 @@ Whiteboard sketch of git with a server. A git repository is essentially a large 
 
 This is a quick intro to git, used in combination with GitHub. This is not a complete tutorial, but will use the most important git features. 
 
+In the following, note that the `$` symbol signifies a promt of the command line; if you want to copy a command, don't include the `$`. This is to distinguish it from output, which has no leading symbol. 
+
 We start by configuring git
 
 {% highlight bash linenos %}
@@ -113,7 +115,7 @@ $ git config --global user.name "YOUR NAME"
 $ git config --global user.email "YOUR EMAIL ADDRESS"
 {% endhighlight %}
 
-Make sure that his is set to your official school address and your correct name!
+Make sure that this is set to your official school address and your correct name!
 
 **Create a folder for your project**
 
@@ -193,7 +195,8 @@ That means: git knows that it's supposed to track this file, but it's not yet ve
 **Let's commit the file.** Once a file is committed, it's state is recorded and you can go back to previous versions any time.
 
 {% highlight bash linenos %}
-# The -m option specifies the commit message. If you don't use it you'll go into an editor to enter your commit message.  
+# The -m option specifies the commit message. 
+# If you don't use it you'll go into an editor to enter your commit message.  
 $ git commit -m "Committing the test file" 
 [master (root-commit) 3be5e8c] Wrote to demo
  1 file changed, 1 insertion(+)
@@ -524,8 +527,8 @@ The homeworks are hosted in a git repository on github. Every time we release a 
 To get the homework repository, run the following:
 
 {% highlight bash linenos %}
-$ git clone https://github.com/dataviscourse/2019-dataviscourse-homework -o homework
-$ cd 2019-dataviscourse-homework
+$ git clone https://github.com/dataviscourse/2020_dataviscourse_homework -o homework
+$ cd 2020_dataviscourse_homework
 {% endhighlight %}
 
 Note that by using the `-o homework` option we're not using the default remote `origin` but a user-defined remote called `homework`.
