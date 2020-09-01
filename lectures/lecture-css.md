@@ -19,13 +19,19 @@ Let’s look at a very simple CSS rule:
 
 {% include code.html id="simple_css" file="simple_css.html" code="" %}
 
-In this rule, **`strong` is the element selector**, and each line inside the curly brackets is a **declaration**. Roughly, the way this goes is: for every DOM element with tag name strong, make its background color brown, and its font size 150% of the base size. CSS rules are applied in order that they appear in the document, and if more than one rule matches the element, then they both apply. For instance, the example below is entirely equivalent to the above:
+In this rule, **`strong` is the element selector**, and each line inside the curly brackets is a **declaration**. 
+
+Roughly, the way this goes is: for every DOM element with tag name strong, make its background color brown, and its font size 150% of the base size. 
+
+CSS rules are applied in order that they appear in the document, and if more than one rule matches the element, then they both apply (there is more nuance than this, but for now that's OK). For instance, the example below is entirely equivalent to the above:
 
 {% include code.html id="simple_css2" file="simple_css2.html" code="" %}
 
 ### CSS Class Selectors
 
-CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with “important” text and a “footnote”. Both are in a `<div>`, but they have different semantics, and we also want to display them differently. Class selectors are identified by a leading period `.`, e.g., `.menu`.
+CSS selectors can be much more powerful than selecting on element names. For example, we can create user-defined “classes” of styles. Classes allow us to define certain elements to be of a specific type that is then formatted consistently. Here is an example with “important” text and a “footnote”. Both are in a `<div>`, but they have different semantics, and we also want to display them differently. 
+
+**Class selectors are identified by a leading period `.`, e.g., `.important` in CSS.**
 
 {% include code.html id="css_classes" file="css_classes.html" code="" %}
 
@@ -33,7 +39,7 @@ Note that we can also apply multiple classes to a single element, as you can see
 
 ### CSS ID Selectors
 
-ID selectors work similar to class selectors, but IDs may only be used once for an element in the DOM. ID selectors are identified by a leading hashtag/number/pound sign `#`, e.g., `#header`. You can use IDs as "anchors" to refer to a site by appending ``#idname`` to the URL. For example, following [this link](#css-id-selectors) (`#css-id-selectors`) will scroll your browser to this section. 
+ID selectors work similar to class selectors, but IDs may only be used once for an element in the DOM (as is often the case in HTML, this isn't enforced by the browser, but you SHOULD definitely do it). ID selectors are identified by a leading hashtag/number/pound sign `#`, e.g., `#header`. You can use IDs as “anchors” to refer to a site by appending ``#idname`` to the URL. For example, following [this link](#css-id-selectors) (`#css-id-selectors`) will scroll your browser to this section. 
 
 But you can also use IDs to apply custom styles in CSS:
 
@@ -43,7 +49,7 @@ You can also use the combination of IDs and CSS to create layouts of a page:
 
 {% include code.html id="css_layouts" file="css_layouts.html" code="" %}
 
-However, nowadays, you should probably start using [CSS Grid Layouts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) to lay out a potentially responsive web page. 
+However, nowadays, you should use [CSS Grid Layouts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) to lay out a potentially responsive web page. 
 
 ### CSS Relationship Selectors
 
@@ -57,15 +63,14 @@ The child selector matches every time an element is directly enclosed by a diffe
 
 When more than one CSS rule matches, then different CSS declarations might conflict with one another. In that case, “the most specific declaration wins”. The rules for what counts as more specific are [really disgusting](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity), so if you find yourself debugging CSS code because the styles “don’t take”, the first thing you should try is to set completely different classes for the element and add all the declarations to this class. Then, with help from the Developer Tools, you can add classes back to your element to see which declarations might be winning the specificity race. In order to avoid this kind of trouble, it’s better to stick to simple declarations as much as possible.
 
-Try editing CSS directly in the inspector! 
+**Try editing CSS directly in the inspector!** 
 
 ### Pseudo Classes
 
-Pseudo classes are selectors for states that can be combined with other selectors. Typical examples are [`:hover`]() and [`:visited`]() which can be used like this: 
+Pseudo classes are selectors for states that can be combined with other selectors. Typical examples are [`:hover`](https://developer.mozilla.org/en-US/docs/Web/CSS/:hover), [`:visited`](https://developer.mozilla.org/en-US/docs/Web/CSS/:visited), or [`:nth-child()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child) which can be used like this: 
 
  
  {% include code.html id="css_pseudo" file="css_pseudo.html" code="" %}
-
 
 
 ### Other ways of declaring CSS 
