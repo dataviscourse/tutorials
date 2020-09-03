@@ -1,4 +1,4 @@
-// The familiar if
+// The familiar if, but notice the triple = 
 if (1 === parseInt("1")) {
     console.log("First if");
     // note that you can use parseInt or the

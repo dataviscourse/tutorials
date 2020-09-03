@@ -3,6 +3,7 @@ function demoFunctionScope() {
     if (true) {
         var varB = 3;
     }
+    // varB would not be accessible here in most other programming languages
     console.log("In Function Scope:", varA + varB);
 }
 demoFunctionScope();
@@ -12,7 +13,7 @@ function demoBlockScope() {
     if (true) {
         let letB = 3;
     }
-    // undefined!
+    // letB is undefined here!
     // console.log("In Block Scope:", letA + letB);
 }
 demoBlockScope();

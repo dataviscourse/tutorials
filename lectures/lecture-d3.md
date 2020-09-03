@@ -42,7 +42,7 @@ Notice, however, that as mentioned previously, only the first element that match
 
 {% include code.html id="d3_selectall" file="d3_selectall.html" code="" js="false" preview="true" %}
 
-The last example illustrates the **declarative approach of D3**: we don't have to iterate over a list of elements and apply the style. Instead we select a set of elements through rules and declare properties.
+The last example illustrates the **declarative approach of D3**: we don't have to iterate over a list of elements and apply the style. Instead we select a set of elements through rules and declare properties. We didn't use a loop!
 
 Once you have a selection, you can bulk-modify it's content, not only in terms of style, but we can modify [arbitrary properties](https://github.com/mbostock/d3/wiki/Selections#property) using `selection.property(name[, value])`, the [textual content of the elements](https://github.com/mbostock/d3/wiki/Selections#text) with `selection.text([value])`, etc. We can also append elements:
 

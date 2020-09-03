@@ -10,8 +10,8 @@ let mod = divResult % 2;
 
 // typeof operator
 typeof (divResult); // returns string "number"
-let typeResult = typeof (divResult); // assigns string number to letiable type
-console.log(typeResult);
+let typeResult = typeof (divResult); // assigns string "number" to letiable type
+console.log("typeResult:", typeResult); 
 
 // String concatenation
 let compoundString = "two " + "words";

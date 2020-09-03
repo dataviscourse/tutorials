@@ -41,6 +41,5 @@ numArray.sort(compareNumbers);
 console.log("Sorted as numbers: ", numArray);
 
 // here is a shorthand version of this
-
 numArray.sort((a, b) => b-a);
 console.log("Reverse sorted:", numArray);

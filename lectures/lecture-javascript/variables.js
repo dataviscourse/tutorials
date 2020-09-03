@@ -14,11 +14,11 @@ e = [1, 2, "3", [4]];
 // a boolean
 f = false;
 // checking f's type
-console.log(typeof (f));
+console.log("Type of f:", typeof (f));
 // redefining f as a float stored as a number
 f = 34.56;
 // again checking f's type
-console.log(typeof (f));
+console.log("Type of f:", typeof (f));
 
 // -- "local", function-scoped variables --
 // var is discouraged because of the uncommon scope
@@ -37,6 +37,6 @@ const NATIONALITY = "Austrian";
 
 // Careful! Complex data types are still mutable
 const TEST = [2, 3, 4];
-console.log(TEST);
+console.log("Original Array:", TEST);
 TEST[2] = 9;
-console.log(TEST);
+console.log("Modified Array:", TEST);

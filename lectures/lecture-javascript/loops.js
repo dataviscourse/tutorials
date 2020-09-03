@@ -30,7 +30,7 @@ years.forEach(function (d) {
     console.log(d)
 });
 
-// Looping over an array with the new (ECMA Script 6) - this might not work in your browser yet!
+// Looping over an array with the new for of loop
 console.log("For of loop (newish)");
 for (let year of years) {
     console.log(year)
@@ -42,7 +42,7 @@ console.log("For in loop: not what you'd expect!");
 for (let year in years) {
     // you probably thought that you'll just get the year here, right?
     console.log(year);
-    // what you really get is the object keys
+    // what you really get are the object keys
     console.log(years[year]);
 }
 
