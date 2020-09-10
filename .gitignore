@@ -5,3 +5,6 @@ _site/
 Gemfile.lock
 *.css.map
 .DS_Store
+.jekyll-cache
+/.jekyll-cache/
+.vscode

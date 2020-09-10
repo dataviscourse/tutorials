@@ -21,6 +21,7 @@ The basic web stack. Web standards. Developing for the web.
 - [CSS]({{ site.baseurl }}/lectures/lecture-css/)
 - [SVG]({{ site.baseurl }}/lectures/lecture-svg/)
 - [JavaScript Introduction]({{ site.baseurl }}/lectures/lecture-javascript/)
+- [Running a Web App]({{ site.baseurl }}/lectures/lecture-running-web-apps/)
 - [Interactive DOM Manipulation using the standard API]({{ site.baseurl }}/lectures/lecture-dom-manipulation/)
 
 ### Advanced JS and D3
