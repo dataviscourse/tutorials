@@ -13,7 +13,7 @@ First, let's go over how selections and data mapping works again. We talked abou
   * **elements** – `select("svg")`, 
   * **classes** – `selectAll(".className")`,
   * **IDs** – `selectAll("#cancelButton")`, 
-  * but also arbitrary complex selection expression such as parent child relationships - `selectAll("p > span")`. 
+  * but also arbitrary complex selection expression such as parent child relationships – `selectAll("p > span")`. 
   
 Here is a simple example:
 
@@ -67,12 +67,13 @@ However, the things that we apply to the enter selection, **do not apply to elem
 Here is an example that handles enter and update correctly:
 {% include code.html id="d3_enter_exit_update" file="d3_enter_exit_update.html" code="" js="false" preview="true" %}
 
+What happens here is that we define what to do when we add something (we add a rectangle and set its class), what happens when we remove something (we just remove it), and when we update something (we apply the new data elements). Notice the call to the `merge()` function, which merges the enter selection with the update selection, so that we can later set attributes on all the DOM elements at the same time. 
 
 Here is the example using the new [`selection.join()`](https://observablehq.com/@d3/selection-join) syntax. 
 
 {% include code.html id="d3_join" file="d3_join.html" code="" js="false" preview="true" %}
 
-What happens here is that we define what to do when we add something (we add a rectangle and set its class), what happens when we remove something (we just remove it), and when we update something (we apply the new data elements). Notice the call to the `merge()` function, which merges the enter selection with the update selection, so that we can later set attributes on all the DOM elements at the same time. 
+Notice that the "rect" parameter we pass to `join("rect")` specified which DOM element to create, and that removes are also handled automatically.  
 
 ### Transitions
 
@@ -80,7 +81,7 @@ That's great, but now let's look at how we can do this with transitions:
 
 {% include code.html id="d3_transition" file="d3_transition.html" code="" js="false" preview="true" %}
 
-That's pretty smooth. We initialize new bars with a width of 0 and fade them in as they grow. Notice that D3 interpolates opacity, color, position and size as we use transitions. For removing elements we simply fade them out with opacity. 
+That's pretty smooth. We initialize new bars with a width of 0 and fade them in as they grow. Notice that D3 interpolates opacity, color, position, and size as we use transitions. For removing elements we simply fade them out with opacity. 
 
 ### Groupings: Handling Nested Elements
 
@@ -89,7 +90,7 @@ In many cases we want to apply data not directly to low-level SVG elements, but 
  * Laying out the numbers and the bars independently so that they match up.
  * Using a group element to define the commonalities between the bars and the numbers (i.e., the y position in our example).
 
-The latter is the better approach, as we only have to define the common aspects of the group once. This might not make much difference for only labels and bars, but we could also add tick marks on the bar charts, an overlay for highlights, etc. So, let's try to add groups and take a similar approach to the example before:
+The latter is the better approach, as we only have to define the common aspects of the group once. This might not make much of difference for labels and bars, but we could also add tick marks on the bar charts, an overlay for highlights, etc. So, let's try to add groups and take a similar approach to the example before:
 
 {% include code.html id="d3_groups_broken" file="d3_groups_broken.html" code="" js="false" preview="true" %}
 
@@ -103,7 +104,7 @@ We can fix this by separating the update from the enter and by explicitly select
 
 ## Scales
 
-Up to this point, our data has conveniently had dimensions that we could directly plot without applying a transformation. However, in your homeworks, for example, you use Anscombe's quartet, and the data there doesn't neatly match to pixels, so you had to do some manual data transformation. In nearly all practical cases, the data won't match to the pixels on the screen.
+Up to this point, our data has conveniently had dimensions that we could directly plot without applying a transformation. However, most of the time the data we want to visualize doesn't neatly match to pixels, so we will have to do some data transformation. 
  
 Here is an example of a dataset that is not suitable for direct plotting:
 
@@ -124,7 +125,7 @@ And we don't always want to write output in screen coordinates, we equally want 
 
 {% include code.html id="d3_scale" file="d3_scale.html" code="" js="false" preview="true" %}
 
-Here we've successfully used a linear D3 scale. There are a couple of new things here. First, we create a scale of the linear type with the call [`d3.scaleLinear()`](https://github.com/d3/d3-scale#scaleLinear). Next, we define the input domain and the output range. The **domain defines the values that we expect in our dataset**. Here we chose to use an input domain starting at 0 and up to the highest value of the dataset, which we can conveniently determine by using D3's [`d3.max()`](https://github.com/d3/d3-array#max) function. We could use `d3.min()` to define the lower bound of the range, however, that would mean that our bar-chart doesn't start at 0, and this is something that we will learn is almost always bad!
+Here we've successfully used a linear D3 scale. There are a couple of new things here. First, we create a scale of the linear type with the call [`d3.scaleLinear()`](https://github.com/d3/d3-scale#scaleLinear). Next, we define the input domain and the output range. The **domain defines the values that we expect in our dataset**. Here we chose to use an input domain starting at 0 and up to the highest value of the dataset, which we can conveniently determine by using D3's [`d3.max()`](https://github.com/d3/d3-array#max) function. We could use `d3.min()` to define the lower bound of the range, however, that would mean that our bar-chart doesn't start at 0, and this is something that we will learn is frequently bad!
 
 The **range defines which output values we want from the scale**, i.e., we'd typically pick something that we can easily use to draw on the screen. 
 

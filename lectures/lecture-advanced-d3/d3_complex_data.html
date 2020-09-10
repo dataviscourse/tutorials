@@ -119,9 +119,10 @@
         //---------------- Enter and Enter Animations ------------------------
 
         let barGroupsEnter = barGroups.enter()
-        // we package each data item into a g
+            // we package each data item into a g
             .append("g")
             .classed("barGroup", true)
+            // we position the bar by calling the yScale with the product label
             .attr("transform", d => `translate(0, ${yScale(d.product)})`);
 
         // entering with transparent text and rects of width 0
