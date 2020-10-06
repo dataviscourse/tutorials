@@ -20,9 +20,17 @@ Without destructuring assignment, you might access the first three items in an a
 Using the destructuring assignment, the code becomes:
 {% include code.html id="destructuring_lists" file="destructuring_lists.js" code="" js="true" preview="false" %}
 
+This can be useful when trying to make a copy of a list:
+{% include code.html id="copy_with_destructuring_lists" file="copy_with_destructuring_lists.js" code="" js="true" preview="false" %}
+
 Destructuring assignment supports nesting and use of spread operators. Here we see examples of some different ways to destructure lists:
 
 {% include code.html id="advanced_destructuring" file="advanced_destructuring.js" code="" js="true" preview="false" %}
+
+### Functions
+
+This can also be used in function arguments:
+{% include code.html id="spread_in_function_arg" file="spread_in_function_arg.js" code="" js="true" preview="false" %}
 
 ### Objects
 
@@ -153,7 +161,7 @@ async function loadData() {
   try {
     let data = await d3.json("myData.json");
     // This is where you insert d3 code to process and plot the data
-    console.log("Data Loaded!"); // Prints when the request finishes
+    console.log("Done Plotting!"); // Prints when the request finishes
   } catch (error) {
     console.error(error); // Logs error if encountered
   }
@@ -262,3 +270,13 @@ JavaScript console is implemented fully by almost all modern web browsers. Below
 - `console.table`
   The best feature of console when you want to log a list of objects and go through them without individually opening each one to look at the values is `console.table`! It's also used in an example above.
   {% include code.html id="console_table" file="console_table.html" code="" js="false" preview="true" %}
+
+
+It is also worth noting that the console can be a bit deceptive at times too!
+
+  {% include code.html id="console_tricked_you" file="console_tricked_you.html" code="" js="false" preview="true" %}
+
+
+When you log data structures to the log you can also right-click and "Store as global variable" it will save it to a variable in the console.
+
+One last handy tidbit. If you run the function `copy(data)` where data is some data structure, this will copy that data structure as a json string to your clipboard.

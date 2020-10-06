@@ -11,14 +11,10 @@
 {
     d3.csv("iris.csv")
         .then(d => {
-            // Regular console log
             console.log(d);
-
-            // Console Table
-            console.table(d);
-
-            // You can select individual columns too!
-            console.table(d, ["sepal_width", "sepal_length", "species"]);
+            d = d.reverse();
+            console.log(d);
+            // When you expand the first elements of these list what do you expect?
         });
 }
 </script>
