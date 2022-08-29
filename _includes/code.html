@@ -18,7 +18,10 @@
 <script>
     renderCode("{{ include.id }}", "{{ include.file }}", "{{include.code}}", "{{include.js}}", "{{include.preview}}");
 </script>
+
+{% if include.file contains ".html" %}
 <i><a href="{{ include.file }}">See output in new page.</a></i>
+{% endif %}
 
 </body>
 
