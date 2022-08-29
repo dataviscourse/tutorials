@@ -105,7 +105,7 @@ Now, a key property of the grid layout is that I can flexibly define cells based
 
 Lines begin on the left for column lines, or from the top for row lines, at line 1, and go to after the last column / row. So we can specify that a particular container should go from column line 1 to line 3, or from row line 4 to line 7, etc.
 
-We do this either with `grid-column-start` and `grid-column-end` (or the row equivalents), or with a short-hand: `gird-column: 2-4`. Here's an example, which also represents our final, desired layout:
+We do this either with `grid-column-start` and `grid-column-end` (or the row equivalents), or with a short-hand: `gird-column: 2 / 4`. Here's an example, which also represents our final, desired layout:
 
 {% include code.html id="css_grid_complex" file="css_grid_complex.html" code="" %}
 
