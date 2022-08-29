@@ -443,7 +443,7 @@ $ cat .git/config
 
 
 
-This creates a local copy of the (empty) GitHub repository. We will just start working with that and commit and push the code to the server. If you'd like to add an existing repository to GitHub, follow [these instructions](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
+This creates a local copy of the (empty) GitHub repository. We will just start working with that and commit and push the code to the server. If you'd like to add an existing repository to GitHub, follow [these instructions](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-locally-hosted-code-to-github).
 
 
 

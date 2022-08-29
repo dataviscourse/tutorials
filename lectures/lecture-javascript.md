@@ -270,7 +270,7 @@ In ES6
 
 ## More ES6 
 
-ES6 has many more important features, most notably [modules](https://developer.mozilla.org/en-US/docs/Mozilla/JavaScript_code_modules/Using) and [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). These can be very useful in production VIS code but go beyond our introduction here. 
+ES6 has many more important features, most notably [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises). These can be very useful in production VIS code but go beyond our introduction here. 
 
 
 

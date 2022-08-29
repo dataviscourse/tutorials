@@ -40,7 +40,7 @@ While we've worked with regular HTML elements here, the possibilities demonstrat
 
 ## JavaScript Events
 
-Up to this point we have only dealt with documents that are independent from user interaction. For data visualization, however, interaction is critical. Here we will introduce a couple of elementary concepts of how you can define and listen to events in JavaScript. We will be using DOM event handlers. As always, take a look at the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Event_handlers). [Here is a list](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers) of all event handlers. 
+Up to this point we have only dealt with documents that are independent from user interaction. For data visualization, however, interaction is critical. Here we will introduce a couple of elementary concepts of how you can define and listen to events in JavaScript. We will be using DOM event handlers. As always, take a look at the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Event_handlers).
 
 Here is the most simple example possible for events, using two different methods:
 
@@ -55,7 +55,7 @@ We don't have to use buttons to react to clicks though! Any DOM element can trig
 
 Here we also make use of the [`Event`](https://developer.mozilla.org/en-US/docs/Web/API/Event) object that is passed along with the event call to identify the HTML element that triggered the event and retrieve its value.
 
-Other [useful events](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers) are ```onload```, ```onmouseover```, ```onmouseout```, ```onresize```, etc.  
+Other [useful events](https://developer.mozilla.org/en-US/docs/Web/Events) are ```onload```, ```onmouseover```, ```onmouseout```, ```onresize```, etc.  
 
 
 And finally, we can of course listen to events that are triggered by interacting with an SVG element:

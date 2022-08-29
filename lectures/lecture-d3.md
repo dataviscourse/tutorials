@@ -5,7 +5,7 @@ permalink: /lectures/lecture-d3/
 nomenu: true
 ---
 
-_Material based on the [D3 Intro by Vadim Ogievetsky](http://vadim.ogievetsky.com/IntroD3/), Scott Murray's Interactive Data Analysis for the Web, and the [D3 website](http://d3js.org/)._
+_Material based on the D3 Intro by Vadim Ogievetsky, Scott Murray's Interactive Data Analysis for the Web, and the [D3 website](http://d3js.org/)._
 
 ## D3: Data Driven Documents
 
