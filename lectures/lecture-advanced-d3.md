@@ -153,7 +153,7 @@ This worked! We create a new axes by calling `d3.axisBottom();` and tell it its 
 
 {% include code.html id="d3_axes_nice" file="d3_axes_nice.html" code="" js="false" preview="true" %}
 
-This is a nicer bar chart! We've used CSS to style the axis, introduced a padding and a background for the chart. Also, we've used [`nice()`](.com/d3/d3-scale#continuous_nice) on the scales to get a nice, human-readable range. Of course, this chart doesn't react appropriately to updates, but we've seen before how that works.
+This is a nicer bar chart! We've used CSS to style the axis, introduced a padding and a background for the chart. Also, we've used [`nice()`](https://github.com/d3/d3-scale/#continuous_nice) on the scales to get a nice, human-readable range. Of course, this chart doesn't react appropriately to updates, but we've seen before how that works.
 
 ## More Complex Data
 
