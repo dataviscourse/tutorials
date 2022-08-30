@@ -49,7 +49,7 @@ You can also use the combination of IDs and CSS to create layouts of a page:
 
 {% include code.html id="css_layouts" file="css_layouts.html" code="" %}
 
-However, nowadays, you should use [CSS Grid Layouts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) to lay out a potentially responsive web page. 
+However, nowadays, you should use [CSS Grid Layouts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) to lay out a potentially responsive web page, which we'll discuss in a few minutes.  
 
 ## CSS Relationship Selectors
 
@@ -109,7 +109,13 @@ We do this either with `grid-column-start` and `grid-column-end` (or the row equ
 
 {% include code.html id="css_grid_complex" file="css_grid_complex.html" code="" %}
 
+Finally, we can also nest grids. Here we'll add a tool-bar to the menu at the top, which should hold at most 4 buttons per row. 
+
+{% include code.html id="css_grid_nested" file="css_grid_nested.html" code="" %}
+
+
 There is of course more to learn about css grids. Take a look at this nice [MDN tutorial](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout)
+
 
 
 

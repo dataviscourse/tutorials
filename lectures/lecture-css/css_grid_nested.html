@@ -7,14 +7,11 @@
         .wrapper {
             display: grid;
             grid-template-columns: 2fr 2fr 1fr;
-            /* the first and last row have fixed heights, the middle one is
-            driven by the height of the content */
-            grid-auto-rows: 100px auto 80px;
+            grid-auto-rows: 150px auto 80px;
             gap: 10px;
         }
         nav {
             background-color: orange;
-            /* we go from column line 1 to 4 */
             grid-column-start: 1;
             grid-column-end: 4;
         }
@@ -24,7 +21,6 @@
         }
         aside {
             background-color: steelblue;
-            /* we go from column line 3 to 4, and from row line 2 to 4 */
             grid-column-start: 3;
             grid-column-end: 4;
             grid-row-start: 2;
@@ -32,14 +28,37 @@
         }
         footer {
             background-color: #b0c4de;
-            /* and a shorthand for columns 1-3 */ 
             grid-column: 1 / 3;           
+        }
+        /* Here we introduce some new classes for the toolbar */
+        .toolbar{
+            display: grid;
+            /* We can use the repeat command to create 4 columns each 60 pixels wide */
+            /* The effect will be that there are at most 4 buttons in each row */
+            grid-template-columns: repeat(4, 60px);
+            gap: 10px;
+        }
+        .button{
+            background-color: gray;
+        }
+        .button:hover{
+            background-color: lightgray; 
         }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <nav>Header / Menu</nav>
+        <nav>
+            <h1>Header / Menu</h1>      
+        <div class="toolbar">
+            <span class="button">Button 1</span>
+            <span class="button">Button 2</span>
+            <span class="button">Button 3</span>
+            <span class="button">Button 4</span>
+            <span class="button">Button 5</span>
+            <span class="button">Button 6</span>
+        </nav>
+        </nav>
         <div class="view">View 1</div>
         <div class="view">View 2</div>
         <aside>Aside</aside>

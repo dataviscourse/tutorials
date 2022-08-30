@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Grid Layout Basic</title>
+  <style>
+    .wrapper {
+      display: grid;
+      /* Fractions (fr) alow us to specify proportions of a layout */
+      grid-template-columns: 150px 2fr 1fr;
+      grid-template-rows: 100px auto auto 80px;
+      gap: 10px;
+    }
+
+    nav {
+      background-color: orange;
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+
+    .view {
+      background-color: darkcyan;
+      height: 400px;
+      grid-row-start: 2;
+      grid-row-end: -2;
+    }
+
+    aside {
+      background-color: steelblue;
+      grid-column-start: 3;
+      grid-column-end: 4;
+      grid-row-start: 2;
+      grid-row-end: 4;
+    }
+
+    footer {
+      background-color: #b0c4de;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row-end: 5;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav>The Menu</nav>
+    <div class="view">View 1</div>
+    <div class="view">View 2 <br> <br> <br> <br><br> <br> </div>
+    <aside>Aside</aside>
+    <footer>And here we have a footer</footer>
+  </div>
+</body>
+
+</html>
