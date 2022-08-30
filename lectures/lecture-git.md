@@ -13,7 +13,7 @@ We will be using a version control tool called git to track changes to our code.
 
 You should already have git installed, if not see the [official documentation](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on how to install git on your operating system. 
 
-### Why version Control?
+### Why Version Control?
  
  * **Keep copies of multiple states of files**   
   By committing you record a state of the file to which you can go back any time.
@@ -108,14 +108,15 @@ This is a quick intro to git, used in combination with GitHub. This is not a com
 
 In the following, note that the `$` symbol signifies a promt of the command line; if you want to copy a command, don't include the `$`. This is to distinguish it from output, which has no leading symbol. 
 
-We start by configuring git
+We start by configuring git:
 
 {% highlight bash linenos %}
 $ git config --global user.name "YOUR NAME"
 $ git config --global user.email "YOUR EMAIL ADDRESS"
+$ git config --global init.defaultBranch "main"
 {% endhighlight %}
 
-Make sure that this is set to your official school address and your correct name!
+Make sure that this is set to your official school address and your correct name! Also, we name our default branches "main" instead of "master". 
 
 **Create a folder for your project**
 
@@ -149,19 +150,18 @@ $ cat .git/config
 # More interesting for a project with branches and remotes 
 $ cat .git/config 
 [core]
-       	repositoryformatversion = 0
-       	filemode = true
-       	bare = false
-       	logallrefupdates = true
-       	ignorecase = true
-       	precomposeunicode = true
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
 [remote "origin"]
-       	url = https://github.com/dataviscourse/2016-dataviscourse-website
-       	fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
-       	remote = origin
-       	merge = refs/heads/master
-
+	url = https://github.com/dataviscourse/tutorials
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "gh-pages"]
+	remote = origin
+	merge = refs/heads/gh-pages
 {% endhighlight %}
 
 **Now let's create a file**
@@ -180,13 +180,12 @@ $ git add demo.txt
 **Let's look at what is going on with the repository**
 {% highlight bash linenos %}
 $ git status
-On branch master
+On branch main
 
 No commits yet
 
 Changes to be committed:
   (use "git rm --cached <file>..." to unstage)
-
 	new file:   demo.txt
 {% endhighlight %}
 
@@ -198,14 +197,14 @@ That means: git knows that it's supposed to track this file, but it's not yet ve
 # The -m option specifies the commit message. 
 # If you don't use it you'll go into an editor to enter your commit message.  
 $ git commit -m "Committing the test file" 
-[master (root-commit) 3be5e8c] Wrote to demo
+[main (root-commit) dd285ec] Committing the test file
  1 file changed, 1 insertion(+)
  create mode 100644 demo.txt
 
 # Did it work?
 $ git status
-# On branch master
-nothing to commit, working directory clean
+On branch main
+nothing to commit, working tree clean
 {% endhighlight %}
 
 That means that now the file is tracked and committed to git. But it's still only stored on this one computer! 
@@ -224,12 +223,12 @@ Let's check the status of git!
 
 {% highlight bash linenos %}
 $ git status
-On branch master
+On branch main
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   demo.txt
 
-      modified:   demo.txt
 no changes added to commit (use "git add" and/or "git commit -a")
 {% endhighlight %}
 
@@ -237,7 +236,7 @@ So git knows that something has changed, but hasn't recorded it. Let's commit.
 
 {% highlight bash linenos %}
 $ git commit -m "Added a line to the demo file" 
-On branch master
+On branch main
 Changes not staged for commit:
 	modified:   demo.txt	
 {% endhighlight %}
@@ -246,7 +245,7 @@ That didn't work! You have to add all the files you want to commit every time. T
 
 {% highlight bash linenos %}
 $ git commit -a -m "Added a line to the demo file" 
-[master b03178f] added a line to the demo file
+[main b03178f] added a line to the demo file
  1 file changed, 1 insertion(+)
 {% endhighlight %}
 
@@ -254,17 +253,17 @@ Better. Now, let's look at what happened up to now
 
 {% highlight bash linenos %}
 $ git log
-commit 64e1c31cff02e568cda9ede94fbc8eeeb9e337ee (HEAD -> master)
-Author: alexander.lex@gmail.com <alexander.lex@gmail.com>
-Date:   Tue Aug 28 10:25:11 2018 -0600
+commit 372463bab98651ab4b84892a9daf37274f3cc489 (HEAD -> main)
+Author: Alexander Lex <alex@sci.utah.edu>
+Date:   Tue Aug 30 11:30:47 2022 -0600
 
-    Added a line to the demo file
+    added the line
 
-commit 3b32255e5b92b65ed59be3bf20bb8a751c149a1e
-Author: alexander.lex@gmail.com <alexander.lex@gmail.com>
-Date:   Tue Aug 28 10:19:37 2018 -0600
+commit dd285ec188c4c737d8680e948209331e2d1b5d79
+Author: Alexander Lex <alex@sci.utah.edu>
+Date:   Tue Aug 30 11:28:33 2022 -0600
 
-    Commiting the test file
+    Committing the test file
 {% endhighlight %}
 
 Through this cycle of editing, adding and committing, you can develop software in a linear fashion. Now let's see how we can create alternate versions. 
@@ -281,11 +280,11 @@ This created a branch with the name draft. Let's look at all the other branches
 {% highlight bash linenos %}
 $ git branch
   draft
-* master
+* main
 {% endhighlight %}
 
 
-We have two branches, draft and master. The * tells us the active branch (the HEAD). 
+We have two branches, draft and main. The * tells us the active branch (the HEAD). 
 
 The files in your folders are in the state as they are stored in the active branch. When you change the branch the files are changed, removed or added to the state of the target branch.
  
@@ -321,11 +320,11 @@ $ git commit -a -m "Confirmed, spinning"
  1 file changed, 1 insertion(+)
 {% endhighlight %}
  
-We have now written changes to the new branch, `draft`. The master branch should remain unchanged. Let's see if that's true.  
+We have now written changes to the new branch, `draft`. The main branch should remain unchanged. Let's see if that's true.  
  
 {% highlight bash linenos %}
-$ git checkout master
-Switched to branch 'master'
+$ git checkout main
+Switched to branch 'main'
 
 $ cat demo.txt 
 Hello World!
@@ -344,14 +343,14 @@ Indeed!
 
 # committing again
 $ git commit -a 
-[master 8437327] Front and back
+[main 2c30b11] Front and back
  1 file changed, 2 insertions(+)
 {% endhighlight %}
  
 At this point we have changed the file in two different branches of the repository. This is great for working on new features without breaking a stable codebase, but it can result in conflicts. 
 **Let's try to merge those two branches.**
 
-The `git merge` command merges the specified branch into the currently active one. `master` is active, and we want to merge `draft` into master. 
+The `git merge` command merges the specified branch into the currently active one. `main` is active, and we want to merge `draft` into `main`. 
  
  {% highlight bash linenos %}
 $ git merge draft
@@ -380,14 +379,14 @@ Once this is done, we can commit again.
 
 {% highlight bash linenos %}
 $ git commit -a -m "resovled conflict"
-[master 4dad82f] Merge branch 'draft'
+[main 971f4ab] Merge branch 'draft'
 {% endhighlight %}
 
 Everything back in order.
 
 {% highlight bash linenos %}
 $ git status 
-# On branch master
+# On branch main
 nothing to commit, working directory clean
 {% endhighlight %}
 
@@ -404,7 +403,6 @@ _site/
 .sass-cache/
 .jekyll-metadata
 .idea
-Gemfile.lock
 *.css.map
 {% endhighlight %}
 
@@ -436,9 +434,9 @@ $ cat .git/config
 [remote "origin"]
 	url = https://github.com/alexsb/demo.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
+[branch "main"]
 	remote = origin
-	merge = refs/heads/master
+	merge = refs/heads/main
 {% endhighlight %}
 
 
@@ -460,7 +458,7 @@ $ git add demo.txt
 
 # Commit the file to the repository.
 $ git commit -a -m "added demo file" 
-[master 2e1918d] added demo file
+[main 2e1918d] added demo file
  1 file changed, 1 insertion(+)
  create mode 100644 demo.txt
 {% endhighlight %}
@@ -476,7 +474,7 @@ Compressing objects: 100% (2/2), done.
 Writing objects: 100% (3/3), 324 bytes | 0 bytes/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
 To https://github.com/alexsb/demo.git
-   8e1ecd1..2e1918d  master -> master
+   8e1ecd1..2e1918d  main -> main
 {% endhighlight %}
 
 We have now committed a file locally and pushed it to the server, i.e., our local copy is in sync with the server copy. 
@@ -493,7 +491,7 @@ remote: Compressing objects: 100% (2/2), done.
 remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
 Unpacking objects: 100% (3/3), done.
 From https://github.com/alexsb/demo
-   2e1918d..5dd3090  master     -> origin/master
+   2e1918d..5dd3090  main     -> origin/main
 Updating 2e1918d..5dd3090
 Fast-forward
  demo.txt | 1 +
@@ -510,7 +508,7 @@ Are you still spinning?
  Github Issues are a great way to keep track of open tasks and problems. Issues can be references and closed from commits. 
 * **GitHub Projects**  
 Projects are similar to trello and allow you to organize a project with issues but also other, simple cards.
-* **Forking**   
+* **Forking & Pull Requests**   
  Forking is essentially making use of the distributed nature of git, while having the benefits of a server. When you fork a repository you make a clone of someone else's code that you are not allowed to read. The repository appears in your github account and you can start editing the code. If you think you improved the code, you can send a “pull request” to the original owner. The owner can then review your code and merge your modifications into his main repository. Forking is hence virtually the same as branching, with the exception that it resolves issues with write permissions.
 
 ### GUI Clients
@@ -527,8 +525,8 @@ The homeworks are hosted in a git repository on github. Every time we release a 
 To get the homework repository, run the following:
 
 {% highlight bash linenos %}
-$ git clone https://github.com/dataviscourse/2020_dataviscourse_homework -o homework
-$ cd 2020_dataviscourse_homework
+$ git clone https://github.com/dataviscourse/2022-homework -o homework
+$ cd 2022-homework
 {% endhighlight %}
 
 Note that by using the `-o homework` option we're not using the default remote `origin` but a user-defined remote called `homework`.
@@ -543,7 +541,7 @@ Run the two commands described on GitHub under the heading “Push an existing r
 # adding your own repository as a remote 'origin'
 $ git remote add origin https://github.com/alexsb/dataviscourse-hw.git
 # pushing the changes retrieved from the central HW repo to our own repository
-$ git push -u origin master
+$ git push -u origin main
 {% endhighlight %}
 
 Now your homework repository is all set!
@@ -570,7 +568,7 @@ When we release a new assignment we will simply add it to the homework github re
 To get the latest homework assignments and potential updates or corrections to the assignment, run the following.
 
 {% highlight bash linenos %}
-$ git pull homework master
+$ git pull homework main
 {% endhighlight %}
 
 Make sure to have all your changes committed before you do that.
