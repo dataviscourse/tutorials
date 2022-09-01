@@ -7,7 +7,7 @@ nomenu: true
 
 *Based on material by [Carlos Scheidegger](http://cscheid.net/courses/spr15/cs444/lectures/week2.html) and Kevin Sun*  
 
-So far we have only seen textual content in HTML, and this is a data visualization course. SVG (“Scalable Vector Graphics”) is a subset of the HTML5 standard that will provide us with essentially all of our graphical needs. SVG is extremely powerful, broadly supported, and very easy to program for. It’s also the preferred target for D3, the javascript library we’ll use for our visualization design. 
+So far we have only seen textual content in HTML, but this is a data visualization course. SVG (“Scalable Vector Graphics”) is a subset of the HTML5 standard that will provide us with essentially all of our graphical needs. SVG is extremely powerful, broadly supported, and very easy to program for. It’s also the preferred target for D3, the javascript library we’ll use for our visualization design. 
 
 Alternative methods for bringing dynamic graphics to your browser are [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) and [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API), which we unfortunately won't be tackling. 
 
@@ -42,7 +42,6 @@ Also, SVG dimensions are given in “user units”, which by default match to pi
 As you might have noticed, some appearance aspects in SVG are controlled by attributes (position, size); others (color, weight) are controlled by [CSS properties](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/Presentation). This is a perennial source of confusion, and unfortunately there’s no good way around it. 
 
 To add to the confusion, a subset of SVG attributes can also be specified via CSS: these are the [“presentation attributes”](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute). The following code has the same effect as the one above, where we used the style tag: 
- 
 
 {% include code.html id="svg_circle_fill" file="svg_circle_fill.html" code="" %}
  
@@ -50,15 +49,13 @@ It’s worth remembering this because CSS declarations for these attributes will
  
 Finally, **SVG style attributes are not the same as HTML style attributes**. For example, to color a `<div>`, we would use the `background-color` css attribute, but to color an SVG circle, we use the `fill` attribute.
 
-This inconsistency is propagted to things like the HTML `title` attribute, which doesn't work in SVG, but instead you have to use a [`title`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title) element:
-
+This inconsistency is propagated to things like the HTML `title` attribute, which doesn't work in SVG, but instead you have to use a [`title`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title) element:
 
 {% include code.html id="svg_title" file="svg_title.html" code="" %}
 
-
 ### Ellipse 
 
-Ane [Ellipse](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/ellipse) is specified by position, a radius in x and a radius in y:
+An [Ellipse](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/ellipse) is specified by position, a radius in x and a radius in y:
 
 {% include code.html id="svg_ellipse" file="svg_ellipse.html" code="" %}
 
