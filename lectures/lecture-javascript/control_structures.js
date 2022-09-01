@@ -23,7 +23,7 @@ if (1 === "1") {
 
 // The ternary if operator
 // CONDITION ? WHAT_HAPPENS_IF_CONDITION_TRUE : WHAT_HAPPENS_IF_CONDITION_FALSE
-true === true ? console.log(true) : console.log(false);
+true === true ? console.log("Ternary if clause true") : console.log("Ternary if clause false");
 
 // Switch statements
 let i = "some case";

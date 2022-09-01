@@ -1,6 +1,7 @@
 let numArray = [15, 12, 21, 4];
 let empty = []; // empty array declaration
 console.log(numArray[0]);
+
 // you can but should not use arrays of different type
 let multiTypeArray = [0, "This", "is", true, "unfortunately"];
 console.log(multiTypeArray[1]);
@@ -37,9 +38,10 @@ function compareNumbers(a, b) {
     return a - b;
 }
 
+// here we pass a function! as a parameter
 numArray.sort(compareNumbers);
 console.log("Sorted as numbers: ", numArray);
 
-// here is a shorthand version of this
+// here is a shorthand version of this using arrow notation
 numArray.sort((a, b) => b-a);
 console.log("Reverse sorted:", numArray);

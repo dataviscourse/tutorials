@@ -9,19 +9,19 @@ console.log("For loop: " + output);
 let i = 3;
 output = "";
 while (i < 100) {
-    output += i + ", ";
+    output += `${i}, `;
     i = i * 2;
 }
-console.log("While loop: " + output);
+console.log(`While loop: ${output}`);
 
 // Do-while loops:
 i = 3;
 output = "";
 do {
-    output += i + ", ";
+    output += `${i}, `;
     i = i * 2;
 } while (i < 100);
-console.log("Do while loop: " + output);
+console.log(`Do while loop: ${output}`);
 
 let years = [1954, 1949, 1981, 1982];
 // Looping over an array with the built-in forEach function

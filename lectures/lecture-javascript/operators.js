@@ -10,11 +10,14 @@ let mod = divResult % 2;
 
 // typeof operator
 typeof (divResult); // returns string "number"
-let typeResult = typeof (divResult); // assigns string "number" to letiable type
-console.log("typeResult:", typeResult); 
 
 // String concatenation
 let compoundString = "two " + "words";
+console.log(compoundString);
+
+// String concatenation via template strings
+let templateString = `Previous Result: ${divResult}`
+console.log(templateString)
 
 // Parsing/Casting - This is important when you read data from csv files
 let myNumber = parseInt("13");

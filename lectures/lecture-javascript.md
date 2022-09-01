@@ -21,9 +21,9 @@ If we had a dynamic and general way to load the data, and then create the rectan
 
 Computer programming brings **interactivity and generalizability (re-use)** to the table. We can tell the computer how to do something for certain classes of legal input, and the computer will do that for all possible cases of legal input. 
    
-JavaScript is the most important programming language of the web and the only programming language that can be used on most web-browsers without any plugins, although [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly) might change things in the future. Alternatives such as Java Applets or Flash were popular in the past but are now practically extinct. JavaScript is mostly used on the client-side of a client-server application. Other languages such as Java and Python are popular on the server, though nowadays JavaScript can also be used on the server (e.g., using [Node.js](https://nodejs.org/). We will be focusing on the client development only in this class.
+JavaScript is the most important programming language of the web and the only programming language that can be used on most web-browsers without any plugins, although [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly) might change things in the future. Alternatives such as Java Applets or Flash were popular in the past but are now practically extinct. JavaScript is mostly used on the client-side of a client-server application. Other languages such as Java and Python are popular on the server, though nowadays JavaScript can also be used on the server (e.g., using [Node.js](https://nodejs.org/). We will be focusing on client development only in this class.
 
-The most important aspect of JavaScript though, is its tight integration with the DOM. We'll be talking about this in the next two section of the class. 
+The most important aspect of JavaScript though, is its tight integration with the DOM. We'll be talking about this in the next two sections of the class. 
 
 JavaScript can be used with **imperative/procedural, object-oriented, and functional programming styles**.  
 
@@ -50,13 +50,20 @@ The first thing to notice is that JavaScript’s variables are **dynamically typ
 
 You also do not need to declare a variable ahead of time. If you don’t, then JavaScript either assumes you’re referring to an already existing variable, or it creates a new global variable. Again, this is convenient but very error-prone (this is a theme, as you’ll see). One common source of confusion is that typos in variable assignments are not caught: they just become global variables. Syntax highlighting in a good IDE will help you catch this.
 
+Note that all the variables in the previous example are GLOBAL variables. We can define variables of local scope using the `let` (and historically the `var`) keyword: 
+
+
+{% include code.html id="variables_local" file="variables_local.js" code="" js="true" preview="false" %}
+
+
+
 To create a **local variable**, use the keyword ``let`` or ``const``, with an outdated option: ``var``. Local here refers to the current execution context. When used within a function or block these variables are **private to that function/block**, however, when they are declared outside a function, as in the above example, they are still global. 
 
 So what is the difference between these? 
 
  * NO identifier creates a variable of **global scope**, which is rarely what you want. 
  * ``var``creates variables of **function scope**. That means that the only way to isolate a variable is to wrap it in a function. This is different from most programming languages and rarely has advantages. 
- * ``let`` creates a variable of **block scope**, which is similar to most other programming languages. The means that, for example, a variable defined with ``let`` within an ``if`` clause cannot be accessed outside of that ``if`` clause. 
+ * ``let`` creates a variable of **block scope**, which is what most other programming languages use. The means that, for example, a variable defined with ``let`` within an ``if`` clause cannot be accessed outside of that ``if`` clause. 
  * `` const`` creates a variable of **block scope** (again, if defined within a block, otherwise global) where the variable can't be reassigned. 
  
  {% include code.html id="scope" file="scope.js" code="" js="true" preview="false" %}
