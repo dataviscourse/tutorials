@@ -1,6 +1,6 @@
 ---
 layout: code-lecture
-title: How To Run a Webs App
+title: How To Run a Web App Locally
 permalink: /lectures/lecture-running-web-apps/
 nomenu: true
 ---
@@ -29,9 +29,20 @@ python -m http.server
 Open [http://localhost:8000/](http://localhost:8000/) to get you to the server.
 You can only have one server at the same time (unless you specify ports explicitly). Hit Control-C to quit the server. 
 
-### Running a Server and Debugging with WebStorm
+### Running a Server and Debugging with an IDE
 
-As you know, educational licenses of Jet Brains IDEs are available for students, and [WebStorm](https://www.jetbrains.com/webstorm/) (or [PyCharm](https://www.jetbrains.com/pycharm/)) are recommended IDEs for this course, in addition to Microsoft's [Visual Studio Code](https://code.visualstudio.com/). If you develop your code in an IDE like WebStorm you get many powerful features, such as code completion, syntax highlighting, refactoring and interactive debugging. While you can use the chrome developer tools to debug your code, it's more convenient to debug the code in the place you're writing it, as you can immediately edit if you see something wrong. To debug code, you first have to run it on a web server. WebStorm comes with a built-in web server that you can activate via the `Run` menu. Here is an example configuration:
+There are multiple good IDEs for web development. A common choice is Microsoft's [Visual Studio Code](https://code.visualstudio.com/). An alternative are Jet Brain's IDEs, which are available for students (check out [WebStorm](https://www.jetbrains.com/webstorm/) or [PyCharm](https://www.jetbrains.com/pycharm/)).
+
+If you develop your code in an IDE you get many powerful features, such as code completion, syntax highlighting, refactoring and interactive debugging. While you can use the chrome developer tools to debug your code, it's more convenient to debug the code in the place you're writing it, as you can immediately edit if you see something wrong. To debug code, you first have to run it on a web server. Both, Visual Studio Code and Webstorem come with a built-in web server that you can activate via the `Run` menu. 
+
+For visual studio code, check out the [documentation](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations).
+
+And this is what a debug session looks like: 
+
+![Visual Studio Code debug configuration](images/debug_vscode.png)
+
+
+Here is an example configuration for Webstorm:
 
 ![WebStorm debug configuration](images/debug_config.png)
 

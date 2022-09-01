@@ -15,13 +15,13 @@ D3 is a javascript library for manipulating the DOM based on data. D3 was origin
 D3 can be used to manipulate pure HTML, but most commonly it is used in combination with SVG (i.e., we will be producing SVG charts using D3). 
 
 
-In addition to the introduction in Scott Murray's book (the mandatory reading) you should work with the [D3 API Reference](https://github.com/d3/d3/blob/master/API.md) to look up particulars of all the features of D3. And of course, you should be learning by examples. A great collection are [Mike Bostock's blocks](http://bl.ocks.org/mbostock) which contain simple examples, such as a [bar chart](http://bl.ocks.org/mbostock/2368837) to complex examples such as [this calendar view](http://bl.ocks.org/mbostock/4063318).
+In addition to the introduction in Scott Murray's book (the mandatory reading) you should work with the [D3 API Reference](https://github.com/d3/d3/blob/master/API.md) to look up particulars of all the features of D3. And of course, you should be learning by examples. A great collection are [Mike Bostock's blocks](http://bl.ocks.org/mbostock) (or the new collection on [Observable](https://observablehq.com/@d3)) which contain simple examples, such as a [bar chart](http://bl.ocks.org/mbostock/2368837) to complex examples such as [this calendar view](http://bl.ocks.org/mbostock/4063318).
 
 You can download the library to run locally on your computer from the [D3 Website](http://d3js.org/), or you can link directly to the latest release with this snippet:
 
 {% include code.html id="de_include" file="d3_include.html" code="" js="false" preview="false" %}
 
-You should also note that D3 underwent a major version change from D3 v3 to D3 v4. Unfortunately, many examples you'll find on the web will be using version 3. We'll be using D3 v5, which is a minor update from D3 v4, in this class. As such, you can't necessarily expect to just copy and paste example code from the web and expect it to work. Check out the [release notes](https://github.com/d3/d3/blob/master/CHANGES.md) to learn about the changes across the D3 versions. 
+You should also note that D3 underwent a major version change from D3 v3 to D3 v4. Unfortunately, many examples you'll find on the web will be using version 3. We'll be using D3 v7, which is a sequence of relatively minor update from D3 v4, in this class. As such, you can't necessarily expect to just copy and paste example code from the web and expect it to work. Check out the [release notes](https://github.com/d3/d3/blob/master/CHANGES.md) to learn about the changes across the D3 versions. 
 
 
 ### Selections
