@@ -9,7 +9,7 @@ nomenu: true
 After we covered the basics of JavaScript before, it's now time to explore how javascript interacts with the DOM and thus makes all the interesting things in the browser happen. 
 Like we’ve seen before, the HTML we write is represented as a tree inside a web browser. What we are going to turn to now are the JavaScript APIs that web browsers provide to let you edit the DOM dynamically, so that we can build our visualizations with code instead of text editors.
 
-While we will manipulate the DOM mainly through libraries (we will use [D3](http://d3js.org/), but other libraries such as [JQuery](https://jquery.com/) or [React](https://reactjs.org/) are also popular for non-vis DOM manipulation) you can also manipulate the DOM directly through the standard DOM API through the `document` object. Check out the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/API/document) on the document object.
+While we will manipulate the DOM mainly through libraries (we will use [D3](http://d3js.org/), which is great for visualization work, but other libraries such as [JQuery](https://jquery.com/) or [React](https://reactjs.org/) are also popular for DOM manipulation). But you can also manipulate the DOM directly through the standard DOM API through the `document` object. Check out the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/API/document) on the document object.
 
 Here are the very first steps:
 
@@ -20,7 +20,6 @@ Here are the very first steps:
 Now we can make use of the features we learned about before to make more complicated programs that create websites: 
 
 {% include code.html id="dom_manipulation2" file="dom_manipulation2.html" code="" js="false" preview="true" %}
-
 
 We can also control the attributes of elements, e.g., for styling and positioning with CSS:
 
@@ -35,7 +34,7 @@ Remember that in JavaScript we can attach new fields to existing objects. You ca
 
 Notice the ```tickForever``` function. We can't use an infinte while loop here. If we did, the element attributes would be changed, but the user of the web browser does not get to see it, because the web browser does not ever get a chance to update the graphical representation of the DOM. The way to solve this problem is by using a special browser API called [```requestAnimationFrame```](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame). This API lets you tell a web browser that you’d like the opportunity to change something in the DOM. The next time the web browser is sitting idly, after having drawn all of its needed graphics, it will call the function passed as a parameter. Then, we just need to make sure that after updating the graphics, we call requestAnimationFrame again. The solution is a recursive version of the endless loop above ```(function f() { tick(); f(); })```. The fundamental difference here is that instead of making the recursive call directly, we ask the browser to make the recursive call, after it has updated the graphics. This way there’s always a step in between every update where the web browser updates the UI and graphics, and you get nice animations as a result.
 
-While we've worked with regular HTML elements here, the possibilities demonstrated equally apply to SVG, of course. So in theory, you would have all the tools to create data driven visualizations. Of course, libraries such as D3 make our lives easier!
+While we've worked with regular HTML elements here, the possibilities demonstrated equally apply to SVG, of course. So now you have all the tools to create data driven visualizations. Of course, libraries such as D3 make our lives easier!
 
 
 ## JavaScript Events
@@ -46,7 +45,7 @@ Here is the most simple example possible for events, using two different methods
 
 {% include code.html id="simple_event" file="simple_event.html" code="" js="false" preview="true" %}
 
-The first button defines the function to be called - `messageMe()` directly in HTML. When the button is clicked, the corresponding function is called. The second button has an identifier. In the script we retrieve the button and add the function to be called dynamically. 
+The first button defines the function to be called –  `messageMe()` – directly in HTML. When the button is clicked, the corresponding function is called. The second button has an identifier. In the script we retrieve the button and add the function to be called dynamically. 
 
 We don't have to use buttons to react to clicks though! Any DOM element can trigger an event. So we've also added a `onClick` event call to a `<div>`.
 

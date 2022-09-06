@@ -11,11 +11,10 @@
     </rect>
 </svg>
 <script>
-
     // we define a new property, __data__ on the rectangle
     // this is how D3 does it!
     document.getElementById("myBar").__data__ = 0;
-    // on click we make the rectangle wider by 10 pixels
+    // on click we make the rectangle wider by 10 pixels and rotate the color
     document.getElementById("myBar").onclick = function (event) {
         let colors = ["DarkOrchid", "Teal", "Tomato", "SteelBlue"];
         let rect = event.target;
