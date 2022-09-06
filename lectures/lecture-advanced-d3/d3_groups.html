@@ -28,12 +28,12 @@
             .join(enter => {
                 // ------ taking care of entering elements ----
                 enterGroup = enter.append('g')
-                                .classed('barGroup', true) // assigning the class
+                                // assigning the class
+                                .classed('barGroup', true) 
 
-                // appending and initializing the rects
+                // appending and initializing the rects but 
+                // only with the "static" properties
                 enterGroup.append('rect')
-                        .attr('width', d => d)
-                        .attr("width", d => d)
                         .attr("height", 20)
                         .style("fill", "steelblue");
 
@@ -42,16 +42,17 @@
                         
                 return enterGroup;
             })
-            .attr("transform", function (d, i) { // both the old and new "g" elements are merged here
+            // both the old and new "g" elements are merged here
+            .attr("transform", function (d, i) {               
                 // positioning the group in y
                 return "translate(0," + i * barHeight + ")";
             });
 
         // the selection propagates update data from the group to the rectangle
+        // we do the styling that might change here
         barGroups.select("rect")
             .transition().duration(3000)
             .attr("width", d => d)
-            .style("fill", "steelblue")
             .attr("opacity", 1);
 
         // the selection propagates update data from the group to the text

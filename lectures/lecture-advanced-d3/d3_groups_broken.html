@@ -47,7 +47,8 @@
 
                 return enterGroup;
             })
-            .attr("transform", function (d, i) { // both the old and new "g" elements are merged here
+            // both the old and new "g" elements are merged here
+            .attr("transform", function (d, i) {                 
                 // positioning the group in y
                 return "translate(0," + i * barHeight + ")";
             });
