@@ -20,7 +20,8 @@
 <script>
     execute = function (myData) {
         // switch between different datasets on every execution
-        myData = !myData ? [127, 61, 256, 71, 15, 23] : myData;
+        myData = Array.isArray(myData) ? myData : [127, 61, 256, 71, 15, 23];
+        console.log(myData)
 
         let svg = d3.select("svg");
         // the data join

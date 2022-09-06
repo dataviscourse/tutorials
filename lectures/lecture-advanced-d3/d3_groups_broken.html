@@ -20,7 +20,7 @@
 </body>
 <script>
     execute = function (myData) {
-        myData = !myData ? [127, 61, 256, 71, 15, 23] : myData;
+        myData = Array.isArray(myData) ? myData : [127, 61, 256, 71, 15, 23];
         let barHeight = 30;
         let svg = d3.select("svg");
 
