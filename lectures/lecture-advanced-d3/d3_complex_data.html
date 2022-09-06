@@ -173,7 +173,7 @@
     // here we use d3's event handler
     // https://github.com/d3/d3-selection#handling-events
     d3.select("#sort-select").on("change", function (event) {
-        // d3.event is set to the current event within an event listener
+        // Current event is passed to the event handler as function argument.
         let active = event.target.value;
         // sorting the array based on product, type, or weight
         data = data.sort(function (a, b) {
