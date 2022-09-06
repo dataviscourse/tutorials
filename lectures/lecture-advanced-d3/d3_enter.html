@@ -20,12 +20,7 @@
     execute = function () {
         let selection = d3.select("svg").selectAll("rect");
         let data = selection.data([127, 61, 256]);
-        // the resulting object contains the enter and exit selections
-        // since the initial selection is empty, all data elements are
-        // part of the enter selection
-        console.log("Data");
-        console.log(data);
-
+       
         // with a call to enter() we retreive only the enter selection
         let enter = data.enter();
         console.log("Enter");

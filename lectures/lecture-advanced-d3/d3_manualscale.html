@@ -12,9 +12,7 @@
 <script>
     execute = function () {
         // the scale function
-        let scale = function (input) {
-            return input * 500;
-        };
+        let scale = input => input * 500;
 
         // a dataset that doesn't work well in screen coordinates
         let data = [0.3, 0.01, 1.5];
