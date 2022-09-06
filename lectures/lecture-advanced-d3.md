@@ -32,8 +32,7 @@ When we map data to that object – called a **data-join** – we can see where
 
 ![data assinged](images/data.png)
 If we look at the properties of the `Selection` object after we assigned the data we can see the distinct selections:
- * `_enter` for all data items that didn't match to a DOM element and are scheduled to be a
-dded, 
+ * `_enter` for all data items that didn't match to a DOM element and are scheduled to be added, 
  * `_exit` for all DOM elements that didn't map to a data item, 
  * and the familiar `_groups` for the updated selection. 
  
@@ -153,7 +152,7 @@ This worked! We create a new axes by calling `d3.axisBottom();` and tell it its 
 
 {% include code.html id="d3_axes_nice" file="d3_axes_nice.html" code="" js="false" preview="true" %}
 
-This is a nicer bar chart! We've used CSS to style the axis, introduced a padding and a background for the chart. Also, we've used [`nice()`](https://github.com/d3/d3-scale/#continuous_nice) on the scales to get a nice, human-readable range. Of course, this chart doesn't react appropriately to updates, but we've seen before how that works.
+This is a nicer bar chart! We've used CSS to style the axis, introduced a padding and a background for the chart. Also, we've used [`nice()`](https://github.com/d3/d3-scale/#continuous_nice) on the scales to get a nice, human-readable range. 
 
 ## More Complex Data
 
