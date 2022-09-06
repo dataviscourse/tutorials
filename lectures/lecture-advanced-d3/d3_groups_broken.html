@@ -25,36 +25,32 @@
         let svg = d3.select("svg");
 
         let barGroups = svg.selectAll(".barGroup")
-            .data(myData);
+            .data(myData)
+            .join(enter => {
+                // append new g elements for each data point
+                enterGroup = enter.append('g')
+                                .classed('barGroup', true) // assigning the class
 
-        // append new g elements for each data point
-        let enterBarGroups = barGroups.enter()
-            .append("g")
-            .classed("barGroup", true); // assigning the class
+                // append a rect to the g element
+                enterGroup.append('rect')
+                        .attr('width', d => d)
+                        .attr("width", d => d)
+                        .attr("height", 20)
+                        .style("fill", "steelblue");
+                enterGroup.append("text")
+                        .attr("transform", function (d) {
+                            // move it five pixel right of the bar
+                            return "translate(" + (d + 5) + ", 0)";
+                        })
+                        .text(d => d)
+                        .attr("dy", barHeight / 2);
 
-        // append a rect to the g element
-        enterBarGroups.append("rect")
-            .attr("width", d => d)
-            .attr("height", 20)
-            .style("fill", "steelblue");
-
-        // add a label to the group
-        enterBarGroups.append("text")
-            .attr("transform", function (d) {
-                // move it five pixel right of the bar
-                return "translate(" + (d + 5) + ", 0)";
+                return enterGroup;
             })
-            .text(d => d)
-            .attr("dy", barHeight / 2);
-
-        barGroups.exit().remove();
-
-        barGroups = barGroups.merge(enterBarGroups);
-
-        barGroups.attr("transform", function (d, i) {
-            // positioning the group in y
-            return "translate(0," + i * barHeight + ")";
-        });
+            .attr("transform", function (d, i) { // both the old and new "g" elements are merged here
+                // positioning the group in y
+                return "translate(0," + i * barHeight + ")";
+            });
     };
 
     // a button setting another dataset

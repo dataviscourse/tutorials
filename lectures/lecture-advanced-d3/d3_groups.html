@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>D3: Updating with Groups</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v7.js"></script>
     <style>
         rect {
             fill: lightgray;
@@ -22,34 +22,30 @@
         myData = Array.isArray(myData) ? myData : [127, 61, 256, 71, 15, 23];
         let barHeight = 30;
         let svg = d3.select("svg");
+
         let barGroups = svg.selectAll(".barGroup")
-            .data(myData);
+            .data(myData)
+            .join(enter => {
+                // ------ taking care of entering elements ----
+                enterGroup = enter.append('g')
+                                .classed('barGroup', true) // assigning the class
 
-        // ------ taking care of entering elements ----
-        let barGroupsEnter = barGroups.enter()
-            .append("g")
-            .classed("barGroup", true); // assigning the class
+                // appending and initializing the rects
+                enterGroup.append('rect')
+                        .attr('width', d => d)
+                        .attr("width", d => d)
+                        .attr("height", 20)
+                        .style("fill", "steelblue");
 
-        // appending and initializing the rects
-        barGroupsEnter.append("rect")
-            .attr("width", "0")
-            .attr("height", 20)
-            .style("fill", "gray");
-
-        // appending empty text elements
-        barGroupsEnter.append("text");
-
-        // ------ taking care of removing elements ----
-        barGroups.exit().remove();
-
-        // merge selections
-        barGroups = barGroups.merge(barGroupsEnter);
-
-        // ------ taking care of updates ----
-        // update groups
-        barGroups.attr("transform", function (d, i) {
-            return "translate(0," + i * barHeight + ")";
-        });
+                // appending empty text elements
+                enterGroup.append("text")
+                        
+                return enterGroup;
+            })
+            .attr("transform", function (d, i) { // both the old and new "g" elements are merged here
+                // positioning the group in y
+                return "translate(0," + i * barHeight + ")";
+            });
 
         // the selection propagates update data from the group to the rectangle
         barGroups.select("rect")
