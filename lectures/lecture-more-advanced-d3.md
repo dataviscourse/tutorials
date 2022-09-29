@@ -83,12 +83,6 @@ We will cover two d3 functions which might help you out. `d3.groups` and `d3.gro
 
 As its name suggests, `d3.group` groups values by key. It returns a map from key to the corresponding array of values from the input.
 
-You need to include the following snippet to import the `d3-array` package:
-
-```html
-<script src="https://d3js.org/d3-array.v2.min.js"></script>
-```
-
 Let us look at a code snippet:
 
 {% include code.html id="d3_group" file="d3_group.html" code="" js="false" preview="true" %}

@@ -86,12 +86,12 @@
             const brush = d3
                 .brush()
                 .extent([[-10, -10], [width + 10, height + 10]])
-                .on("start", () => {
-                    console.log("Brushing started");
+                .on("start", (event) => {
+                    console.log("Brushing started", event.selection);
                 })
-                .on("end", function () {
-                    console.log("Brushing completed");
-                    const selection = d3.brushSelection(this);
+                .on("end", function (event) {
+                    console.log("Brushing completed", event.selection);
+                    const selection = event.selection;
                     const selectedIndices = [];
                     if (selection) {
                         const [[left, top], [right, bottom]] = selection;
@@ -117,9 +117,9 @@
                             .classed("highlight", true);
                     }
                 })
-                .on("brush", function () {
-                    console.log("Brushing");
-                    const selection = d3.brushSelection(this);
+                .on("brush", function (event) {
+                    console.log("Brushing", event.selection);
+                    const selection = event.selection;
                     const selectedIndices = [];
                     if (selection) {
                         const [[left, top], [right, bottom]] = selection;
